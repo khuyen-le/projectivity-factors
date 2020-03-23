@@ -1,0 +1,127 @@
+---
+title: "Veridicatlity Ratings"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(langcog)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+```
+
+```{r}
+vp_raw <- read.csv("mega-veridicality-v2.csv")
+emotion_raw <- read.csv("BRM-emot-submit.csv")
+emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
+vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "veridicality", "acceptability", "exclude")
+```
+#### Norming valence mean to get positive and negative valence
+```{r}
+emotion <- emotion_select %>%
+  mutate(valence_scaled = scale(V.Mean.Sum))
+word_list <- unique(emotion$Word)
+```
+
+```{r}
+vp_data <- vp_data %>%
+  mutate(veridicality_num = ifelse(veridicality == "yes", 1, ifelse(veridicality == "no", -1, 0))) %>%
+  filter(exclude == "False") %>%
+  mutate(Word = verb) %>%
+  filter(Word %in% word_list)
+```
+
+#### create relevant subset for veridicality ratings
+```{r}
+veridicality_filter <- vp_data %>%
+  filter(polarity == "positive" & conditional == "False") %>%
+  group_by(Word)
+  
+#I could not use ci.low and ci.high as in Judith's code (function not found), so I'm using multi_boot_standard to find what I think is the same thing.
+veridicality_ratings <- veridicality_filter %>%
+  multi_boot_standard(col = "veridicality_num") %>%
+  mutate(YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+  ungroup(Word) %>%
+  mutate(Word = fct_reorder(as.factor(Word), mean))
+
+veridicality <- merge(veridicality_ratings, emotion, by = "Word", all.x = TRUE) 
+veridicality <- veridicality %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+ggplot(data = veridicality, aes(x = valence_mean, y = mean, colour = valence_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm')
+
+ggplot(data = veridicality, aes(x = arousal_mean, y = mean, colour = valence_group)) +
+  geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_group) +
+  geom_smooth(method = 'lm')
+```
+
+```{r}
+# During last meeting we talked about including participant and item in the mixed effect, but currently the relativeValence and veridicality_mean is calculated for each item (word) over all participants, and I'm not sure how to separate item and participant out. I can calculate veridicality_mean for each item for each participant, but then we can't get the ci_lower and ci_upper of each word (like Judith's calculation used). 
+veridicality$relativeValence = abs(veridicality$valence_mean)
+m = lm(mean ~ relativeValence + arousal_mean, data = veridicality)
+summary(m)
+```
+
+#### create relevant subset for projectivity ratings
+```{r}
+projectivity_filter <- vp_data %>%
+  filter(polarity == "negative" & conditional == "True") %>%
+  group_by(Word)
+
+#I could not use ci.low and ci.high as in Judith's code (function not found), so I'm using multi_boot_standard to find what I think is the same thing.
+projectivity_ratings <- projectivity_filter %>%
+  multi_boot_standard(col = "veridicality_num") %>%
+  mutate(YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+  ungroup(Word) %>%
+  mutate(Word = fct_reorder(as.factor(Word), mean))
+
+projectivity_ratings_participant <- projectivity_filter
+
+projectivity <- merge(projectivity_ratings, emotion, by = "Word", all.x = TRUE) 
+
+projectivity <- projectivity %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+ggplot(data = projectivity, aes(x = valence_mean, y = mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_text() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity, aes(x = arousal_mean, y = mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_group) +
+  geom_text() +
+  geom_smooth(method = 'lm')
+```
+
+```{r}
+# During last meeting we talked about including participant and item in the mixed effect, but currently the relativeValence and projectivity_mean is calculated for each item (word) over all participants, and I'm not sure how to separate item and participant out. I can calculate projectivity_mean for each item for each participant, but then we can't get the ci_lower and ci_upper of each word (like Judith's calculation used). 
+projectivity$relativeValence = abs(projectivity$valence_mean)
+m = lm(mean ~ relativeValence + arousal_mean, data = projectivity)
+summary(m)
+```
+
+```{r}
+projectivity_participant <- merge(projectivity_ratings_participant, emotion, by = "Word", all.x = TRUE) 
+projectivity_participant <- projectivity_participant %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+projectivity_participant$relativeValence = abs(projectivity_participant$valence_mean)
+m = lmer(veridicality_num ~ arousal_mean * relativeValence + (1 | participant) + (1 | Word), data = projectivity_participant)
+summary(m)
+```
