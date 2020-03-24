@@ -1,5 +1,5 @@
 ---
-title: "Veridicatlity Ratings"
+title: "Projectivity vs Arousal"
 output: html_document
 ---
 
@@ -23,7 +23,7 @@ library(lme4)
 vp_raw <- read.csv("mega-veridicality-v2.csv")
 emotion_raw <- read.csv("BRM-emot-submit.csv")
 emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
-vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "veridicality", "acceptability", "exclude")
+vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "sentence", "veridicality", "acceptability", "exclude")
 ```
 #### Norming valence mean to get positive and negative valence
 ```{r}
@@ -33,6 +33,8 @@ word_list <- unique(emotion$Word)
 ```
 
 ```{r}
+# Need to filter by acceptability (see 2019 paper)
+# Need to normalize by participants (2016 paper used "ordinal model-based normalization procedure")
 vp_data <- vp_data %>%
   mutate(veridicality_num = ifelse(veridicality == "yes", 1, ifelse(veridicality == "no", -1, 0))) %>%
   filter(exclude == "False") %>%
@@ -41,15 +43,36 @@ vp_data <- vp_data %>%
 ```
 
 #### create relevant subset for veridicality ratings
-```{r}
+##### example of items
+```{r table_veridicality, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl_ver <- "
+| Frame            | Voice  | Sentence                                                                                          |
+|------------------|:------:|---------------------------------------------------------------------------------------------------|
+| that_S           | active | Someone cared that a particular thing happened. Did that thing happen?                            |
+| that_S           | passive| Someone was revolted that a particular thing happened. Did that thing happen?                     |
+| to_VPeventive    | active | A particular person loved to do a particular thing. Did that person do that thing?                |
+| to_VPeventive    | passive| A particular person was seen to do a particular thing. Did that person do that thing?             |
+| to_VPstative     | active | A particular person opted to have a particular thing. Did that person have that thing?            |
+| to_VPstative     | passive| A particular person was inspired to have a particular thing. Did that person have that thing?     |
+| for_NP_to_VP     | active | Someone pressed for a particular thing to happen. Did that thing happen?                          |
+| for_NP_to_VP     | passive| N/A                                                                                               | 
+| NP_to_VPeventive | active | Someone contracted a particular person to do a particular thing. Did that person have that thing? |
+| NP_to_VPeventive | passive| N/A                                                                                               |
+| NP_to_VPstative  | active | Someone badgered a particular person to have a particular thing. Did that person have that thing? |
+| NP_to_VPstative  | passive| N/A                                                                                               |
+"
+cat(tabl_ver)
+```
+
+```{r, fig.width = 10, fig.height = 8}
+# the White paper (2016) uses only observations with case "that_S" to calculate veridicality, not sure if this is important
 veridicality_filter <- vp_data %>%
   filter(polarity == "positive" & conditional == "False") %>%
   group_by(Word)
   
-#I could not use ci.low and ci.high as in Judith's code (function not found), so I'm using multi_boot_standard to find what I think is the same thing.
 veridicality_ratings <- veridicality_filter %>%
   multi_boot_standard(col = "veridicality_num") %>%
-  mutate(YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+  mutate(veridicality_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
   ungroup(Word) %>%
   mutate(Word = fct_reorder(as.factor(Word), mean))
 
@@ -58,37 +81,49 @@ veridicality <- veridicality %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
   mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
 
-ggplot(data = veridicality, aes(x = valence_mean, y = mean, colour = valence_group)) +
-  geom_point(width = .3,height = .025) +
+ggplot(data = veridicality, aes(x = valence_mean, y = veridicality_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() + 
   geom_smooth(method = 'lm')
 
-ggplot(data = veridicality, aes(x = arousal_mean, y = mean, colour = valence_group)) +
-  geom_point(width = .3,height = .025) + 
+ggplot(data = veridicality, aes(x = arousal_mean, y = veridicality_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
   facet_grid(~valence_group) +
+  geom_label() + 
   geom_smooth(method = 'lm')
 ```
 
 ```{r}
-# During last meeting we talked about including participant and item in the mixed effect, but currently the relativeValence and veridicality_mean is calculated for each item (word) over all participants, and I'm not sure how to separate item and participant out. I can calculate veridicality_mean for each item for each participant, but then we can't get the ci_lower and ci_upper of each word (like Judith's calculation used). 
 veridicality$relativeValence = abs(veridicality$valence_mean)
 m = lm(mean ~ relativeValence + arousal_mean, data = veridicality)
 summary(m)
 ```
 
 #### create relevant subset for projectivity ratings
-```{r}
+##### examples of items: 
+```{r table_projectivity, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl_proj <- "
+| Frame  | Voice  | Valence  | Sentence                                                                          | Note                                    |
+|--------|:------:|:--------:|-----------------------------------------------------------------------------------| ----------------------------------------|
+| that_S | active | positive | If John didn't find that a particular thing happened, did that thing happen?      | arousal low, projectivity low           |
+| that_S | passive| negative | If John wasn't scared that a particular thing happened, did that thing happen?    | arousal high, projectivity high         |
+| that_S | active | positive | If John didn't discover that a particular thing happened, did that thing happen?  | outlier: arousal high, projectivity low |
+| that_S | passive| positive | If John wasn't jarred that a particular thing happened, did that thing happen?    | outlier: arousal low, projectivity high |
+| that_S | active | negative | If John didn't resent that a particular thing happened, did that thing happen?    | outlier: arousal low, projectivity high |
+| that_S | passive| negative | If John wasn't tricked that a particular thing happened, did that thing happen?   | outlier: arousal high, projectivity low |
+"
+cat(tabl_proj)
+```
+```{r, fig.width = 10, fig.height = 8}
 projectivity_filter <- vp_data %>%
   filter(polarity == "negative" & conditional == "True") %>%
   group_by(Word)
 
-#I could not use ci.low and ci.high as in Judith's code (function not found), so I'm using multi_boot_standard to find what I think is the same thing.
 projectivity_ratings <- projectivity_filter %>%
   multi_boot_standard(col = "veridicality_num") %>%
-  mutate(YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+  mutate(projectivity_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
   ungroup(Word) %>%
   mutate(Word = fct_reorder(as.factor(Word), mean))
-
-projectivity_ratings_participant <- projectivity_filter
 
 projectivity <- merge(projectivity_ratings, emotion, by = "Word", all.x = TRUE) 
 
@@ -96,26 +131,68 @@ projectivity <- projectivity %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
   mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
 
-ggplot(data = projectivity, aes(x = valence_mean, y = mean, colour = valence_group, label = Word)) +
+ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
   #geom_point(width = .3,height = .025) +
-  geom_text() +
+  geom_label() +
   geom_smooth(method = 'lm')
 
-ggplot(data = projectivity, aes(x = arousal_mean, y = mean, colour = valence_group, label = Word)) +
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
   #geom_point(width = .3,height = .025) + 
   facet_grid(~valence_group) +
-  geom_text() +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+#### projectivity against arousal_mean, by valence_bins
+```{r, fig.width = 10, fig.height = 8}
+projectivity_neg <- projectivity %>%
+  filter(valence_group == "negative")
+projectivity_neg <-projectivity_neg[order(projectivity_neg$valence_mean),]
+projectivity_neg[c("valence_bin")] <- 0
+sep_neg = nrow(projectivity_neg) / 3 # 63.66667
+for (i in 1:nrow(projectivity_neg)) {
+  if (i <= sep_neg) {
+    projectivity_neg[i, "valence_bin"] <- "very negative" #contains 63 items
+  } else if (i <= 2 * sep_neg) {
+    projectivity_neg[i, "valence_bin"] <- "moderately negative" # contains 64 items
+  } else {
+    projectivity_neg[i, "valence_bin"] <- "slightly negative" # contains 64 items
+  }
+}
+
+projectivity_pos <- projectivity %>%
+  filter(valence_group == "positive")
+projectivity_pos <-projectivity_pos[order(projectivity_pos$valence_mean),]
+projectivity_pos[c("valence_bin")] <- 0
+sep_pos = nrow(projectivity_pos) / 3 # 77.3333
+for (i in 1:nrow(projectivity_pos)) {
+  if (i <= sep_pos) {
+    projectivity_pos[i, "valence_bin"] <- "slightly positive" # contains 77 items 
+  } else if (i <= 2 * sep_pos) {
+    projectivity_pos[i, "valence_bin"] <- "moderately positive" # contains 77 items
+  } else {
+    projectivity_pos[i, "valence_bin"] <- "very positive" # contains 78 items
+  }
+}
+
+projectivity_bin <- rbind(projectivity_neg, projectivity_pos)
+projectivity_bin$valence_bin_f = factor(projectivity_bin$valence_bin, levels=c("very negative", "moderately negative", "slightly negative", "slightly positive", "moderately positive", "very positive"))
+ggplot(data = projectivity_bin, aes(x = arousal_mean, y = mean, colour = valence_bin_f, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_bin_f) +
+  geom_label() +
   geom_smooth(method = 'lm')
 ```
 
 ```{r}
-# During last meeting we talked about including participant and item in the mixed effect, but currently the relativeValence and projectivity_mean is calculated for each item (word) over all participants, and I'm not sure how to separate item and participant out. I can calculate projectivity_mean for each item for each participant, but then we can't get the ci_lower and ci_upper of each word (like Judith's calculation used). 
 projectivity$relativeValence = abs(projectivity$valence_mean)
 m = lm(mean ~ relativeValence + arousal_mean, data = projectivity)
 summary(m)
 ```
 
-```{r}
+```{r mixed model}
+projectivity_ratings_participant <- projectivity_filter
+
 projectivity_participant <- merge(projectivity_ratings_participant, emotion, by = "Word", all.x = TRUE) 
 projectivity_participant <- projectivity_participant %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
