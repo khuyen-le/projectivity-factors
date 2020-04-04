@@ -1,0 +1,254 @@
+---
+title: "Projectivity vs Arousal"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+library(performance)
+library(languageR)
+theme_set(theme_bw())
+```
+
+```{r}
+projectivity_raw <- read.csv("cd-projectivity-no-fact.csv")
+projectivity_binary_raw <- read.csv("cd-projectivity-no-fact-binary.csv")
+emotion_raw <- read.csv("BRM-emot-submit.csv")
+emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
+projectivity_data <- select(projectivity_raw, "workerid", "subjectGender", "speakerGender", "verb", "contentNr", "trigger_class", "response", "assess", "gender")
+projectivity_binary_data <- select(projectivity_binary_raw, "workerid", "subjectGender", "speakerGender", "verb", "contentNr", "trigger_class", "response", "assess", "gender")
+```
+#### Norming valence mean to get positive and negative valence
+```{r}
+emotion <- emotion_select %>%
+  mutate(valence_scaled = scale(V.Mean.Sum)) %>%
+  mutate(verb=recode(Word, annoy = "be_annoyed"))
+word_list <- unique(emotion$Word)
+```
+
+```{r}
+projectivity_binary_data <- projectivity_binary_data %>%
+  mutate(projectivity_rating = ifelse(response == "Yes", 1, 0)) %>%
+  mutate(Word = verb) %>%
+  filter(Word %in% word_list)
+
+projectivity_data <- projectivity_data %>%
+  mutate(Word = verb) %>%
+  filter(Word %in% word_list)
+```
+
+### non-binary response
+```{r}
+projectivity <- projectivity_data %>%
+  group_by(Word) %>%
+  summarise(projectivity_mean = mean(response)) %>%
+  ungroup() %>%
+  mutate(Word = fct_reorder(Word, projectivity_mean))
+
+projectivity <- merge(projectivity, emotion, by = "Word", all.x = TRUE) 
+
+projectivity <- projectivity %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  #facet_grid(~valence_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+#### projectivity against arousal_mean, by valence_bins
+```{r}
+projectivity_neg <- projectivity %>%
+  filter(valence_group == "negative")
+projectivity_neg <-projectivity_neg[order(projectivity_neg$valence_mean),]
+projectivity_neg[c("valence_bin")] <- 0
+sep_neg = nrow(projectivity_neg) / 3 # 63.66667
+for (i in 1:nrow(projectivity_neg)) {
+  if (i <= sep_neg) {
+    projectivity_neg[i, "valence_bin"] <- "very negative" #contains 63 items
+  } else if (i <= 2 * sep_neg) {
+    projectivity_neg[i, "valence_bin"] <- "moderately negative" # contains 64 items
+  } else {
+    projectivity_neg[i, "valence_bin"] <- "slightly negative" # contains 64 items
+  }
+}
+
+projectivity_pos <- projectivity %>%
+  filter(valence_group == "positive")
+projectivity_pos <-projectivity_pos[order(projectivity_pos$valence_mean),]
+projectivity_pos[c("valence_bin")] <- 0
+sep_pos = nrow(projectivity_pos) / 3 # 77.3333
+for (i in 1:nrow(projectivity_pos)) {
+  if (i <= sep_pos) {
+    projectivity_pos[i, "valence_bin"] <- "slightly positive" # contains 77 items 
+  } else if (i <= 2 * sep_pos) {
+    projectivity_pos[i, "valence_bin"] <- "moderately positive" # contains 77 items
+  } else {
+    projectivity_pos[i, "valence_bin"] <- "very positive" # contains 78 items
+  }
+}
+
+projectivity_bin <- rbind(projectivity_neg, projectivity_pos)
+projectivity_bin$valence_bin_f = factor(projectivity_bin$valence_bin, levels=c("very negative", "moderately negative", "slightly negative", "slightly positive", "moderately positive", "very positive"))
+
+ggplot(data = projectivity_bin, aes(x = arousal_mean, y = projectivity_mean, colour = valence_bin_f, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_bin_f) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+```{r mixed effects linear model}
+projectivity_participant <- merge(projectivity_data, emotion, by = "Word", all.x = TRUE) 
+projectivity_participant <- projectivity_participant %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+# the model check of the model as previously formulated (ie, with uncentered predictors) suggested huge collinearity, almost all values in covariance matrix > .4). the current model check still suggests there's sth wonky going on with the homoscedasticity tests (because the outcome variable is a three-way categorical variable instead of continuous, which we can't do anything about within the model, but seee logistic model below that replicates the result). 
+projectivity_participant$relativeValence = abs(projectivity_participant$valence_mean)
+
+# visualize correlations between variables
+#pairscor.fnc(projectivity_participant[,c("veridicality_num","arousal_mean","relativeValence","valence_mean")])
+
+# center predictors to reduce collinearity
+projectivity_participant = projectivity_participant %>%
+  mutate(crelativeValence = relativeValence-mean(relativeValence),carousal_mean=arousal_mean-mean(arousal_mean))
+
+m = lmer(response ~ carousal_mean * crelativeValence + (1 | workerid) + (1 | Word), data = projectivity_participant)
+summary(m) # main effects of arousal and relative valence!
+
+#pdf(file="modelcheck_linear.pdf",height=8,width=9)
+#check_model(m)
+#dev.off()
+
+factivity.full = lmer(response ~ carousal_mean * crelativeValence + (1 | workerid) + (1 | Word), data = projectivity_participant, REML = FALSE)
+factivity.reduced = lmer(response ~ 1 + (1 | workerid) + (1 | Word), data = projectivity_participant, REML = FALSE)
+anova(factivity.reduced, factivity.full)
+```
+
+### binary response
+```{r}
+projectivity_binary <- projectivity_binary_data %>%
+  group_by(Word) %>%
+  summarise(projectivity_mean = mean(projectivity_rating)) %>%
+  ungroup() %>%
+  mutate(Word = fct_reorder(Word, projectivity_mean))
+
+projectivity_binary <- merge(projectivity_binary, emotion, by = "Word", all.x = TRUE) 
+
+projectivity_binary <- projectivity_binary %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  #facet_grid(~valence_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+
+#### projectivity against arousal_mean, by valence_bins
+```{r}
+projectivity_binary_neg <- projectivity_binary %>%
+  filter(valence_group == "negative")
+projectivity_binary_neg <-projectivity_binary_neg[order(projectivity_binary_neg$valence_mean),]
+projectivity_binary_neg[c("valence_bin")] <- 0
+sep_neg = nrow(projectivity_binary_neg) / 3 # 63.66667
+for (i in 1:nrow(projectivity_binary_neg)) {
+  if (i <= sep_neg) {
+    projectivity_binary_neg[i, "valence_bin"] <- "very negative" #contains 63 items
+  } else if (i <= 2 * sep_neg) {
+    projectivity_binary_neg[i, "valence_bin"] <- "moderately negative" # contains 64 items
+  } else {
+    projectivity_binary_neg[i, "valence_bin"] <- "slightly negative" # contains 64 items
+  }
+}
+
+projectivity_binary_pos <- projectivity_binary %>%
+  filter(valence_group == "positive")
+projectivity_binary_pos <-projectivity_binary_pos[order(projectivity_binary_pos$valence_mean),]
+projectivity_binary_pos[c("valence_bin")] <- 0
+sep_pos = nrow(projectivity_binary_pos) / 3 # 77.3333
+for (i in 1:nrow(projectivity_binary_pos)) {
+  if (i <= sep_pos) {
+    projectivity_binary_pos[i, "valence_bin"] <- "slightly positive" # contains 77 items 
+  } else if (i <= 2 * sep_pos) {
+    projectivity_binary_pos[i, "valence_bin"] <- "moderately positive" # contains 77 items
+  } else {
+    projectivity_binary_pos[i, "valence_bin"] <- "very positive" # contains 78 items
+  }
+}
+
+projectivity_binary_bin <- rbind(projectivity_binary_neg, projectivity_binary_pos)
+projectivity_binary_bin$valence_bin_f = factor(projectivity_binary_bin$valence_bin, levels=c("very negative", "moderately negative", "slightly negative", "slightly positive", "moderately positive", "very positive"))
+
+ggplot(data = projectivity_binary_bin, aes(x = arousal_mean, y = projectivity_mean, colour = valence_bin_f, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_bin_f) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+```{r mixed effects linear model}
+projectivity_binary_participant <- merge(projectivity_binary_data, emotion, by = "Word", all.x = TRUE) 
+projectivity_binary_participant <- projectivity_binary_participant %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+# the model check of the model as previously formulated (ie, with uncentered predictors) suggested huge collinearity, almost all values in covariance matrix > .4). the current model check still suggests there's sth wonky going on with the homoscedasticity tests (because the outcome variable is a three-way categorical variable instead of continuous, which we can't do anything about within the model, but seee logistic model below that replicates the result). 
+projectivity_binary_participant$relativeValence = abs(projectivity_binary_participant$valence_mean)
+
+# visualize correlations between variables
+#pairscor.fnc(projectivity_participant[,c("veridicality_num","arousal_mean","relativeValence","valence_mean")])
+
+# center predictors to reduce collinearity
+projectivity_binary_participant = projectivity_binary_participant %>%
+  mutate(crelativeValence = relativeValence-mean(relativeValence),carousal_mean=arousal_mean-mean(arousal_mean))
+
+m = lmer(projectivity_rating ~ carousal_mean * crelativeValence + (1 | workerid) + (1 | Word), data = projectivity_binary_participant)
+summary(m) # main effects of arousal and relative valence!
+
+#pdf(file="modelcheck_linear.pdf",height=8,width=9)
+#check_model(m)
+#dev.off()
+
+factivity.full = lmer(projectivity_rating ~ carousal_mean * crelativeValence + (1 | workerid) + (1 | Word), data = projectivity_binary_participant, REML = FALSE)
+factivity.reduced = lmer(projectivity_rating ~ 1 + (1 | workerid) + (1 | Word), data = projectivity_binary_participant, REML = FALSE)
+anova(factivity.reduced, factivity.full)
+```
+
+```{r mixed effects logistic model}
+# create a categorical projectivity variable that treats only "yes" responses as projective, all others as not projective
+projectivity_binary_participant$categorical_projectivity = as.factor(ifelse(projectivity_binary_participant$projectivity_rating == 1, "projective","non-projective"))
+
+# almost three times as many non-projective compared to projective responses
+table(projectivity_binary_participant$categorical_projectivity)
+prop.table(table(projectivity_binary_participant$categorical_projectivity))
+
+m = glmer(categorical_projectivity ~ carousal_mean * crelativeValence + (1 | workerid) + (1 | Word), data = projectivity_binary_participant, family="binomial")
+summary(m) # main effects of arousal and relative valence!
+
+```

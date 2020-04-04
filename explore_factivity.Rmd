@@ -153,7 +153,7 @@ ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour 
 
 ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = veridicality_group, label = Word)) +
   #geom_point(width = .3,height = .025) + 
-  facet_grid(~veridicality_group) +
+  #facet_grid(~veridicality_group) +
   geom_label() +
   geom_smooth(method = 'lm')
 ```

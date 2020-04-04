@@ -13,11 +13,11 @@ library(tidyr)
 library(stringr)
 library(dplyr)
 library(ggthemes)
-# library(langcog)
 library(ggrepel)
 library(dichromat)
 library(lme4)
 library(performance)
+library(languageR)
 theme_set(theme_bw())
 ```
 
@@ -222,7 +222,7 @@ ggplot(data = projectivity_bin, aes(x = arousal_mean, y = projectivity_mean, col
 
 # ```{r}
 # projectivity$relativeValence = abs(projectivity$valence_mean)
-# m = lm(mean ~ relativeValence + arousal_mean, data = projectivity)
+# m = lm(veridicality_num ~ relativeValence + arousal_mean, data = projectivity)
 # summary(m)
 # ```
 
@@ -250,6 +250,10 @@ summary(m) # main effects of arousal and relative valence!
 pdf(file="modelcheck_linear.pdf",height=8,width=9)
 check_model(m)
 dev.off()
+
+factivity.full = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = projectivity_participant, REML = FALSE)
+factivity.reduced = lmer(veridicality_num ~ 1 + (1 | participant) + (1 | Word), data = projectivity_participant, REML = FALSE)
+anova(factivity.reduced, factivity.full)
 ```
 
 ```{r mixed effects logistic model}

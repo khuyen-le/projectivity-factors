@@ -1,0 +1,289 @@
+---
+title: "Select Words with Smallest Residuals"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+library(performance)
+library(languageR)
+theme_set(theme_bw())
+```
+
+```{r}
+vp_raw <- read.csv("mega-veridicality-v2.csv")
+emotion_raw <- read.csv("BRM-emot-submit.csv")
+emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
+vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "sentence", "veridicality", "acceptability", "exclude")
+```
+#### Norming valence mean to get positive and negative valence
+```{r}
+emotion <- emotion_select %>%
+  mutate(valence_scaled = scale(V.Mean.Sum))
+word_list <- unique(emotion$Word)
+```
+
+```{r}
+# Need to filter by acceptability (see 2019 paper)
+# Need to normalize by participants (2016 paper used "ordinal model-based normalization procedure")
+vp_data <- vp_data %>%
+  mutate(veridicality_num = ifelse(veridicality == "yes", 1, ifelse(veridicality == "no", -1, 0))) %>%
+  filter(exclude == "False") %>%
+  mutate(Word = verb) %>%
+  filter(Word %in% word_list)
+```
+
+```{r, fig.width = 10, fig.height = 8}
+projectivity_filter <- vp_data %>%
+  filter(polarity == "negative" & conditional == "True") 
+
+# projectivity_ratings <- projectivity_filter %>%
+#   multi_boot_standard(col = "veridicality_num") %>%
+#   mutate(projectivity_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+#   ungroup(Word, voice) %>%
+#   mutate(Word = fct_reorder(as.factor(Word), mean))
+
+projectivity_ratings <- projectivity_filter %>%
+  group_by(Word, voice) %>%
+  # multi_boot_standard(col = "veridicality_num") %>%
+  summarise(projectivity_mean = mean(veridicality_num)) %>%
+  ungroup() %>%
+  mutate(Word = fct_reorder(Word, projectivity_mean))
+
+projectivity <- merge(projectivity_ratings, emotion, by = "Word", all.x = TRUE) 
+projectivity <- projectivity %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(~valence_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+# # taking into account voice
+# ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+#   #geom_point(width = .3,height = .025) + 
+#   facet_grid(voice~valence_group) +
+#   geom_label() +
+#   geom_smooth(method = 'lm')
+```
+
+```{r for residuals plot}
+projectivity_filter <- merge(projectivity_filter, emotion, by = "Word", all.x = TRUE) 
+projectivity_filter <- projectivity_filter %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+
+projectivity_neg_participant <- projectivity_filter %>%
+  filter(valence_group == "negative")
+projectivity_neg_participant <-projectivity_neg_participant[order(projectivity_neg_participant$valence_mean),]
+projectivity_neg_participant[c("valence_bin")] <- 0
+sep_neg = nrow(projectivity_neg_participant) / 3 # 63.66667
+for (i in 1:nrow(projectivity_neg_participant)) {
+  if (i <= sep_neg) {
+    projectivity_neg_participant[i, "valence_bin"] <- "very negative" #contains 63 items
+  } else if (i <= 2 * sep_neg) {
+    projectivity_neg_participant[i, "valence_bin"] <- "moderately negative" # contains 64 items
+  } else {
+    projectivity_neg_participant[i, "valence_bin"] <- "slightly negative" # contains 64 items
+  }
+}
+
+projectivity_pos_participant <- projectivity_filter %>%
+  filter(valence_group == "positive")
+projectivity_pos_participant <-projectivity_pos_participant[order(projectivity_pos_participant$valence_mean),]
+projectivity_pos_participant[c("valence_bin")] <- 0
+sep_pos = nrow(projectivity_pos_participant) / 3 # 77.3333
+for (i in 1:nrow(projectivity_pos_participant)) {
+  if (i <= sep_pos) {
+    projectivity_pos_participant[i, "valence_bin"] <- "slightly positive" # contains 77 items 
+  } else if (i <= 2 * sep_pos) {
+    projectivity_pos_participant[i, "valence_bin"] <- "moderately positive" # contains 77 items
+  } else {
+    projectivity_pos_participant[i, "valence_bin"] <- "very positive" # contains 78 items
+  }
+}
+
+projectivity_bin_participant <- rbind(projectivity_neg_participant, projectivity_pos_participant)
+
+# the model check of the model as previously formulated (ie, with uncentered predictors) suggested huge collinearity, almost all values in covariance matrix > .4). the current model check still suggests there's sth wonky going on with the homoscedasticity tests (because the outcome variable is a three-way categorical variable instead of continuous, which we can't do anything about within the model, but seee logistic model below that replicates the result). 
+projectivity_bin_participant$relativeValence = abs(projectivity_bin_participant$valence_mean)
+
+# visualize correlations between variables
+#pairscor.fnc(valence_highpos_arousal_high[,c("veridicality_num","arousal_mean","relativeValence","valence_mean")])
+
+# center predictors to reduce collinearity
+projectivity_bin_participant = projectivity_bin_participant %>%
+  mutate(crelativeValence = relativeValence-mean(relativeValence),carousal_mean=arousal_mean-mean(arousal_mean))
+
+valence_highpos <- projectivity_bin_participant%>%
+  filter(valence_bin == "very positive" | valence_bin == "moderately positive")
+valence_highpos <- valence_highpos[order(valence_highpos$arousal_mean),]
+split = valence_highpos[round(nrow(valence_highpos)) / 2, ]
+split_arousal = split$arousal_mean
+valence_highpos_arousal_low <- valence_highpos[valence_highpos$arousal_mean <= split_arousal, ]
+valence_highpos_arousal_high <- valence_highpos[valence_highpos$arousal_mean > split_arousal, ]
+
+valence_highneg <- projectivity_bin_participant %>%
+  filter(valence_bin == "very negative" | valence_bin == "moderately negative")
+valence_highneg <- valence_highneg[order(valence_highneg$arousal_mean),]
+split = valence_highneg[round(nrow(valence_highneg)) / 2, ]
+split_arousal = split$arousal_mean
+valence_highneg_arousal_low <- valence_highneg[valence_highneg$arousal_mean <= split_arousal, ]
+valence_highneg_arousal_high <- valence_highneg[valence_highneg$arousal_mean > split_arousal, ]
+
+valence_low <- projectivity_bin_participant %>%
+  filter(valence_bin == "slightly negative" | valence_bin == "slightly positive")
+valence_low <-valence_low[order(valence_low$arousal_mean),]
+split = valence_low[round(nrow(valence_low)) / 2, ]
+split_arousal = split$arousal_mean
+valence_low_arousal_low <- valence_low[valence_low$arousal_mean <= split_arousal, ]
+valence_low_arousal_high <- valence_low[valence_low$arousal_mean > split_arousal, ]
+```
+#### Valence: high positive, arousal: high
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_highpos_arousal_high)
+summary(m) # main effects of arousal and relative valence!
+
+valence_highpos_arousal_high$residuals <- residuals(m)
+valence_highpos_arousal_high$residuals_abs <- abs(valence_highpos_arousal_high$residuals)
+valence_highpos_arousal_high <- valence_highpos_arousal_high[order(valence_highpos_arousal_high$residuals_abs),]
+valence_highpos_arousal_high_words <- unique(valence_highpos_arousal_high$Word)
+valence_highpos_arousal_high_top <- valence_highpos_arousal_high_words[1:10]
+print(valence_highpos_arousal_high_top)
+valence_highpos_arousal_high_resids <- unique(valence_highpos_arousal_high$residuals_abs)[1:10]
+
+# Create data frame
+top_words1 <- data.frame(valence_highpos_arousal_high_top, rep("high positive"), rep("high"), valence_highpos_arousal_high_resids)
+colnames(top_words1) <- c("word", "valence", "arousal", "residuals")
+```
+
+#### Valence: high positive, arousal: low
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_highpos_arousal_low)
+summary(m) # main effects of arousal and relative valence!
+
+valence_highpos_arousal_low$residuals <- residuals(m)
+valence_highpos_arousal_low$residuals_abs <- abs(valence_highpos_arousal_low$residuals)
+valence_highpos_arousal_low <- valence_highpos_arousal_low[order(valence_highpos_arousal_low$residuals_abs),]
+valence_highpos_arousal_low_words <- unique(valence_highpos_arousal_low$Word)
+valence_highpos_arousal_low_top <- valence_highpos_arousal_low_words[1:10]
+print(valence_highpos_arousal_low_top)
+valence_highpos_arousal_low_resids <- unique(valence_highpos_arousal_low$residuals_abs)[1:10]
+
+# Create data frame
+top_words2 <- data.frame(valence_highpos_arousal_low_top, rep("high positive"), rep("low"), valence_highpos_arousal_high_resids)
+colnames(top_words2) <- c("word", "valence", "arousal", "residuals")
+
+```
+
+#### Valence: high negative, arousal: high
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_highneg_arousal_high)
+summary(m) # main effects of arousal and relative valence!
+
+valence_highneg_arousal_high$residuals <- residuals(m)
+valence_highneg_arousal_high$residuals_abs <- abs(valence_highneg_arousal_high$residuals)
+valence_highneg_arousal_high <- valence_highneg_arousal_high[order(valence_highneg_arousal_high$residuals_abs),]
+valence_highneg_arousal_high_words <- unique(valence_highneg_arousal_high$Word)
+valence_highneg_arousal_high_top <- valence_highneg_arousal_high_words[1:10]
+print(valence_highneg_arousal_high_top)
+valence_highneg_arousal_high_resids <- unique(valence_highneg_arousal_high$residuals_abs)[1:10]
+
+# Create data frame
+top_words3 <- data.frame(valence_highneg_arousal_high_top, rep("high negative"), rep("high"), valence_highneg_arousal_high_resids)
+colnames(top_words3) <- c("word", "valence", "arousal", "residuals")
+
+```
+
+#### Valence: high negative, arousal: low
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_highneg_arousal_low)
+summary(m) # main effects of arousal and relative valence!
+
+valence_highneg_arousal_low$residuals <- residuals(m)
+valence_highneg_arousal_low$residuals_abs <- abs(valence_highneg_arousal_low$residuals)
+valence_highneg_arousal_low <- valence_highneg_arousal_low[order(valence_highneg_arousal_low$residuals_abs),]
+valence_highneg_arousal_low_words <- unique(valence_highneg_arousal_low$Word)
+valence_highneg_arousal_low_top <- valence_highneg_arousal_low_words[1:10]
+print(valence_highneg_arousal_low_top)
+valence_highneg_arousal_low_resids <- unique(valence_highneg_arousal_low$residuals_abs)[1:10]
+
+# Create data frame
+top_words4 <- data.frame(valence_highneg_arousal_low_top, rep("high negative"), rep("low"), valence_highneg_arousal_low_resids)
+colnames(top_words4) <- c("word", "valence", "arousal", "residuals")
+
+```
+
+#### Valence: low, arousal: high
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_low_arousal_high)
+summary(m) # main effects of arousal and relative valence!
+
+valence_low_arousal_high$residuals <- residuals(m)
+valence_low_arousal_high$residuals_abs <- abs(valence_low_arousal_high$residuals)
+valence_low_arousal_high <- valence_low_arousal_high[order(valence_low_arousal_high$residuals_abs),]
+valence_low_arousal_high_words <- unique(valence_low_arousal_high$Word)
+valence_low_arousal_high_top <- valence_low_arousal_high_words[1:10]
+print(valence_low_arousal_high_top)
+valence_low_arousal_high_resids <- unique(valence_low_arousal_high$residuals_abs)[1:10]
+
+# Create data frame
+top_words5 <- data.frame(valence_low_arousal_high_top, rep("low"), rep("high"), valence_low_arousal_high_resids)
+colnames(top_words5) <- c("word", "valence", "arousal", "residuals")
+
+```
+
+#### Valence: low, arousal: low
+```{r}
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = valence_low_arousal_low)
+summary(m) # main effects of arousal and relative valence!
+
+valence_low_arousal_low$residuals <- residuals(m)
+valence_low_arousal_low$residuals_abs <- abs(valence_low_arousal_low$residuals)
+valence_low_arousal_low <- valence_low_arousal_low[order(valence_low_arousal_low$residuals_abs),]
+valence_low_arousal_low_words <- unique(valence_low_arousal_low$Word)
+valence_low_arousal_low_top <- valence_low_arousal_low_words[1:10]
+print(valence_low_arousal_low_top)
+valence_low_arousal_low_resids <- unique(valence_low_arousal_low$residuals_abs)[1:10]
+
+# Create data frame
+top_words6 <- data.frame(valence_low_arousal_low_top, rep("low"), rep("low"), valence_low_arousal_low_resids)
+colnames(top_words6) <- c("word", "valence", "arousal", "residuals")
+```
+
+```{r}
+top_words <- rbind(top_words1, top_words2, top_words3, top_words4, top_words5, top_words6)
+kable(top_words)
+```
+
+
+```{r mixed effects logistic model, include = FALSE}
+# create a categorical projectivity variable that treats only "yes" responses as projective, all others as not projective
+projectivity_bin_participant$categorical_projectivity = as.factor(ifelse(projectivity_bin_participant$veridicality_num == 1, "projective","non-projective"))
+
+# almost three times as many non-projective compared to projective responses
+table(projectivity_bin_participant$categorical_projectivity)
+prop.table(table(projectivity_bin_participant$categorical_projectivity))
+
+m = glmer(categorical_projectivity ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = projectivity_bin_participant, family="binomial")
+summary(m) # main effects of arousal and relative valence!
+plot(fitted(m), residuals(m))
+```
