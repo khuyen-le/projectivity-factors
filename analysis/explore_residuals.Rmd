@@ -22,8 +22,8 @@ theme_set(theme_bw())
 ```
 
 ```{r}
-vp_raw <- read.csv("mega-veridicality-v2.csv")
-emotion_raw <- read.csv("BRM-emot-submit.csv")
+vp_raw <- read.csv("../data/mega-veridicality-v2.csv")
+emotion_raw <- read.csv("../data/BRM-emot-submit.csv")
 emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
 vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "sentence", "veridicality", "acceptability", "exclude")
 ```
@@ -63,7 +63,19 @@ cat(tabl_proj)
 ```{r, fig.width = 10, fig.height = 8}
 projectivity_filter <- vp_data %>%
   filter(polarity == "negative" & conditional == "True") 
+```
 
+```{r explore acceptability}
+projectivity_filter <- projectivity_filter %>%
+  group_by(participant) %>%
+  mutate(acceptability_norm = (acceptability - mean(acceptability)) / sd(acceptability))
+
+# only take acceptability >= 0
+projectivity_filter <- projectivity_filter %>%
+  filter(acceptability_norm >= 0)
+```
+
+```{r merge with emotion}
 projectivity_filter <- merge(projectivity_filter, emotion, by = "Word", all.x = TRUE) 
 projectivity_filter <- projectivity_filter %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
@@ -129,14 +141,33 @@ projectivity_participant <- rbind(projectivity_neg_participant, projectivity_pos
 ```{r}
 projectivity_participant <- projectivity_participant[order(projectivity_participant$arousal_mean),]
 projectivity_participant[c("arousal_bin")] <- 0
-sep = nrow(projectivity_participant) / 2
+sep = nrow(projectivity_participant) / 3
 for (i in 1:nrow(projectivity_participant)) {
   if (i <= sep) {
     projectivity_participant[i, "arousal_bin"] <- "low"
+  } else if (i <= 2 * sep_pos) {
+    projectivity_participant[i, "arousal_bin"] <- "medium"
   } else {
     projectivity_participant[i, "arousal_bin"] <- "high"
   }
 }
+
+```
+
+```{r plot projectivity by valence and arousal}
+projectivity_summarize <- projectivity_participant %>%
+  group_by(Word, valence_mean, valence_bin, arousal_mean, arousal_bin) %>%
+  summarise(projectivity_mean = mean(veridicality_num))
+  
+ggplot(data = projectivity_summarize, aes(x = arousal_mean, y = projectivity_mean, colour = arousal_bin, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity_summarize, aes(x = valence_mean, y = projectivity_mean,, colour = valence_bin, label = Word)) +
+  #geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
 ```
 
 ```{r mixed effects linear model}
@@ -168,29 +199,42 @@ anova(factivity.reduced, factivity.full)
 ### Thus, not using unique predicates (not sure if this is a problem)
 projectivity_participant$residuals <- residuals(m)
 projectivity_participant$residuals_abs <- abs(projectivity_participant$residuals)
-projectivity_participant <- projectivity_participant[order(projectivity_participant$residuals_abs),]
+projectivity_participant_summary <- projectivity_participant %>%
+  group_by(Word, valence_bin, arousal_bin) %>%
+  summarize(mean_residuals_abs = mean(residuals_abs), mean_acceptability_norm = mean(acceptability_norm, na.rm = TRUE)) ## mean_acceptability_norm for display only
+projectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
 
-valence_highpos_arousal_high <- projectivity_participant %>%
+valence_highpos_arousal_high <- projectivity_participant_summary %>%
   filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "high")
-valence_highpos_arousal_low <- projectivity_participant %>%
+valence_highpos_arousal_med <- projectivity_participant_summary %>%
+  filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "medium")
+valence_highpos_arousal_low <- projectivity_participant_summary %>%
   filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "low")
-valence_highneg_arousal_high <- projectivity_participant %>%
+valence_highneg_arousal_high <- projectivity_participant_summary %>%
   filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "high")
-valence_highneg_arousal_low <- projectivity_participant %>%
+valence_highneg_arousal_med <- projectivity_participant_summary %>%
+  filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "medium")
+valence_highneg_arousal_low <- projectivity_participant_summary %>%
   filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "low")
-valence_low_arousal_high <- projectivity_participant %>%
+valence_low_arousal_high <- projectivity_participant_summary %>%
   filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "high")
-valence_low_arousal_low <- projectivity_participant %>%
+valence_low_arousal_med <- projectivity_participant_summary %>%
+  filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "medium")
+valence_low_arousal_low <- projectivity_participant_summary %>%
   filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "low")
 
 top_words <- rbind(valence_highpos_arousal_high[1:10, ], 
+                   valence_highpos_arousal_med[1:10, ],
                    valence_highpos_arousal_low[1:10, ],
                    valence_highneg_arousal_high[1:10, ], 
+                   valence_highneg_arousal_med[1:10, ], 
                    valence_highneg_arousal_low[1:10, ], 
                    valence_low_arousal_high[1:10, ],
+                   valence_low_arousal_low[1:10, ],
                    valence_low_arousal_low[1:10, ])
-top_words_select <- top_words[c("Word", "valence_bin", "arousal_bin", "residuals_abs")]
-kable(top_words_select)
+top_words <- na.omit(top_words) # some categories have fewer than 10 words
+write.csv(top_words, "top_words.csv")
+kable(top_words)
 ```
 
 ```{r mixed effects logistic model}

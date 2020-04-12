@@ -13,15 +13,17 @@ library(tidyr)
 library(stringr)
 library(dplyr)
 library(ggthemes)
-library(langcog)
 library(ggrepel)
 library(dichromat)
 library(lme4)
+library(performance)
+library(languageR)
+theme_set(theme_bw())
 ```
 
 ```{r}
-vp_raw <- read.csv("mega-veridicality-v2.csv")
-emotion_raw <- read.csv("BRM-emot-submit.csv")
+vp_raw <- read.csv("../data/mega-veridicality-v2.csv")
+emotion_raw <- read.csv("../data/BRM-emot-submit.csv")
 emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
 vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "sentence", "veridicality", "acceptability", "exclude")
 ```
@@ -33,17 +35,13 @@ word_list <- unique(emotion$Word)
 ```
 
 ```{r}
-#our_preds <- c("be_annoyed", "discover", "know", "reveal", "see", "pretend", "suggest", "say", "think", "demonstrate", "acknowledge", "admit", "announce", "confess", "confirm", "establish", "hear", "inform", "prove")
-our_preds <- c("annoy", "discover", "know", "reveal", "see", "pretend", "suggest", "say", "think", 
-               "demonstrate", "acknowledge", "admit", "announce", "confess", "confirm", "establish", "hear", "inform", "prove")
-
 # Need to filter by acceptability (see 2019 paper)
 # Need to normalize by participants (2016 paper used "ordinal model-based normalization procedure")
 vp_data <- vp_data %>%
   mutate(veridicality_num = ifelse(veridicality == "yes", 1, ifelse(veridicality == "no", -1, 0))) %>%
   filter(exclude == "False") %>%
   mutate(Word = verb) %>%
-  filter(Word %in% our_preds & Word %in% word_list)
+  filter(Word %in% word_list)
 ```
 
 #### create relevant subset for veridicality ratings
@@ -68,45 +66,52 @@ tabl_ver <- "
 cat(tabl_ver)
 ```
 
-```{r}
+```{r, fig.width = 10, fig.height = 8}
 # the White paper (2016) uses only observations with case "that_S" to calculate veridicality, not sure if this is important
 veridicality_filter <- vp_data %>%
-  filter(polarity == "positive" & conditional == "False") %>%
-  group_by(Word)
+  filter(polarity == "positive" & conditional == "False") 
   
+# veridicality_ratings <- veridicality_filter %>%
+#   multi_boot_standard(col = "veridicality_num") %>%
+#   mutate(veridicality_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+#   ungroup(Word, voice) %>%
+#   mutate(Word = fct_reorder(as.factor(Word), mean))
+
 veridicality_ratings <- veridicality_filter %>%
-  multi_boot_standard(col = "veridicality_num") %>%
-  mutate(veridicality_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
-  ungroup(Word) %>%
-  mutate(Word = fct_reorder(as.factor(Word), mean)) %>%
-  # F: factive, V: optionally factive, VNF: veridical non-factive, NF: non-veridical, non-factive 
-  mutate(veridicality_group = ifelse(Word %in% c("know", "discover", "reveal", "see", "be_annoyed"), "F", 
-                                     ifelse(Word %in% c("pretend", "think", "suggest", "say"), "NF", 
-                                            ifelse(Word %in% c("demonstrate"),"VNF", "V"))))  %>%
-  mutate(veridicality_group = factor(veridicality_group, levels=c("F", "V", "VNF", "NF")))
+  group_by(Word, voice) %>%
+  # multi_boot_standard(col = "veridicality_num") %>%
+  summarise(veridicality_mean = mean(veridicality_num)) %>%
+  ungroup() %>%
+  mutate(Word = fct_reorder(Word, veridicality_mean))
 
 veridicality <- merge(veridicality_ratings, emotion, by = "Word", all.x = TRUE) 
 veridicality <- veridicality %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
   mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
 
-ggplot(data = veridicality, aes(x = valence_mean, y = veridicality_mean, colour = veridicality_group, label = Word)) +
+ggplot(data = veridicality, aes(x = valence_mean, y = veridicality_mean, colour = valence_group, label = Word)) +
   #geom_point(width = .3,height = .025) +
   geom_label() + 
   geom_smooth(method = 'lm')
 
-ggplot(data = veridicality, aes(x = arousal_mean, y = veridicality_mean, colour = veridicality_group, label = Word)) +
+ggplot(data = veridicality, aes(x = arousal_mean, y = veridicality_mean, colour = valence_group, label = Word)) +
   #geom_point(width = .3,height = .025) + 
-  facet_grid(~veridicality_group) +
+  facet_grid(~valence_group) +
+  geom_label() + 
+  geom_smooth(method = 'lm')
+
+ggplot(data = veridicality, aes(x = arousal_mean, y = veridicality_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(voice~valence_group) +
   geom_label() + 
   geom_smooth(method = 'lm')
 ```
 
-```{r}
-veridicality$relativeValence = abs(veridicality$valence_mean)
-m = lm(mean ~ relativeValence + arousal_mean + veridicality_group, data = veridicality)
-summary(m)
-```
+# ```{r}
+# veridicality$relativeValence = abs(veridicality$valence_mean)
+# m = lm(mean ~ relativeValence + arousal_mean, data = veridicality)
+# summary(m)
+# ```
 
 #### create relevant subset for projectivity ratings
 ##### examples of items: 
@@ -124,21 +129,22 @@ tabl_proj <- "
 cat(tabl_proj)
 ```
 
-```{r}
+```{r, fig.width = 10, fig.height = 8}
 projectivity_filter <- vp_data %>%
-  filter(polarity == "negative" & conditional == "True") %>%
-  group_by(Word)
+  filter(polarity == "negative" & conditional == "True") 
+
+# projectivity_ratings <- projectivity_filter %>%
+#   multi_boot_standard(col = "veridicality_num") %>%
+#   mutate(projectivity_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
+#   ungroup(Word, voice) %>%
+#   mutate(Word = fct_reorder(as.factor(Word), mean))
 
 projectivity_ratings <- projectivity_filter %>%
-  multi_boot_standard(col = "veridicality_num") %>%
-  mutate(projectivity_mean = mean, YMin = mean - ci_lower, YMax = mean + ci_upper) %>%
-  ungroup(Word) %>%
-  mutate(Word = fct_reorder(as.factor(Word), mean)) %>%
-  # F: factive, V: optionally factive, VNF: veridical non-factive, NF: non-veridical, non-factive 
-  mutate(veridicality_group = ifelse(Word %in% c("know", "discover", "reveal", "see", "be_annoyed"), "F", 
-                                     ifelse(Word %in% c("pretend", "think", "suggest", "say"), "NF", 
-                                            ifelse(Word %in% c("demonstrate"),"VNF", "V")))) %>%
-  mutate(veridicality_group = factor(veridicality_group, levels=c("F", "V", "VNF", "NF")))
+  group_by(Word, voice) %>%
+  # multi_boot_standard(col = "veridicality_num") %>%
+  summarise(projectivity_mean = mean(veridicality_num)) %>%
+  ungroup() %>%
+  mutate(Word = fct_reorder(Word, projectivity_mean))
 
 projectivity <- merge(projectivity_ratings, emotion, by = "Word", all.x = TRUE) 
 
@@ -151,27 +157,34 @@ ggplot(data = projectivity, aes(x = valence_mean, y = projectivity_mean, colour 
   geom_label() +
   geom_smooth(method = 'lm')
 
-ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = veridicality_group, label = Word)) +
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
   #geom_point(width = .3,height = .025) + 
-  #facet_grid(~veridicality_group) +
+  facet_grid(~valence_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+# taking into account voice
+ggplot(data = projectivity, aes(x = arousal_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(voice~valence_group) +
   geom_label() +
   geom_smooth(method = 'lm')
 ```
 
 #### projectivity against arousal_mean, by valence_bins
-```{r}
+```{r, fig.width = 10, fig.height = 8}
 projectivity_neg <- projectivity %>%
   filter(valence_group == "negative")
 projectivity_neg <-projectivity_neg[order(projectivity_neg$valence_mean),]
 projectivity_neg[c("valence_bin")] <- 0
-sep_neg = nrow(projectivity_neg) / 3 # 1
+sep_neg = nrow(projectivity_neg) / 3 # 63.66667
 for (i in 1:nrow(projectivity_neg)) {
   if (i <= sep_neg) {
-    projectivity_neg[i, "valence_bin"] <- "very negative" 
+    projectivity_neg[i, "valence_bin"] <- "very negative" #contains 63 items
   } else if (i <= 2 * sep_neg) {
-    projectivity_neg[i, "valence_bin"] <- "moderately negative" 
+    projectivity_neg[i, "valence_bin"] <- "moderately negative" # contains 64 items
   } else {
-    projectivity_neg[i, "valence_bin"] <- "slightly negative" 
+    projectivity_neg[i, "valence_bin"] <- "slightly negative" # contains 64 items
   }
 }
 
@@ -179,46 +192,79 @@ projectivity_pos <- projectivity %>%
   filter(valence_group == "positive")
 projectivity_pos <-projectivity_pos[order(projectivity_pos$valence_mean),]
 projectivity_pos[c("valence_bin")] <- 0
-sep_pos = nrow(projectivity_pos) / 3 # 5.3333
+sep_pos = nrow(projectivity_pos) / 3 # 77.3333
 for (i in 1:nrow(projectivity_pos)) {
   if (i <= sep_pos) {
-    projectivity_pos[i, "valence_bin"] <- "slightly positive" 
+    projectivity_pos[i, "valence_bin"] <- "slightly positive" # contains 77 items 
   } else if (i <= 2 * sep_pos) {
-    projectivity_pos[i, "valence_bin"] <- "moderately positive" 
+    projectivity_pos[i, "valence_bin"] <- "moderately positive" # contains 77 items
   } else {
-    projectivity_pos[i, "valence_bin"] <- "very positive"
+    projectivity_pos[i, "valence_bin"] <- "very positive" # contains 78 items
   }
 }
 
 projectivity_bin <- rbind(projectivity_neg, projectivity_pos)
 projectivity_bin$valence_bin_f = factor(projectivity_bin$valence_bin, levels=c("very negative", "moderately negative", "slightly negative", "slightly positive", "moderately positive", "very positive"))
-ggplot(data = projectivity_bin, aes(x = arousal_mean, y = projectivity_mean, colour = veridicality_group, label = Word)) +
+
+ggplot(data = projectivity_bin, aes(x = arousal_mean, y = projectivity_mean, colour = valence_bin_f, label = Word)) +
   #geom_point(width = .3,height = .025) + 
-  facet_grid(~veridicality_group) +
+  facet_grid(~valence_bin_f) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+# taking into account voice
+ggplot(data = projectivity_bin, aes(x = arousal_mean, y = projectivity_mean, colour = valence_bin_f, label = Word)) +
+  #geom_point(width = .3,height = .025) + 
+  facet_grid(voice~valence_bin_f) +
   geom_label() +
   geom_smooth(method = 'lm')
 ```
 
-```{r}
-projectivity$relativeValence = abs(projectivity$valence_mean)
-m = lm(mean ~ relativeValence + arousal_mean + veridicality_group, data = projectivity)
-summary(m)
-```
+# ```{r}
+# projectivity$relativeValence = abs(projectivity$valence_mean)
+# m = lm(veridicality_num ~ relativeValence + arousal_mean, data = projectivity)
+# summary(m)
+# ```
 
-```{r mixed model}
+```{r mixed effects linear model}
 projectivity_ratings_participant <- projectivity_filter
 
 projectivity_participant <- merge(projectivity_ratings_participant, emotion, by = "Word", all.x = TRUE) 
 projectivity_participant <- projectivity_participant %>%
   rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
-  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive")) %>%
-  # F: factive, V: optionally factive, VNF: veridical non-factive, NF: non-veridical, non-factive 
-  mutate(veridicality_group = ifelse(Word %in% c("know", "discover", "reveal", "see", "be_annoyed"), "F", 
-                                     ifelse(Word %in% c("pretend", "think", "suggest", "say"), "NF", 
-                                            ifelse(Word %in% c("demonstrate"),"VNF", "V")))) %>%
-  mutate(veridicality_group = factor(veridicality_group, levels=c("F", "V", "VNF", "NF")))
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
 
+# the model check of the model as previously formulated (ie, with uncentered predictors) suggested huge collinearity, almost all values in covariance matrix > .4). the current model check still suggests there's sth wonky going on with the homoscedasticity tests (because the outcome variable is a three-way categorical variable instead of continuous, which we can't do anything about within the model, but seee logistic model below that replicates the result). 
 projectivity_participant$relativeValence = abs(projectivity_participant$valence_mean)
-m = lmer(veridicality_num ~ arousal_mean * relativeValence * veridicality_group + (1 | participant) + (1 | Word), data = projectivity_participant)
-summary(m)
+
+# visualize correlations between variables
+pairscor.fnc(projectivity_participant[,c("veridicality_num","arousal_mean","relativeValence","valence_mean")])
+
+# center predictors to reduce collinearity
+projectivity_participant = projectivity_participant %>%
+  mutate(crelativeValence = relativeValence-mean(relativeValence),carousal_mean=arousal_mean-mean(arousal_mean))
+
+m = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = projectivity_participant)
+summary(m) # main effects of arousal and relative valence!
+
+pdf(file="modelcheck_linear.pdf",height=8,width=9)
+check_model(m)
+dev.off()
+
+factivity.full = lmer(veridicality_num ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = projectivity_participant, REML = FALSE)
+factivity.reduced = lmer(veridicality_num ~ 1 + (1 | participant) + (1 | Word), data = projectivity_participant, REML = FALSE)
+anova(factivity.reduced, factivity.full)
+```
+
+```{r mixed effects logistic model}
+# create a categorical projectivity variable that treats only "yes" responses as projective, all others as not projective
+projectivity_participant$categorical_projectivity = as.factor(ifelse(projectivity_participant$veridicality_num == 1, "projective","non-projective"))
+
+# almost three times as many non-projective compared to projective responses
+table(projectivity_participant$categorical_projectivity)
+prop.table(table(projectivity_participant$categorical_projectivity))
+
+m = glmer(categorical_projectivity ~ carousal_mean * crelativeValence + (1 | participant) + (1 | Word), data = projectivity_participant, family="binomial")
+summary(m) # main effects of arousal and relative valence!
+
 ```
