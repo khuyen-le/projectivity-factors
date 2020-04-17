@@ -18,6 +18,7 @@ library(dichromat)
 library(lme4)
 library(performance)
 library(languageR)
+library(gghighlight)
 theme_set(theme_bw())
 ```
 
@@ -156,7 +157,7 @@ for (i in 1:nrow(projectivity_participant)) {
 
 ```{r plot projectivity by valence and arousal}
 projectivity_summarize <- projectivity_participant %>%
-  group_by(Word, valence_mean, valence_bin, arousal_mean, arousal_bin) %>%
+  group_by(Word, valence_mean, valence_group, valence_bin, arousal_mean, arousal_bin) %>%
   summarise(projectivity_mean = mean(veridicality_num))
   
 ggplot(data = projectivity_summarize, aes(x = arousal_mean, y = projectivity_mean, colour = arousal_bin, label = Word)) +
@@ -200,9 +201,9 @@ anova(factivity.reduced, factivity.full)
 projectivity_participant$residuals <- residuals(m)
 projectivity_participant$residuals_abs <- abs(projectivity_participant$residuals)
 projectivity_participant_summary <- projectivity_participant %>%
-  group_by(Word, valence_bin, arousal_bin) %>%
-  summarize(mean_residuals_abs = mean(residuals_abs), mean_acceptability_norm = mean(acceptability_norm, na.rm = TRUE)) ## mean_acceptability_norm for display only
-projectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
+  group_by(Word, valence_group, valence_bin, arousal_bin, carousal_mean, crelativeValence) %>%
+  summarize(mean_residuals_abs = mean(residuals_abs), mean_acceptability_norm = mean(acceptability_norm, na.rm = TRUE), projectivity_mean = mean(veridicality_num)) ## mean_acceptability_norm for display only
+headprojectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
 
 valence_highpos_arousal_high <- projectivity_participant_summary %>%
   filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "high")
@@ -233,9 +234,24 @@ top_words <- rbind(valence_highpos_arousal_high[1:10, ],
                    valence_low_arousal_low[1:10, ],
                    valence_low_arousal_low[1:10, ])
 top_words <- na.omit(top_words) # some categories have fewer than 10 words
-write.csv(top_words, "top_words.csv")
+write.csv(top_words, "top_words.csv")top
 kable(top_words)
 ```
+
+```{r, fig.width = 8, fig.height = 8}
+label_words <- pull(top_words[c("Word")])
+
+projectivity_participant_summary <- projectivity_participant_summary %>%
+  mutate(word_flag = ifelse(Word %in% label_words, 1, 0))
+  
+ggplot(data = projectivity_participant_summary, aes(x = carousal_mean, y = projectivity_mean, label = Word)) +
+  geom_point() +
+  gghighlight(word_flag == 1, label_key = Word) +
+  facet_grid(~valence_group) +
+  geom_label_repel() +
+  geom_smooth(method = 'lm')
+```
+
 
 ```{r mixed effects logistic model}
 # create a categorical projectivity variable that treats only "yes" responses as projective, all others as not projective
