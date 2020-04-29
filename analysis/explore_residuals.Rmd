@@ -89,33 +89,19 @@ projectivity_neg_participant <- projectivity_filter %>%
   filter(valence_group == "negative")
 
 projectivity_neg_participant <-projectivity_neg_participant[order(projectivity_neg_participant$valence_mean),]
-projectivity_neg_participant[c("valence_bin")] <- 0
-sep_neg = nrow(projectivity_neg_participant) / 3
-for (i in 1:nrow(projectivity_neg_participant)) {
-  if (i <= sep_neg) {
-    projectivity_neg_participant[i, "valence_bin"] <- "very negative"
-  } else if (i <= 2 * sep_neg) {
-    projectivity_neg_participant[i, "valence_bin"] <- "moderately negative"
-  } else {
-    projectivity_neg_participant[i, "valence_bin"] <- "slightly negative"
-  }
-}
+
+valence_mean <- projectivity_neg_participant[, "valence_mean"]
+valence_bin <- cut(valence_mean, 3, include.lowest=TRUE, labels=c("very negative", "moderately negative", "slightly negative"))
+projectivity_neg_participant <- cbind(projectivity_neg_participant, valence_bin)
 
 projectivity_pos_participant <- projectivity_filter %>%
   filter(valence_group == "positive")
 
 projectivity_pos_participant <-projectivity_pos_participant[order(projectivity_pos_participant$valence_mean),]
-projectivity_pos_participant[c("valence_bin")] <- 0
-sep_pos = nrow(projectivity_pos_participant) / 3
-for (i in 1:nrow(projectivity_pos_participant)) {
-  if (i <= sep_pos) {
-    projectivity_pos_participant[i, "valence_bin"] <- "slightly positive"
-  } else if (i <= 2 * sep_pos) {
-    projectivity_pos_participant[i, "valence_bin"] <- "moderately positive"
-  } else {
-    projectivity_pos_participant[i, "valence_bin"] <- "very positive"
-  }
-}
+
+valence_mean <- projectivity_pos_participant[, "valence_mean"]
+valence_bin <- cut(valence_mean, 3, include.lowest=TRUE, labels=c("slightly positive", "moderately positive", "very positive"))
+projectivity_pos_participant <- cbind(projectivity_pos_participant, valence_bin)
 
 projectivity_participant <- rbind(projectivity_neg_participant, projectivity_pos_participant)
 
@@ -141,17 +127,10 @@ projectivity_participant <- rbind(projectivity_neg_participant, projectivity_pos
 #### Sort predicates by arousal
 ```{r}
 projectivity_participant <- projectivity_participant[order(projectivity_participant$arousal_mean),]
-projectivity_participant[c("arousal_bin")] <- 0
-sep = nrow(projectivity_participant) / 3
-for (i in 1:nrow(projectivity_participant)) {
-  if (i <= sep) {
-    projectivity_participant[i, "arousal_bin"] <- "low"
-  } else if (i <= 2 * sep_pos) {
-    projectivity_participant[i, "arousal_bin"] <- "medium"
-  } else {
-    projectivity_participant[i, "arousal_bin"] <- "high"
-  }
-}
+
+arousal_mean <- projectivity_participant[, "arousal_mean"]
+arousal_bin <- cut(arousal_mean, 3, include.lowest=TRUE, labels=c("low", "medium", "high"))
+projectivity_participant <- cbind(projectivity_participant, arousal_bin)
 
 ```
 
@@ -201,9 +180,9 @@ anova(factivity.reduced, factivity.full)
 projectivity_participant$residuals <- residuals(m)
 projectivity_participant$residuals_abs <- abs(projectivity_participant$residuals)
 projectivity_participant_summary <- projectivity_participant %>%
-  group_by(Word, valence_group, valence_bin, arousal_bin, carousal_mean, crelativeValence) %>%
+  group_by(Word, voice, valence_group, valence_bin, arousal_bin, carousal_mean, crelativeValence) %>%
   summarize(mean_residuals_abs = mean(residuals_abs), mean_acceptability_norm = mean(acceptability_norm, na.rm = TRUE), projectivity_mean = mean(veridicality_num)) ## mean_acceptability_norm for display only
-headprojectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
+projectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
 
 valence_highpos_arousal_high <- projectivity_participant_summary %>%
   filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "high")
@@ -231,13 +210,15 @@ top_words <- rbind(valence_highpos_arousal_high[1:10, ],
                    valence_highneg_arousal_med[1:10, ], 
                    valence_highneg_arousal_low[1:10, ], 
                    valence_low_arousal_high[1:10, ],
-                   valence_low_arousal_low[1:10, ],
+                   valence_low_arousal_med[1:10, ],
                    valence_low_arousal_low[1:10, ])
 top_words <- na.omit(top_words) # some categories have fewer than 10 words
 top_words <- top_words %>%
   arrange(mean_acceptability_norm)
-write.csv(top_words, "top_words.csv")
 kable(top_words)
+word_list <- top_words$Word
+write.csv(top_words, "top_words.csv")
+
 ```
 
 ```{r, fig.width = 8, fig.height = 8}
@@ -250,6 +231,13 @@ ggplot(data = projectivity_participant_summary, aes(x = crelativeValence, y = pr
   geom_point() +
   gghighlight(word_flag == 1, label_key = Word) +
   facet_grid(~arousal_bin) +
+  geom_label_repel() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = projectivity_participant_summary, aes(x = carousal_mean, y = projectivity_mean, label = Word)) +
+  geom_point() +
+  gghighlight(word_flag == 1, label_key = Word) +
+  facet_grid(~valence_bin) +
   geom_label_repel() +
   geom_smooth(method = 'lm')
 ```
