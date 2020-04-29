@@ -234,7 +234,9 @@ top_words <- rbind(valence_highpos_arousal_high[1:10, ],
                    valence_low_arousal_low[1:10, ],
                    valence_low_arousal_low[1:10, ])
 top_words <- na.omit(top_words) # some categories have fewer than 10 words
-write.csv(top_words, "top_words.csv")top
+top_words <- top_words %>%
+  arrange(mean_acceptability_norm)
+write.csv(top_words, "top_words.csv")
 kable(top_words)
 ```
 
@@ -244,10 +246,10 @@ label_words <- pull(top_words[c("Word")])
 projectivity_participant_summary <- projectivity_participant_summary %>%
   mutate(word_flag = ifelse(Word %in% label_words, 1, 0))
   
-ggplot(data = projectivity_participant_summary, aes(x = carousal_mean, y = projectivity_mean, label = Word)) +
+ggplot(data = projectivity_participant_summary, aes(x = crelativeValence, y = projectivity_mean, label = Word)) +
   geom_point() +
   gghighlight(word_flag == 1, label_key = Word) +
-  facet_grid(~valence_group) +
+  facet_grid(~arousal_bin) +
   geom_label_repel() +
   geom_smooth(method = 'lm')
 ```
