@@ -41,6 +41,7 @@ word_list <- unique(emotion$Word)
 vp_data <- vp_data %>%
   mutate(veridicality_num = ifelse(veridicality == "yes", 1, ifelse(veridicality == "no", -1, 0))) %>%
   filter(exclude == "False") %>%
+  filter(frame == "that_S") %>%
   mutate(Word = verb) %>%
   filter(Word %in% word_list)
 ```
@@ -104,6 +105,9 @@ valence_bin <- cut(valence_mean, 3, include.lowest=TRUE, labels=c("slightly posi
 projectivity_pos_participant <- cbind(projectivity_pos_participant, valence_bin)
 
 projectivity_participant <- rbind(projectivity_neg_participant, projectivity_pos_participant)
+
+projectivity_participant <- projectivity_participant %>%
+  mutate(valence_bin_group = ifelse((valence_bin == "very positive" | valence_bin == "moderately positive"), "high positive", (ifelse((valence_bin == "very negative" | valence_bin == "moderately negative"),  "high negative", "low"))))
 
 # ggplot(data = projectivity_participant, aes(x = valence_mean, y = projectivity_mean, colour = valence_group, label = Word)) +
 #   #geom_point(width = .3,height = .025) +
@@ -180,46 +184,90 @@ anova(factivity.reduced, factivity.full)
 projectivity_participant$residuals <- residuals(m)
 projectivity_participant$residuals_abs <- abs(projectivity_participant$residuals)
 projectivity_participant_summary <- projectivity_participant %>%
-  group_by(Word, voice, valence_group, valence_bin, arousal_bin, carousal_mean, crelativeValence) %>%
+  group_by(Word, voice, frame, sentence, valence_group, valence_bin, valence_bin_group, arousal_bin, carousal_mean, crelativeValence, valence_mean) %>%
   summarize(mean_residuals_abs = mean(residuals_abs), mean_acceptability_norm = mean(acceptability_norm, na.rm = TRUE), projectivity_mean = mean(veridicality_num)) ## mean_acceptability_norm for display only
 projectivity_participant_summary <- projectivity_participant_summary[order(projectivity_participant_summary$mean_residuals_abs),]
 
 valence_highpos_arousal_high <- projectivity_participant_summary %>%
-  filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "high")
+  filter(valence_bin_group == "high positive" & arousal_bin == "high")
 valence_highpos_arousal_med <- projectivity_participant_summary %>%
-  filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "medium")
+  filter(valence_bin_group == "high positive" & arousal_bin == "medium")
 valence_highpos_arousal_low <- projectivity_participant_summary %>%
-  filter((valence_bin == "very positive" | valence_bin == "moderately positive") & arousal_bin == "low")
+  filter(valence_bin_group == "high positive" & arousal_bin == "low")
 valence_highneg_arousal_high <- projectivity_participant_summary %>%
-  filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "high")
+  filter(valence_bin_group == "high negative" & arousal_bin == "high")
 valence_highneg_arousal_med <- projectivity_participant_summary %>%
-  filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "medium")
+  filter(valence_bin_group == "high negative" & arousal_bin == "medium")
 valence_highneg_arousal_low <- projectivity_participant_summary %>%
-  filter((valence_bin == "very negative" | valence_bin == "moderately negative") & arousal_bin == "low")
+  filter(valence_bin_group == "high negative" & arousal_bin == "low")
 valence_low_arousal_high <- projectivity_participant_summary %>%
-  filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "high")
+  filter(valence_bin_group == "low" & arousal_bin == "high")
 valence_low_arousal_med <- projectivity_participant_summary %>%
-  filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "medium")
+  filter(valence_bin_group == "low" & arousal_bin == "medium")
 valence_low_arousal_low <- projectivity_participant_summary %>%
-  filter((valence_bin == "slightly negative" | valence_bin == "slightly positive") & arousal_bin == "low")
+  filter(valence_bin_group == "low" & arousal_bin == "low")
 
-top_words <- rbind(valence_highpos_arousal_high[1:10, ], 
-                   valence_highpos_arousal_med[1:10, ],
-                   valence_highpos_arousal_low[1:10, ],
-                   valence_highneg_arousal_high[1:10, ], 
-                   valence_highneg_arousal_med[1:10, ], 
-                   valence_highneg_arousal_low[1:10, ], 
-                   valence_low_arousal_high[1:10, ],
-                   valence_low_arousal_med[1:10, ],
-                   valence_low_arousal_low[1:10, ])
-top_words <- na.omit(top_words) # some categories have fewer than 10 words
-top_words <- top_words %>%
-  arrange(mean_acceptability_norm)
-kable(top_words)
-word_list <- top_words$Word
-write.csv(top_words, "top_words.csv")
+valence_highpos_arousal_low_by_relativevalence <- valence_highpos_arousal_low[order(valence_highpos_arousal_low$crelativeValence), ]
+
+projectivity_participant_summary <- projectivity_participant_summary %>%
+  mutate(valence_arousal_group = ifelse(valence_bin_group == "high positive" & arousal_bin == "high", "high positive valence, high arousal", ifelse(valence_bin_group == "high positive" & arousal_bin == "medium", "high positive valence, medium arousal", ifelse(valence_bin_group == "high positive" & arousal_bin == "low", "high positive valence, low arousal", ifelse (valence_bin_group == "high negative" & arousal_bin == "high", "high negative valence, high arousal", ifelse(valence_bin_group == "high negative" & arousal_bin == "medium", "high negative valence, medium arousal", ifelse(valence_bin_group == "high negative" & arousal_bin == "low", "high negative valence, low arousal", ifelse(valence_bin_group == "low" & arousal_bin == "high", "low valence, high arousal", ifelse (valence_bin_group == "low" & arousal_bin == "medium", "low valence, medium arousal", "low valence, low arousal")))))))))
+
+top_words <- rbind(arrange(valence_highpos_arousal_high[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_highpos_arousal_med[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_highpos_arousal_low[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_highneg_arousal_high[1:10, ], desc(mean_acceptability_norm)), 
+                   arrange(valence_highneg_arousal_med[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_highneg_arousal_low[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_low_arousal_high[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_low_arousal_med[1:10, ], desc(mean_acceptability_norm)),
+                   arrange(valence_low_arousal_low[1:10, ], desc(mean_acceptability_norm)))
+top_words_10 <- na.omit(top_words) # some categories have fewer than 10 words)
+top_words$Word
+#write.csv(top_words_10, "top_words_10.csv")
+#kable(top_words)
+#word_list <- top_words$Word
+#write.csv(top_words_7, "top_words_7.csv")
+#write.csv(top_words_by_bins, "top_words_by_bins.csv")
+```
+
+```{r}
+top_words_selected <- projectivity_participant_summary %>%
+  filter((Worsd %in% c("amuse", "enjoy", "elaborate", "charm", "fantasize", "love")) |
+         (Word %in% c("think", "feel", "pray", "envision", "write") | (Word %in% c("promise") & voice == "passive")) |
+         (Word %in% c("irritate", "cringe", "scream", "aggravate", "argue", "pain")) |
+         (Word %in% c("embarrass", "offend", "trouble", "torture", "insult", "disgust")) |
+         (Word %in% c("weep", "distress", "resent", "ignore", "gossip", "whine")) |
+         (Word %in% c("shock", "anticipate", "alarm", "expose", "shout", "testify")) |
+         (Word %in% c("verify", "simulate", "squeal", "express", "require") | (Word %in% c("bet") & voice == "active")) |
+         (Word %in% c("murmur", "suppose", "retract", "dictate", "compute") | (Word %in% c("tweet") & voice == "active")) | 
+         (Word %in% c("surprise", "thrill", "excite", "joke", "fascinate", "celebrate")) |
+         (Word %in% c("discover", "know", "annoy", "see", "realize")))
+
+label_words <- pull(top_words_selected[c("Word")])
+
+projectivity_participant_summary <- projectivity_participant_summary %>%
+  mutate(highlight_word = ifelse(Word %in% label_words, 1, 0))
+  
+summary_data <- as.data.frame(projectivity_participant_summary)
+
+ggplot(data = summary_data, aes(x = valence_mean, y = carousal_mean, label = Word)) +
+   geom_point(alpha = 0.1) +
+   geom_point(data = top_words_selected, aes(x = valence_mean, y = carousal_mean, colour = valence_arousal_group, label = Word)) +
+   geom_text(data = top_words_selected, aes(label=Word),hjust=0, vjust=0)
+   #geom_label_repel()
+
+ggplot(data = projectivity_participant_summary, aes(x = crelativeValence, y = carousal_mean, label = Word)) +
+  geom_point() +
+  gghighlight(highlight_word == 1, label_key = Word) +
+  geom_label_repel()
+
+ggplot(data = projectivity_participant_summary, aes(x = carousal_mean, y = crelativeValence, label = Word)) +
+  geom_point() +
+  gghighlight(highlight_word == 1, label_key = Word) +
+  geom_label_repel()
 
 ```
+
 
 ```{r, fig.width = 8, fig.height = 8}
 label_words <- pull(top_words[c("Word")])
@@ -233,6 +281,9 @@ ggplot(data = projectivity_participant_summary, aes(x = crelativeValence, y = pr
   facet_grid(~arousal_bin) +
   geom_label_repel() +
   geom_smooth(method = 'lm')
+
+
+
 
 ggplot(data = projectivity_participant_summary, aes(x = carousal_mean, y = projectivity_mean, label = Word)) +
   geom_point() +
