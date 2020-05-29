@@ -1,6 +1,59 @@
 function make_slides(f) {
-  var   slides = {};
+  var slides = {};
 
+    slides.bot = slide({
+    name : "bot",
+    start: function() {
+      $('.err1').hide();
+      $('.err2').hide();
+      $('.disq').hide();
+      exp.speaker = _.shuffle(["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles"])[0];
+      exp.listener = _.shuffle(["Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Margaret"])[0];
+      exp.lives = 0;
+      var story = exp.speaker + ' says to ' + exp.listener + ': "It\'s a beautiful day, isn\'t it?"'
+      var question = 'Who does ' + exp.speaker + ' talk to?';
+      document.getElementById("s").innerHTML = story;
+      document.getElementById("q").innerHTML = question;
+    },
+    button : function() {
+      exp.text_input = document.getElementById("text_box").value;
+      var lower = exp.listener.toLowerCase();
+      var upper = exp.listener.toUpperCase();
+
+      if ((exp.lives < 3) && ((exp.text_input == exp.listener)|(exp.text_input == lower) | (exp.text_input== upper))){
+        exp.data_trials.push({
+          "slide_number_in_experiment" : exp.phase,
+          "utterance": "bot_check",
+          "object": exp.listener,
+          "rt" : 0,
+          "response" : exp.text_input
+        });
+        exp.go();
+      }
+      else {
+        exp.data_trials.push({
+          "slide_number_in_experiment" : exp.phase,
+          "utterance": "bot_check",
+          "object": exp.listener,
+          "rt" : 0,
+          "response" : exp.text_input
+        });
+        if (exp.lives == 0){
+          $('.err1').show();
+        }if (exp.lives == 1){
+          $('.err1').hide();
+          $('.err2').show();
+        }if (exp.lives == 2){
+          $('.err2').hide();
+          $('.disq').show();
+          $('.button').hide();
+        }
+        exp.lives++;
+      } 
+    }
+        
+  });
+    
   slides.i0 = slide({
      name : "i0",
      start: function() {
@@ -83,6 +136,7 @@ function make_slides(f) {
      
    	  "slide_number_in_experiment" : exp.phase,
    	  "verb": this.stim.trigger,
+    "exp": this.stim.trigger_class,
    	  "contentNr": this.stim.content,
    	  "content": this.stim.question,
    	  "speakerGender": this.stim.gender,
@@ -98,21 +152,18 @@ function make_slides(f) {
     }
   }); 
   
+ 
   slides.questionaire =  slide({
     name : "questionaire",
     submit : function(e){
       //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
       exp.subj_data = {
         language : $("#language").val(),
-//        enjoyment : $("#enjoyment").val(),
-        assess : $('input[name="assess"]:checked').val(),
-		american : $('input[name="american"]:checked').val(),
-		gender : $('input[name="gender"]:checked').val(),
-		//american : $("#american").val(),
-        //american : $('input[name="american"]:checked').val(),
+        enjoyment : $("#enjoyment").val(),
+        asses : $('input[name="assess"]:checked').val(),
         age : $("#age").val(),
-        //gender : $("#gender").val(),
-//        education : $("#education").val(),
+        gender : $("#gender").val(),
+        education : $("#education").val(),
         comments : $("#comments").val(),
       };
       exp.go(); //use exp.go() if and only if there is no "present" data.
@@ -133,6 +184,7 @@ function make_slides(f) {
       setTimeout(function() {turk.submit(exp.data);}, 1000);
     }
   });
+    console.log(slides);
 
   return slides;
 }
@@ -391,10 +443,9 @@ var all_words = [valence_highneg_arousal_high,
                 valence_low_arousal_med, 
                 valence_low_arousal_low]
 
-var sentences = _.shuffle(["Mary is pregnant", 
+var female_sentences = _.shuffle([
                  "Josie went on vacation to France", 
-                 "Emma studied on Saturday morning",
-                 "Olivia sleeps until noon", 
+                 "Emma studied on Saturday morning", 
                  "Sophia got a tattoo", 
                  "Mia drank 2 cocktails last night", 
                  "Isabella ate a steak on Sunday",
@@ -404,37 +455,41 @@ var sentences = _.shuffle(["Mary is pregnant",
                            "Audrey went to a party",
                            "Emilia looked after the kids",
                            "Hannah called her parents",
-                           "Valerie sings in the shower", 
                            "Natasha got a promotion", 
                            "Danielle painted her room", 
                            "Courtney woke up early yesterday", 
                            "Molly attended a conference last week",
+                           "Mary planted a tree",
+                           "Olivia left her job",
+                           "Valerie booked the venue"]);
+
                            
                            
-                 "Danny ate the last cupcake",
+var male_sentences = _.shuffle(["Danny ate the last cupcake",
                  "Frank got a cat", 
                  "Jackson ran 10 miles", 
                  "Jayden rented a car", 
                  "Tony had a drink last night",
                  "Josh learned to ride a bike yesterday", 
                  "Owen shoveled snow last winter", 
-                 "Julian dances salsa",
-                 "Jon walks to work", 
-                 "Charley speaks Spanish", 
                           "Connor fell from a tree", 
                           "Jason made a cake", 
                           "Allen went to the museum", 
                           "Cole celebrated his friend's birthday", 
-                          "Dylan goes to college", 
                           "Fred missed the train", 
                           "Louis went swimming",
-                          "Lucas plays the guitar"]);
+                          "Julian cleaned his room",
+                          "Jon went out for dinner",
+                          "Charley spilled the wine",
+                          "Dylan argued with his parents",
+                          "Lucas bought new shoes"]);
 
+    var sentences = _.shuffle(female_sentences.concat(male_sentences));
 var female_names = _.shuffle(["Amanda", "Melissa", "Laura", "Stephanie", "Rebecca", "Sharon", "Cynthia", "Kathleen", "Ruth", "Anna", "Kaitlin", "Regina", "Heather", "Shirley", "Amy", "Brenda", "Catherine", "Nicole"]);
     
 var male_names = _.shuffle(["Patrick", "Scott", "Justin", "Jerry", "Ben", "Ray", "Kevin", "Brian", "Andrew", "Tim", "Eli", "Noah", "Colby", "Bobby", "Alan", "Francisco", "Manuel", "Dennis"]);
     
-var all_names = _.shuffle(female_names.concat(male_names));
+//var all_names = _.shuffle(female_names.concat(male_names));
 
 var n_items_per_bin = 3; // number of items per bin
 var n_items = 27;
@@ -456,7 +511,14 @@ for (var i = 0; i < items.length; i++) {
   var curr_content = {};
   var base = sentences[i];
   curr_content["content"] = base;
-  var subject = all_names[i];
+    var subject;
+    if (female_sentences.includes(base)) {
+        subject = male_names[0];
+        male_names.splice(0, 1);
+    } else {
+        subject = female_names[0];
+        female_names.splice(0, 1);
+    }
     
     var curr_item = items[i];
     curr_content["item"] = curr_item;
@@ -624,15 +686,87 @@ function makeStim(i) {
 	  "name": name,
 	  "gender": gender,	 
 	  "trigger": item.trigger,
+        "trigger_class": "stim",
       "utterance": utterance,
       "question": question
     }
   }
+    
+    var control_items = [
+	{
+		"item_id" : "control1",
+		"short_trigger" : "control",
+		"utterance" : "Is Zack coming to the meeting tomorrow?",
+		"content" : "Zack is coming to the meeting tomorrow",
+		"fact" : "Zack is a member of the golf club"
+	},
+	{
+		"item_id" : "control2",
+		"short_trigger" : "control",
+		"utterance" : "Is Mary's aunt sick?",
+		"content" : "Mary's aunt is sick",
+		"fact" : "Mary visited her aunt on Sunday"
+	},
+	{
+		"item_id" : "control3",
+		"short_trigger" : "control",
+		"utterance" : "Did Todd play football in high school?",
+		"content" : "Todd played football in high school",
+		"fact" : "Todd goes to the gym 3 times a week"
+	},
+	{
+		"item_id" : "control4",
+		"short_trigger" : "control",
+		"utterance" : "Is Vanessa good at math?",
+		"content" : "Vanessa is good at math",
+		"fact" : "Vanessa won a prize at school"
+	},
+	{
+		"item_id" : "control5",
+		"short_trigger" : "control",
+		"utterance" : "Did Madison have a baby?",
+		"content" : "Madison had a baby",
+		"fact" : "Trish sent Madison a card"
+	},
+	{
+		"item_id" : "control6",
+		"short_trigger" : "control",
+		"utterance" : "Was Hendrick's car expensive?",
+		"content" : "Hendrick's car was expensive",
+		"fact" : "Hendrick just bought a car"
+	}
+];
+    
+function makeControlStim(i) {
+    //get item
+    var item = control_items[i];
+	//get a name to be speaker
+    var name_data = speaker_names[i];
+    var name = name_data.name;
+    var gender = name_data.gender;
+
+    return {
+	  "name": name,
+	  "gender": gender,	 
+	  "trigger": item.short_trigger,	  
+	  "trigger_class": "control",
+      "utterance": item.utterance,
+      "question": item.content
+    }
+  }
+    
 exp.stims_block1 = [];
 for (var i=0; i<items.length; i++) {
       var stim = makeStim(i);
     exp.stims_block1.push(jQuery.extend(true, {}, stim));
   }
+    
+for (var j=0; j<control_items.length; j++) {
+  	var stim = makeControlStim(j);
+//    exp.stims_block1.push(makeStim(i));
+	exp.stims_block1.push(jQuery.extend(true, {}, stim));
+//	exp.stims_block2.push(jQuery.extend(true, {}, stim));	
+} 
     exp.stims_block1 = _.shuffle(exp.stims_block1); 
     
     console.log(exp.stims_block1);
@@ -650,7 +784,8 @@ for (var i=0; i<items.length; i++) {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "block1", 'questionaire', 'finished'];
+  exp.structure=["bot", "i0", "block1", 'questionaire', 'finished'];
+    console.log(exp.structure);
   
   exp.data_trials = [];
   //make corresponding slides:
