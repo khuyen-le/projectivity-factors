@@ -140,6 +140,7 @@ function make_slides(f) {
    	  "content": this.stim.question,
    	  "speakerGender": this.stim.gender,
    	  "utterance": this.stim.utterance,
+          "Word": this.stim.Word,
    	  //"subjectGender": this.stim.gender2,
    	  "speakerName": this.stim.name,
    	  //"subjectName": this.stim.name2,
