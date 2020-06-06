@@ -737,7 +737,7 @@ function makeStim(i) {
     var content = contents[i];
     var trigger = content["trigger"];
     var utterance = content["utterance"];
-    var Word = content["Word"]
+    var Word = content["Word"];
     var question = content["content"]; 
 
     return {
