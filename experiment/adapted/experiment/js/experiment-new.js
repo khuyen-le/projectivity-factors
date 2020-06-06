@@ -135,7 +135,7 @@ function make_slides(f) {
       exp.data_trials.push({
      
    	  "slide_number_in_experiment" : exp.phase,
-   	  "verb": this.stim.trigger,
+   	  "Word": this.stim.trigger,
     "exp": this.stim.trigger_class,
    	  "content": this.stim.question,
    	  "speakerGender": this.stim.gender,
@@ -191,26 +191,32 @@ function init() {
 var valence_highpos_arousal_high = _.shuffle([
     {
      "trigger":"surprised",
+        "Word":"surprise",
      "voice": "passive"
    },
    {
      "trigger":"thrilled",
+       "Word":"thrill",
      "voice": "passive"
    },
    {
      "trigger":"excited",
+       "Word":"excite",
      "voice": "passive"
    },
    {
      "trigger":"joke",
+       "Word":"joke",
      "voice": "active"
    },
    {
      "trigger":"fascinated",
+       "Word":"facinate",
      "voice": "passive"
    },
    {
      "trigger":"celebrate",
+       "Word":"celebrate",
      "voice": "active"
    }
 ]);
@@ -218,26 +224,32 @@ var valence_highpos_arousal_high = _.shuffle([
 var valence_highpos_arousal_med = _.shuffle([
     {
      "trigger":"amused",
+        "Word":"amuse",
      "voice": "passive"
    }, 
    {
      "trigger":"enjoy",
+       "Word":"enjoy",
      "voice": "active"
    },
    {
      "trigger":"elaborate",
+       "Word":"elaborate",
      "voice": "active"
    }, 
    {
      "trigger":"charmed",
+       "Word":"charm",
      "voice": "passive"
    },
    {
      "trigger":"fantasize",
+       "Word":"fantasize",
      "voice": "active"
    },
    {
      "trigger":"love",
+       "Word":"love",
      "voice": "active"
    }
 ]);
@@ -245,26 +257,32 @@ var valence_highpos_arousal_med = _.shuffle([
 var valence_highpos_arousal_low = _.shuffle([
     {
      "trigger":"think",
+        "Word":"think",
      "voice": "active"
    },
    {
      "trigger":"feel",
+       "Word":"feel",
      "voice": "active"
    },
    {
      "trigger":"pray",
+       "Word":"pray",
      "voice": "active"
    },
    {
      "trigger":"envision",
+       "Word":"envision",
      "voice": "active"
    }, 
    {
      "trigger":"write",
+       "Word":"write",
      "voice": "active"
    }, 
    {
      "trigger":"promised",
+       "Word":"promise",
      "voice": "passive"
    }
 ]);
@@ -272,26 +290,32 @@ var valence_highpos_arousal_low = _.shuffle([
 var valence_highneg_arousal_high = _.shuffle([
     {
      "trigger":"irritated",
+        "Word":"irritate",
      "voice": "passive"
    },
    {
      "trigger":"cringe",
+       "Word":"cringe",
      "voice": "active"
    },
    {
      "trigger":"scream",
+       "Word":"scream",
      "voice": "active"
    }, 
    {
      "trigger":"aggravated",
+       "Word":"aggravate",
      "voice": "passive"
    }, 
    {
      "trigger":"argue",
+       "Word":"argue",
      "voice": "active"
    }, 
    {
      "trigger":"pained",
+       "Word":"pain",
      "voice": "passive"
    }
 ]);
@@ -299,26 +323,32 @@ var valence_highneg_arousal_high = _.shuffle([
 var valence_highneg_arousal_med = _.shuffle([
     {
      "trigger":"embarrassed",
+        "Word":"embarrass",
      "voice": "passive"
    },
    {
      "trigger":"offended",
+       "Word":"offend",
      "voice": "passive"
    },
    {
      "trigger":"troubled",
+       "Word":"trouble",
      "voice": "passive"
    }, 
    {
      "trigger":"tortured",
+       "Word":"torture",
      "voice": "passive"
    }, 
    {
      "trigger":"insulted",
+       "Word":"insult",
      "voice": "passive"
    }, 
    {
      "trigger":"disgusted",
+       "Word":"disgust",
      "voice": "passive"
    }
 ]);
@@ -326,26 +356,32 @@ var valence_highneg_arousal_med = _.shuffle([
 var valence_highneg_arousal_low = _.shuffle([
     {
      "trigger":"weep",
+        "Word":"weep",
      "voice": "active"
    },
    {
      "trigger":"distressed",
+       "Word":"distress",
      "voice": "passive",
    },
    {
      "trigger":"resent",
+       "Word":"resent",
      "voice": "active"
    }, 
    {
      "trigger":"ignore",
+       "Word":"ignore",
      "voice": "active"
    },
    {
      "trigger":"gossip",
+       "Word":"gossip",
      "voice": "active"
    },
    {
      "trigger":"whine",
+       "Word":"whine",
      "voice": "active",
    }
 ]);
@@ -353,26 +389,32 @@ var valence_highneg_arousal_low = _.shuffle([
 var valence_low_arousal_high = _.shuffle([
     {
      "trigger":"shocked",
+        "Word":"shock",
      "voice": "passive"
    },
    {
      "trigger":"anticipate",
+       "Word":"anticipate",
      "voice": "active"
    },
    {
      "trigger":"alarmed",
+       "Word":"alarm",
      "voice": "passive"
    },
    {
      "trigger":"expose",
+       "Word":"expose",
      "voice": "active"
    },
    {
      "trigger":"shout",
+       "Word":"shout",
      "voice": "active"
    },
    {
      "trigger":"testify",
+       "Word":"testify",
      "voice": "active"
    }
 ]);
@@ -380,26 +422,32 @@ var valence_low_arousal_high = _.shuffle([
 var valence_low_arousal_med = _.shuffle([
    {
      "trigger":"verify",
+       "Word":"verify",
      "voice": "active",
    },
    {
      "trigger":"simulate",
+       "Word":"simulate",
      "voice": "active"
    },
    {
      "trigger":"squeal",
+       "Word":"squeal",
      "voice": "active"
    },
    {
      "trigger":"express",
+       "Word":"express",
      "voice": "active"
    },
    {
      "trigger":"require",
+       "Word":"require",
      "voice": "active"
    },
    {
      "trigger":"bet",
+       "Word":"bet",
      "voice": "active"
    }
 ]);
@@ -407,26 +455,32 @@ var valence_low_arousal_med = _.shuffle([
 var valence_low_arousal_low = _.shuffle([
    {
      "trigger":"murmur",
+       "Word":"murmur",
      "voice": "active"
    },
    {
      "trigger":"suppose",
+       "Word":"suppose",
      "voice": "active"
    },
    {
      "trigger":"retract",
+       "Word":"retract",
      "voice": "active"
    },
        {
      "trigger":"dictate",
+           "Word":"dictate",
      "voice": "active",
    },
    {
      "trigger":"compute",
+       "Word":"compute",
      "voice": "active"
    },
    {
      "trigger":"tweet",
+       "Word":"tweet",
      "voice": "active"
    }
 ]);
@@ -521,6 +575,7 @@ for (var i = 0; i < items.length; i++) {
     var curr_item = items[i];
     curr_content["item"] = curr_item;
     curr_content["trigger"] = curr_item["trigger"];
+    curr_content["Word"] = curr_item["Word"];
     var utterance;
     if (curr_item["voice"] == "active") {
       utterance = "Did " + subject + " " + curr_item["trigger"] + " that " + base + "?";
@@ -533,6 +588,10 @@ for (var i = 0; i < items.length; i++) {
 
 // 13 male speakers, 19 female speakers?
 var speaker_names = _.shuffle([
+     {
+      "name":"Logan",
+      "gender":"M"
+    },
     {
       "name":"James",
       "gender":"M"
@@ -677,13 +736,14 @@ function makeStim(i) {
     var content = contents[i];
     var trigger = content["trigger"];
     var utterance = content["utterance"];
-    
+    var Word = content["Word"]
     var question = content["content"]; 
 
     return {
 	  "name": name,
 	  "gender": gender,	 
 	  "trigger": item.trigger,
+        "Word": item.Word,
         "trigger_class": "stim",
       "utterance": utterance,
       "question": question
@@ -739,7 +799,7 @@ function makeControlStim(i) {
     //get item
     var item = control_items[i];
 	//get a name to be speaker
-    var name_data = speaker_names[i];
+    var name_data = speaker_names[i + items.length];
     var name = name_data.name;
     var gender = name_data.gender;
 
@@ -747,7 +807,6 @@ function makeControlStim(i) {
 	  "name": name,
 	  "gender": gender,	 
 	  "trigger": item.short_trigger,	  
-	  "trigger_class": "control",
       "utterance": item.utterance,
       "question": item.content
     }
@@ -761,6 +820,7 @@ for (var i=0; i<items.length; i++) {
     
 for (var j=0; j<control_items.length; j++) {
   	var stim = makeControlStim(j);
+    console.log(stim);
 //    exp.stims_block1.push(makeStim(i));
 	exp.stims_block1.push(jQuery.extend(true, {}, stim));
 //	exp.stims_block2.push(jQuery.extend(true, {}, stim));	

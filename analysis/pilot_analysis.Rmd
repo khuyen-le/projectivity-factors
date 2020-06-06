@@ -1,0 +1,102 @@
+---
+title: "pilot_analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+library(performance)
+library(languageR)
+library(gghighlight)
+theme_set(theme_bw())
+```
+
+```{r}
+top_words_selected <- read.csv("top_words_selected.csv")
+top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
+data_raw <- read.csv("../Submiterator/pilot/projectivity-trials.csv")
+data_participants_raw <- read.csv("../Submiterator/pilotprojectivity-subject_information.csv")
+```
+
+```{r}
+# get participants whose native language is English
+data_participants <- data_participants_raw %>%
+  filter(tolower(language) == "english")
+
+worker_id <- data_participants$workerid
+
+data_select <- data_raw %>%
+  filter(workerid %in% worker_id)
+
+data_control <- data_select %>% ### in this run, has to omit everyone
+  filter(exp == "control")
+
+### new experiment fixes this by collecting "Word" (eg "irritate" for "irritated")
+data_stim <- data_select %>%
+  filter(exp == "stim") %>%
+  mutate(Word = ifelse(verb == "irritated", "irritate", 
+                ifelse(verb == "tortured", "torture", 
+                ifelse(verb == "promised", "promise",
+                ifelse(verb == "amused", "amuse", 
+                ifelse(verb == "shocked", "shock",
+                ifelse(verb == "offended", "offend",
+                ifelse(verb == "charmed", "charm",
+                ifelse(verb == "distressed", "distress", 
+                ifelse(verb == "excited", "excite",
+                ifelse(verb == "disgusted", "disgust",
+                ifelse(verb == "troubled", "trouble",
+                ifelse(verb == "fascinated", "fascinate", 
+                ifelse(verb == "insulted", "insult", 
+                ifelse(verb == "pained", "pain",
+                ifelse(verb == "embarrassed", "embarrass",
+                ifelse(verb == "surprised", "surprise",
+                ifelse(verb == "aggravated", "aggravate",
+                ifelse(verb == "thrilled", "thrill",
+                ifelse(verb == "alarmed", "alarm", as.character(verb)))))))))))))))))))))
+
+data <- merge(data_stim, top_words_selected, by = "Word")
+
+data <- data %>%
+  mutate(response_num = as.numeric(levels(response))[response])
+```
+
+
+## normalize response by participant
+```{r}
+# get participants whose native language is English
+data <- data %>%
+  group_by(workerid) %>%
+  mutate(response_norm = (response_num - mean(response_num)) / sd(response_num))
+
+# maybe also need to normalize reaction time? 
+```
+
+## average by word
+```{r}
+# get participants whose native language is English
+data_sum <- data %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence, valence_bin) %>%
+  summarise(response_mean = mean(response_norm))
+```
+
+## plot average_response vs. arousal_mean, vs crelativeValence. And then by bins.
+
+```{r}
+# get participants whose native language is English
+ggplot(data = data_sum, aes(x = carousal_mean, y = response_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  #facet_grid(~valence_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```

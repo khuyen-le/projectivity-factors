@@ -232,7 +232,7 @@ top_words$Word
 
 ```{r}
 top_words_selected <- projectivity_participant_summary %>%
-  filter((Worsd %in% c("amuse", "enjoy", "elaborate", "charm", "fantasize", "love")) |
+  filter((Word %in% c("amuse", "enjoy", "elaborate", "charm", "fantasize", "love")) |
          (Word %in% c("think", "feel", "pray", "envision", "write") | (Word %in% c("promise") & voice == "passive")) |
          (Word %in% c("irritate", "cringe", "scream", "aggravate", "argue", "pain")) |
          (Word %in% c("embarrass", "offend", "trouble", "torture", "insult", "disgust")) |
@@ -240,9 +240,9 @@ top_words_selected <- projectivity_participant_summary %>%
          (Word %in% c("shock", "anticipate", "alarm", "expose", "shout", "testify")) |
          (Word %in% c("verify", "simulate", "squeal", "express", "require") | (Word %in% c("bet") & voice == "active")) |
          (Word %in% c("murmur", "suppose", "retract", "dictate", "compute") | (Word %in% c("tweet") & voice == "active")) | 
-         (Word %in% c("surprise", "thrill", "excite", "joke", "fascinate", "celebrate")) |
-         (Word %in% c("discover", "know", "annoy", "see", "realize")))
+         (Word %in% c("surprise", "thrill", "excite", "joke", "fascinate", "celebrate")))
 
+write.csv(top_words_selected, "top_words_selected.csv")
 label_words <- pull(top_words_selected[c("Word")])
 
 projectivity_participant_summary <- projectivity_participant_summary %>%
