@@ -821,7 +821,7 @@ for (var i=0; i<items.length; i++) {
     
 for (var j=0; j<control_items.length; j++) {
   	var stim = makeControlStim(j);
-    console.log(stim);
+    //console.log(stim);
 //    exp.stims_block1.push(makeStim(i));
 	exp.stims_block1.push(jQuery.extend(true, {}, stim));
 //	exp.stims_block2.push(jQuery.extend(true, {}, stim));	

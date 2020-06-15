@@ -41,6 +41,7 @@ data_select <- data_raw %>%
 
 data_control <- data_select %>% ### in this run, has to omit everyone
   filter(exp == "control")
+### mean response 2 SD above the group mean (check factive paper)
 
 ### new experiment fixes this by collecting "Word" (eg "irritate" for "irritated")
 data_stim <- data_select %>%
@@ -72,13 +73,14 @@ data <- data %>%
 ```
 
 
-## normalize response by participant
+## normalize response by participant 
 ```{r}
 # get participants whose native language is English
 data <- data %>%
   group_by(workerid) %>%
   mutate(response_norm = (response_num - mean(response_num)) / sd(response_num))
 
+# try another analysis without norming
 # maybe also need to normalize reaction time? 
 ```
 
@@ -96,7 +98,7 @@ data_sum <- data %>%
 # get participants whose native language is English
 ggplot(data = data_sum, aes(x = carousal_mean, y = response_mean, colour = arousal_bin, label = Word)) +
   geom_point(width = .3,height = .025) +
-  #facet_grid(~valence_group) +
+  facet_grid(~valence_group) +
   geom_label() +
   geom_smooth(method = 'lm')
 ```
