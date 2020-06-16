@@ -807,7 +807,8 @@ function makeControlStim(i) {
     return {
 	  "name": name,
 	  "gender": gender,	 
-	  "trigger": item.short_trigger,	  
+	  "trigger": item.short_trigger,
+        "trigger_class": "control",
       "utterance": item.utterance,
       "question": item.content
     }
