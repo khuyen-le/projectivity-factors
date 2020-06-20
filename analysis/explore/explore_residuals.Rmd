@@ -23,8 +23,8 @@ theme_set(theme_bw())
 ```
 
 ```{r}
-vp_raw <- read.csv("../data/mega-veridicality-v2.csv")
-emotion_raw <- read.csv("../data/BRM-emot-submit.csv")
+vp_raw <- read.csv("../../data/mega-veridicality-v2.csv")
+emotion_raw <- read.csv("../../data/BRM-emot-submit.csv")
 emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
 vp_data <- select(vp_raw, "participant", "verb", "frame", "voice", "polarity", "conditional", "sentence", "veridicality", "acceptability", "exclude")
 ```
