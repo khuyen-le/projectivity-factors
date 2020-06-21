@@ -34,9 +34,10 @@ data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_informat
 ```{r}
 # get participants whose native language is English
 #TODO: need to fix this! to make sure we account for all variations of "english"
-data_participants <- data_participants_raw 
-#%>%
-#  filter(tolower(language) == "english")
+data_participants <- data_participants_raw %>%
+  mutate(language = tolower(language))
+
+data_participants = filter(data_participants, grepl("eng", language))
 
 worker_id <- data_participants$workerid
 
