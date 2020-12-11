@@ -1,0 +1,302 @@
+<html>
+
+  <head>
+    <title>Language study</title>
+
+    <!--JS-->
+
+    <!-- external general utilities -->
+    <script src="_shared/js/jquery-1.11.1.min.js "></script>
+    <script src="_shared/full-projects/jquery-ui/jquery-ui.min.js"></script>
+    <script src="_shared/js/underscore-min.js"></script>
+    <script src="_shared/js/uniqueturker.js"></script>
+
+    <!-- cocolab experiment logic -->
+    <script src="_shared/js/exp-V2.js"></script>
+    <script src="_shared/js/stream-V2.js"></script>
+
+    <!-- cocolab general utilities -->
+    <script src="_shared/js/mmturkey.js "></script>
+    <script src="_shared/js/browserCheck.js"></script>
+    <!-- if you want to draw cute creatures (depends on raphael): -->
+    <!-- <script src="../_shared/js/ecosystem.js"></script> -->
+
+    <!-- experiment specific helper functions -->
+    <script src="_shared/js/utils.js"></script>
+    <!-- <script src="js/local-utils.js"></script> -->
+
+    <!--CSS-->
+    <link href="_shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="_shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/local-style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>    
+
+    <!-- experiment file -->
+    <script src="js/experiment-new.js"></script>
+    
+    <script type="text/JavaScript">
+      $(document).ready(function(){
+      var ut_id = "0fe29f5ddaa03fc539ec7a52197d42a4"; //change this
+          
+          
+      if (UTWorkerLimitReached(ut_id)) {
+        $(".slide").hide();
+        $("body").html("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
+    }});
+    
+    </script>
+    
+</head>
+
+<body onload="init();">
+  <noscript>This task requires JavaScript.</noscript>
+
+  <div class="slide" id="bot">
+    <h3>Are you a bot?</h3>
+    <p id="s"></p>
+    <p id="q"></p>
+    <input type="text" id="text_box" /></question>
+    <br><br><br>
+    <div class="err1">
+      <p2>Failing this question two more times will disqualify you from this study.</p2>
+    </div>
+    <div class="err2">
+      <p2>Failing this question one more time will disqualify you from this study.</p2>
+    </div>
+    <div class="disq">
+      <p2>You failed the question and you are disqualified.</p2>
+    </div>
+    <div class="button">
+      <button onclick="_s.button()">Continue</button></div>
+  </div>
+
+  <div class="slide" id="i0">
+    <img src="_shared/images/alpslogo.png" alt="Stanford ALPS Lab" style="width:400;">
+    <!--     <p id="cocolab">Stanford ALPS Lab</p> -->
+    <p class="block-text" id="instruct-text"><br><br> Imagine you are at a party. You walk into the kitchen and overhear
+      somebody ask somebody else a question:</p>
+    <br>
+    <b>Bill asks:</b> <i>"Does Drew believe that Patty lives in Canada?"</i>
+    <br>
+    <br>
+    <br>
+    <p class="block-text" id="instruct-text">We ask you: Given what Bill says, is he certain that Patty lives in Canada?
+    </p>
+
+    <p class="block-text" id="instruct-text">Your job is to press J (YES) or F (NO) to indicate whether Bill is certain
+      that Patty lives in Canada or not. You have 10 seconds to respond. Please pay attention and try to respond as
+      quickly as possible.</p>
+
+    <p class="block-text" id="instruct-text">There are a total of 33 items. The task will take about 8 minutes and you
+      will be paid $2.</p>
+
+    <p class="block-text" id="instruct-text">We have included some items for which we already know the answer. If you
+      are paying attention, you are sure to get those right! At the end of the task, we will ask you some short
+      questions about you and your language use. You will be paid no matter what you answer there, so please answer
+      truthfully.</p>
+
+    Thank you!
+
+    <br>
+    <br>
+    <button id="start_button" type="button">Start Experiment</button>
+    <p id="instruct-text" align="left"><i><small><small><small><strong><br>LEGAL INFORMATION</strong>:<br>We invite you
+              to participate in a research study on language production and comprehension.<br>Your experimenter will ask
+              you to do a linguistic task such as reading sentences or words, naming pictures or describing scenes,
+              making up sentences of your own, or participating in a simple language game.<br>You will be paid for your
+              participation at the posted rate.<br>There are no risks or benefits of any kind involved in this
+              study.<br>If you have read this form and have decided to participate in this experiment, please understand
+              your participation is voluntary and you have the right to withdraw your consent or discontinue
+              participation at any time without penalty or loss of benefits to which you are otherwise entitled. You
+              have the right to refuse to do particular tasks. Your individual privacy will be maintained in all
+              published and written data resulting from the study.<br>You may print this form for your
+              records.<br>CONTACT INFORMATION:<br>If you have any questions, concerns or complaints about this research
+              study, its procedures, risks and benefits, you should contact the Protocol Director Meghan Sumner at
+              <br>(650)-725-9336<br>If you are not satisfied with how this study is being conducted, or if you have any
+              concerns, complaints, or general questions about the research or your rights as a participant, please
+              contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team
+              at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford
+              University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br>If you
+              agree to participate, please proceed to the study tasks.<br><br></small></small></small></i></p>
+  </div>
+
+<div class="slide" id="instructions" >
+    <p2>Place your right index finger on the <strong>J</strong> key and left index finger on the <strong>F</strong> key.<br><br>We'll start with some examples.</p2>
+    <br>
+    <br>
+    <img src="images/keypress.jpg" alt="keyboard" align="center" style="height:400px">
+    <br>
+    <br>
+    <p2><strong>Press SPACE to continue</strong></p></div>
+
+
+
+  <div class="slide" id="practice1">
+      <br> 
+  	<br>
+    <p class="utterance1">{{}}</p>
+    <p class="sentence1">{{}}</p>
+    <br>
+    <br>
+    <br>
+    <p class="question1">{{}}</p>
+    <br><br><br><br>
+    <img class="yes_image1" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
+    <img class="no_image1" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+    <br><br><br><br><br><br><br><br>
+      <div class="instruction1">If Samuel is certain that Rose likes chocolate, press <b>J</b> to indicate YES.<br><br>If he is not certain that Rose likes chocolate, press <b>F</b> to indicate NO.</p></div>
+    <div class="transition1">
+    </div>
+</div>
+
+  <div class="slide" id="practice2">
+      <br> 
+  	<br>
+    <p class="utterance2">{{}}</p>
+    <p class="sentence2">{{}}</p>
+    <br>
+    <br>
+    <br>
+    <p class="question2">{{}}</p>
+    <br><br><br><br>
+    <img class="yes_image2" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
+    <img class="no_image2" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+    <br><br><br><br><br><br><br><br>
+      <div class="instruction2">If Britney is certain that Carlos is at school, press <b>J</b> to indicate YES.<br><br>If she is not certain that Carlos is at school, press <b>F</b> to indicate NO.</p></div>
+    <div class="transition2">
+</div>
+</div>
+
+
+    
+<div class = "slide" id = "practice1_post">
+    <p2>As you have seen in the demonstration, when you press a key, a border appears around your answer.<br><br><br>Please make sure that your index fingers are on the <strong>F</strong> and <strong>J</strong> keys and respond as quickly as possible.<br>
+    <br></p2>
+    <br>
+    <br>
+    <img src="images/keypress.jpg" alt="keyboard" align="center" style="height:400px">
+    <br>
+    <br>
+    <p2>We'll do one more example.</p2><br><br>
+    <p2><strong>Press SPACE to continue</strong></p></div>
+
+<div class="slide" id="practice2_post">
+    <p2>
+    Great, now we can start the real experiment.<br> Please make sure that your index fingers are on the <b>J</b> and <b>F</b> keys.<br><br> Remember: <b>J</b> means "YES" and <b>F</b> means "NO". <br><br>
+    <b>Remember, you have 10 seconds to respond and once you make a selection you won't be able to change it.</b><br><br>Sometimes, you may feel like you don't have enough time, just try to respond correctly and as quickly as possible.<br></p2>
+    <br>    
+    <br>
+    <img src="images/keypress.jpg" alt="keyboard" align="center" style="height:400px">
+    <br><br>
+    <p2><strong>Press SPACE to continue</strong></p2></div></p>
+</div>
+
+  <div class="slide" id="block1">
+    <br> 
+  	<br>
+    <p class="utterance">{{}}</p>
+    <p class="sentence">{{}}</p>
+    <br>
+    <br>
+    <br>
+    <p class="question">{{}}</p>
+    <br><br><br><br>
+    <img class="yes_image" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
+    <img class="no_image" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+    <audio id="critical_stop">
+      <source src="criticalstop.wav" type="audio/wav">
+      Your browser does not support the audio element.</audio>
+    <br>
+    <div class="transition">
+      <br><br>
+      <p2><strong>Press SPACE to continue</strong></p>
+    </div>
+  </div>
+
+
+  <div class="slide" id="subj_info">
+    <div class="long_form">
+      <div class="subj_info_title">Additional information</div>
+      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
+      <p>Did you read the instructions and do you think you did the HIT correctly?</p>
+      <label><input type="radio" name="assess" value="No" />No</label>
+      <label><input type="radio" name="assess" value="Yes" />Yes</label>
+      <label><input type="radio" name="assess" value="Confused" />I was confused</label>
+
+      <p>Are you color-blind?</p>
+      <label><input type="radio" name="color" value="No" />No</label>
+      <label><input type="radio" name="color" value="Yes" />Yes</label>
+
+      <p>Gender:
+        <select id="gender">
+          <label>
+            <option value="" /></label>
+          <label>
+            <option value="Male" />Male</label>
+          <label>
+            <option value="Female" />Female</label>
+          <label>
+            <option value="Other" />Other</label>
+        </select>
+      </p>
+
+      <p>Age: <input type="text" id="age" /></p>
+
+      <p>Level Of Education:
+        <select id="education">
+          <label>
+            <option value="-1" /></label>
+          <label>
+            <option value="0" />Some High School</label>
+          <label>
+            <option value="1" />Graduated High School</label>
+          <label>
+            <option value="2" />Some College</label>
+          <label>
+            <option value="3" />Graduated College</label>
+          <label>
+            <option value="4" />Hold a higher degree</label>
+        </select>
+      </p>
+
+      <p>Native Language: <input type="text" id="language" /></p>
+      <label>(the language(s) spoken at home when you were a child)</label>
+
+      <p>Did you enjoy the hit?</p>
+      <select id="enjoyment">
+        <label>
+          <option value="-1"></option>
+        </label>
+        <label>
+          <option value="0">Worse than the Average HIT</option>
+        </label>
+        <label>
+          <option value="1">An Average HIT</option>
+        </label>
+        <label>
+          <option value="2">Better than average HIT</option>
+        </label>
+      </select>
+
+      <p>We would be interested in any comments you have about this experiment. Please type them here:</p>
+      <textarea id="comments" rows="3" cols="50"></textarea>
+      <br />
+      <button onclick="_s.submit()">Submit</button>
+    </div>
+  </div>
+
+  <div id="thanks" class="slide js">
+    <p class="big">Thanks for your Time!</p>
+  </div>
+
+  <div class="progress">
+    <span>Progress:</span>
+    <div class="bar-wrapper">
+      <div class="bar" width="0%">
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
