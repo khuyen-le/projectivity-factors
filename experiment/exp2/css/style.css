@@ -235,6 +235,8 @@ form {
 	width: 10px;
 }
 
-
-
-               
+.yn_image {
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}

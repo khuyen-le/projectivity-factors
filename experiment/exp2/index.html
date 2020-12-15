@@ -83,8 +83,9 @@
     <p class="block-text" id="instruct-text">We ask you: Given what Bill says, is he certain that Patty lives in Canada?
     </p>
 
-    <p class="block-text" id="instruct-text">Your job is to press J (YES) or F (NO) to indicate whether Bill is certain
-      that Patty lives in Canada or not. You have 10 seconds to respond. Please pay attention and try to respond as
+    <p class="block-text" id="instruct-text" style="color:red;"><b>Your job is to press J (YES) or F (NO) to indicate whether Bill is certain
+        that Patty lives in Canada or not. You have 10 seconds to respond.</b></p> 
+      <p class="block-text" id="instruct-text">Please pay attention and try to respond as
       quickly as possible.</p>
 
     <p class="block-text" id="instruct-text">There are a total of 33 items. The task will take about 8 minutes and you
@@ -138,13 +139,16 @@
     <p class="sentence1">{{}}</p>
     <br>
     <br>
-    <br>
     <p class="question1">{{}}</p>
+    <br><br>
+      <div class="instruction1" style = "color:red;">If Samuel is certain that Rose likes chocolate, press <b>J</b> to indicate YES.<br><br>If he is not certain that Rose likes chocolate, press <b>F</b> to indicate NO.</p></div>
+   
     <br><br><br><br>
-    <img class="yes_image1" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
-    <img class="no_image1" src="images/02_no.png" alt="NO" align="left" style="width:200;">
-    <br><br><br><br><br><br><br><br>
-      <div class="instruction1">If Samuel is certain that Rose likes chocolate, press <b>J</b> to indicate YES.<br><br>If he is not certain that Rose likes chocolate, press <b>F</b> to indicate NO.</p></div>
+    <div class = "yn_image">
+     <img class="yes_image" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
+    <img class="no_image" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+    </div>
+      
     <div class="transition1">
     </div>
 </div>
@@ -156,13 +160,15 @@
     <p class="sentence2">{{}}</p>
     <br>
     <br>
-    <br>
     <p class="question2">{{}}</p>
+    <br><br>
+      <div class="instruction2" style = "color:red;">If Britney is certain that Carlos is at school, press <b>J</b> to indicate YES.<br><br>If she is not certain that Carlos is at school, press <b>F</b> to indicate NO.</p></div>
     <br><br><br><br>
-    <img class="yes_image2" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
-    <img class="no_image2" src="images/02_no.png" alt="NO" align="left" style="width:200;">
-    <br><br><br><br><br><br><br><br>
-      <div class="instruction2">If Britney is certain that Carlos is at school, press <b>J</b> to indicate YES.<br><br>If she is not certain that Carlos is at school, press <b>F</b> to indicate NO.</p></div>
+    <div class = "yn_image">
+    <img class="yes_image" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
+    <img class="no_image" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+</div>
+      
     <div class="transition2">
 </div>
 </div>
@@ -171,7 +177,7 @@
     
 <div class = "slide" id = "practice1_post">
     <p2>As you have seen in the demonstration, when you press a key, a border appears around your answer.<br><br><br>Please make sure that your index fingers are on the <strong>F</strong> and <strong>J</strong> keys and respond as quickly as possible.<br>
-    <br></p2>
+        <br></p2>
     <br>
     <br>
     <img src="images/keypress.jpg" alt="keyboard" align="center" style="height:400px">
@@ -183,7 +189,7 @@
 <div class="slide" id="practice2_post">
     <p2>
     Great, now we can start the real experiment.<br> Please make sure that your index fingers are on the <b>J</b> and <b>F</b> keys.<br><br> Remember: <b>J</b> means "YES" and <b>F</b> means "NO". <br><br>
-    <b>Remember, you have 10 seconds to respond and once you make a selection you won't be able to change it.</b><br><br>Sometimes, you may feel like you don't have enough time, just try to respond correctly and as quickly as possible.<br></p2>
+        <b>Remember, you have 10 seconds to respond and once you make a selection you won't be able to change it.</b><br><br>Sometimes, you may feel like you don't have enough time, just try to respond correctly and as quickly as possible.<br></p2>
     <br>    
     <br>
     <img src="images/keypress.jpg" alt="keyboard" align="center" style="height:400px">
@@ -198,11 +204,12 @@
     <p class="sentence">{{}}</p>
     <br>
     <br>
-    <br>
     <p class="question">{{}}</p>
     <br><br><br><br>
+          <div class = "yn_image">
     <img class="yes_image" src="images/01_yes.png" alt="YES" align="right" style="width:200;">
     <img class="no_image" src="images/02_no.png" alt="NO" align="left" style="width:200;">
+      </div>
     <audio id="critical_stop">
       <source src="criticalstop.wav" type="audio/wav">
       Your browser does not support the audio element.</audio>

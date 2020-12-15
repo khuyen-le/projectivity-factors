@@ -230,10 +230,10 @@ function make_slides(f) {
       $(".utterence1").show();
       $(".question1").show();
 
-      $('.yes_image1').css('border', "");
-      $('.no_image1').css('border', "");
-      $('.yes_image1').show();
-      $('.no_image1').show();
+      $('.yes_image').css('border', "");
+      $('.no_image').css('border', "");
+      $('.yes_image').show();
+      $('.no_image').show();
 
       var a = 0;
       exp.keyCode = "";
@@ -255,7 +255,7 @@ function make_slides(f) {
           console.log("pressed a button: " + (Date.now()-exp.trial_start))
           exp.responseTime = Date.now() - exp.trial_start;
           if (exp.keyCode == "yes")
-            $('.yes_image1').css('border', 'solid 3px green'); // right answer is yes
+            $('.yes_image').css('border', 'solid 3px green'); // right answer is yes
           if (exp.keyCode == "no")
             $('.no_image1').css('border', 'solid 3px green');
 
@@ -263,8 +263,8 @@ function make_slides(f) {
             $(".sentence1").hide();
             $(".utterence1").hide();
             $(".question1").hide();
-            $('.yes_image1').hide();
-            $('.no_image1').hide();
+            $('.yes_image').hide();
+            $('.no_image').hide();
             $('.instruction1').hide();
             $(".transition1").show();
               exp.go();
@@ -358,10 +358,10 @@ slides.practice2 = slide({
       $(".utterence2").show();
       $(".question2").show();
 
-      $('.yes_image2').css('border', "");
-      $('.no_image2').css('border', "");
-      $('.yes_image2').show();
-      $('.no_image2').show();
+      $('.yes_image').css('border', "");
+      $('.no_image').css('border', "");
+      $('.yes_image').show();
+      $('.no_image').show();
 
       var a = 0;
       exp.keyCode = "";
@@ -383,16 +383,16 @@ slides.practice2 = slide({
           console.log("pressed a button: " + (Date.now()-exp.trial_start))
           exp.responseTime = Date.now() - exp.trial_start;
           if (exp.keyCode == "yes")
-            $('.yes_image2').css('border', 'solid 3px green'); // right answer is yes
+            $('.yes_image').css('border', 'solid 3px green'); // right answer is yes
           if (exp.keyCode == "no")
-            $('.no_image2').css('border', 'solid 3px green');
+            $('.no_image').css('border', 'solid 3px green');
 
           setTimeout(function () {
             $(".sentence2").hide();
             $(".utterence2").hide();
             $(".question2").hide();
-            $('.yes_image2').hide();
-            $('.no_image2').hide();
+            $('.yes_image').hide();
+            $('.no_image').hide();
             $('.instruction2').hide();
             $(".transition2").show();
               exp.go();
