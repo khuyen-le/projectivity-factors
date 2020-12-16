@@ -257,7 +257,7 @@ function make_slides(f) {
           if (exp.keyCode == "yes")
             $('.yes_image').css('border', 'solid 3px green'); // right answer is yes
           if (exp.keyCode == "no")
-            $('.no_image1').css('border', 'solid 3px green');
+            $('.no_image').css('border', 'solid 3px green');
 
           setTimeout(function () {
             $(".sentence1").hide();

@@ -1,0 +1,253 @@
+---
+title: "exp1_analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE, warning=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+library(performance)
+library(languageR)
+library(gghighlight)
+theme_set(theme_bw())
+library(brms)
+library(rstan)
+```
+
+```{r import data}
+#top_words_selected <- read.csv("../explore/top_words_selected.csv")
+#top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
+#data_raw <- read.csv("../../Submiterator/exp1/exp1-trials.csv")
+#data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_information.csv")
+
+emotion_raw <- read.csv("../../data/BRM-emot-submit.csv")
+emotion_select <- select(emotion_raw, "Word", "V.Mean.Sum", "V.SD.Sum", "A.Mean.Sum", "A.SD.Sum")
+data_commbank_raw <- read.csv("../../data/CommitmentBank-All.csv")
+```
+
+#### Norming valence mean to get positive and negative valence
+```{r}
+emotion <- emotion_select %>%
+  mutate(valence_scaled = scale(V.Mean.Sum))
+word_list <- unique(emotion$Word)
+```
+
+```{r}
+# Need to filter by acceptability (see 2019 paper)
+# Need to normalize by participants (2016 paper used "ordinal model-based normalization procedure")
+data_commbank <- data_commbank_raw %>%
+  mutate(Word = Verb) %>%
+  filter(Word %in% word_list) %>%
+  filter(Embedding == 'question') %>%
+  filter(MatSubjPer == 'third')
+  #group_by(Word) %>%
+  #summarize(mean_project = mean(Answer, na.rm=TRUE))
+
+#test <- data_commbank_raw %>% filter(Verb == "bet")
+```
+
+```{r}
+data <- merge(data_commbank, emotion, by = "Word", all.x = TRUE)
+data <- data %>%
+  rename(valence_mean = valence_scaled, arousal_mean = A.Mean.Sum, valence_SD = V.SD.Sum, arousal_SD = A.SD.Sum) %>%
+  mutate(valence_group = ifelse(valence_mean < 0, "negative", "positive"))
+```
+
+#### Sort predicates according to valence
+```{r}
+data_neg_participant <- data %>%
+  filter(valence_group == "negative")
+
+data_neg_participant <-data_neg_participant[order(data_neg_participant$valence_mean),]
+
+valence_mean <- data_neg_participant[, "valence_mean"]
+valence_bin <- cut(valence_mean, 3, include.lowest=TRUE, labels=c("very negative", "moderately negative", "slightly negative"))
+data_neg_participant <- cbind(data_neg_participant, valence_bin)
+
+data_pos_participant <- data %>%
+  filter(valence_group == "positive")
+
+data_pos_participant <-data_pos_participant[order(data_pos_participant$valence_mean),]
+
+valence_mean <- data_pos_participant[, "valence_mean"]
+valence_bin <- cut(valence_mean, 3, include.lowest=TRUE, labels=c("slightly positive", "moderately positive", "very positive"))
+data_pos_participant <- cbind(data_pos_participant, valence_bin)
+
+data_participant <- rbind(data_neg_participant, data_pos_participant)
+
+data_participant <- data_participant %>%
+  mutate(valence_bin_group = ifelse((valence_bin == "very positive" | valence_bin == "moderately positive"), "high positive", (ifelse((valence_bin == "very negative" | valence_bin == "moderately negative"),  "high negative", "low"))))
+
+# ggplot(data = data_participant, aes(x = valence_mean, y = data_mean, colour = valence_group, label = Word)) +
+#   #geom_point(width = .3,height = .025) +
+#   geom_label() +
+#   geom_smooth(method = 'lm')
+# 
+# ggplot(data = data_participant, aes(x = arousal_mean, y = data_mean, colour = valence_group, label = Word)) +
+#   #geom_point(width = .3,height = .025) + 
+#   facet_grid(~valence_group) +
+#   geom_label() +
+#   geom_smooth(method = 'lm')
+
+```
+
+#### Sort predicates by arousal
+```{r}
+data_participant <- data_participant[order(data_participant$arousal_mean),]
+
+arousal_mean <- data_participant[, "arousal_mean"]
+arousal_bin <- cut(arousal_mean, 3, include.lowest=TRUE, labels=c("low", "medium", "high"))
+data_participant <- cbind(data_participant, arousal_bin)
+
+```
+
+```{r}
+data_participant$relativeValence = abs(data_participant$valence_mean)
+data_participant = data_participant %>%
+  mutate(crelativeValence=relativeValence-mean(relativeValence),
+        carousal_mean=arousal_mean-mean(arousal_mean))
+```
+
+```{r}
+
+data_participant_summary <- data_participant %>%
+  group_by(Word, valence_group, valence_bin, valence_bin_group, arousal_bin, carousal_mean, crelativeValence, valence_mean) %>%
+  summarize(answer_mean = mean(Answer)) ## mean_acceptability_norm for display only
+
+valence_highpos_arousal_high <- data_participant_summary %>%
+  filter(valence_bin_group == "high positive" & arousal_bin == "high")
+valence_highpos_arousal_med <- data_participant_summary %>%
+  filter(valence_bin_group == "high positive" & arousal_bin == "medium")
+valence_highpos_arousal_low <- data_participant_summary %>%
+  filter(valence_bin_group == "high positive" & arousal_bin == "low")
+valence_highneg_arousal_high <- data_participant_summary %>%
+  filter(valence_bin_group == "high negative" & arousal_bin == "high")
+valence_highneg_arousal_med <- data_participant_summary %>%
+  filter(valence_bin_group == "high negative" & arousal_bin == "medium")
+valence_highneg_arousal_low <- data_participant_summary %>%
+  filter(valence_bin_group == "high negative" & arousal_bin == "low")
+valence_low_arousal_high <- data_participant_summary %>%
+  filter(valence_bin_group == "low" & arousal_bin == "high")
+valence_low_arousal_med <- data_participant_summary %>%
+  filter(valence_bin_group == "low" & arousal_bin == "medium")
+valence_low_arousal_low <- data_participant_summary %>%
+  filter(valence_bin_group == "low" & arousal_bin == "low")
+
+#valence_highpos_arousal_low_by_relativevalence <- valence_highpos_arousal_low[order(valence_highpos_arousal_low$crelativeValence), ]
+
+data_participant_summary <- data_participant_summary %>%
+  mutate(valence_arousal_group = ifelse(valence_bin_group == "high positive" & arousal_bin == "high", "high positive valence, high arousal", ifelse(valence_bin_group == "high positive" & arousal_bin == "medium", "high positive valence, medium arousal", ifelse(valence_bin_group == "high positive" & arousal_bin == "low", "high positive valence, low arousal", ifelse (valence_bin_group == "high negative" & arousal_bin == "high", "high negative valence, high arousal", ifelse(valence_bin_group == "high negative" & arousal_bin == "medium", "high negative valence, medium arousal", ifelse(valence_bin_group == "high negative" & arousal_bin == "low", "high negative valence, low arousal", ifelse(valence_bin_group == "low" & arousal_bin == "high", "low valence, high arousal", ifelse (valence_bin_group == "low" & arousal_bin == "medium", "low valence, medium arousal", "low valence, low arousal")))))))))
+```
+
+
+# Plots
+## Unnormalized rating agaist relative valence
+
+```{r}
+ggplot(data = data_participant_summary, aes(x = crelativeValence, y = answer_mean, label = Word)) +
+  geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
+  geom_text_repel(aes(colour = valence_arousal_group)) +
+  geom_smooth(method = 'lm') + 
+  labs (x = "relative valence", y = "mean projectivity rating", colour = "predicate group")
+
+```
+
+
+
+
+## Unnormalized rating agaist arousal mean
+```{r}
+ggplot(data = data_participant_summary, aes(x = carousal_mean, y = answer_mean, label = Word)) +
+  geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
+  geom_text_repel(aes(colour = valence_arousal_group)) +
+  geom_smooth(method = 'lm') + 
+  labs (x = "mean arousal", y = "mean projectivity rating", colour = "predicate group")
+```
+
+```{r}
+test <- data_participant %>% 
+  filter(Verb == 'suggest')
+```
+
+```{r extra plots, include = FALSE}
+# some extra plots
+ggplot(data = data_participant_summary, aes(x = crelativeValence, y = answer_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = data_participant_summary, aes(x = crelativeValence, y = answer_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~valence_arousal_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+#maybe color with gradient? 
+#maybe color = arousal, shape = valence? 
+ggplot(data = data_participant_summary, aes(x = carousal_mean, y = answer_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = data_participant_summary, aes(x = carousal_mean, y = answer_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~valence_arousal_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+# Mixed effects linear model and ANOVA
+```{r mixed effects linear model, warning = FALSE, echo=FALSE}
+data_model <- data_participant
+
+m = lmer(Answer ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | WorkerID) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | Target) + (1 + (carousal_mean * crelativeValence) | Context), data = data_model)
+summary(m) # main effects of arousal and relative valence!
+plot(fitted(m), residuals(m))
+
+pdf(file="modelcheck_linear.pdf",height=8,width=9)
+check_model(m)
+dev.off()
+```
+
+```{r anova, warning = FALSE, echo=FALSE}
+data.full = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+data.reduced = lmer(response_num ~ 1 + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(data.reduced, data.full)
+
+
+#interaction removed
+data.int = lmer(response_num ~ carousal_mean + crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(data.int, data.full)
+
+#only arousal
+data.arousal = lmer(response_num ~ carousal_mean + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(data.int, data.arousal)
+
+#only valence
+data.valence = lmer(response_num ~ crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(data.int, data.valence)
+
+```
+
+```{r mixed bayes, echo = FALSE}
+
+# m.bayes = brm(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), 
+#               data = data_model,
+#               chains = 4,
+#               cores = 4)
+# saveRDS(m.bayes, "bayes.rds")
+m.bayes <- readRDS("bayes.rds")
+summary(m.bayes) # 0 is in 95% CI for interaction, but not for valence / arousal separately
+```
+
+

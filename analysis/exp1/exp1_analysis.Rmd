@@ -22,6 +22,7 @@ library(gghighlight)
 theme_set(theme_bw())
 library(brms)
 library(rstan)
+library(plot3D)
 ```
 
 ```{r import data}
@@ -44,10 +45,12 @@ data_participants = filter(data_participants, grepl("eng", language))
 worker_id <- data_participants$workerid
 
 data_select <- data_raw %>%
+  filter(utterance != "bot_check") %>%
   filter(workerid %in% worker_id)
 
 data_select <- data_select %>%
-  mutate(response_num = as.numeric(levels(response))[response])
+  mutate(response_num = as.numeric(response))
+  #mutate(response_num = as.numeric(levels(response))[response])
 ```
 # Control trials
 ## We exclude any speakers whose mean performance in control trials is 3 SD above the group mean.
@@ -72,8 +75,6 @@ id_select <- data_control %>%
   filter(response_mean_control <= max_control)
 
 id_select <- pull(id_select[c("workerid")])
-
-
 ```
 
 ```{r filter out stimuli trials}
@@ -94,11 +95,11 @@ data_norm <- data %>%
 ```{r average by word}
 # get participants whose native language is English
 data_by_word <- data %>%
-  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence, valence_bin) %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_num))
 
 data_by_word_norm <- data_norm %>%
-  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence, valence_bin) %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_norm))
 ```
 
@@ -109,7 +110,9 @@ data_by_word_norm <- data_norm %>%
 ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word)) +
   geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
   geom_text_repel(aes(colour = valence_arousal_group)) +
-  geom_smooth(method = 'lm')
+  geom_smooth(method = 'lm') + 
+  labs (x = "relative valence", y = "mean projectivity rating", colour = "predicate group")
+
 
 ```
 
@@ -118,8 +121,17 @@ ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label =
 ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word)) +
   geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
   geom_text_repel(aes(colour = valence_arousal_group)) +
-  geom_smooth(method = 'lm')
+  geom_smooth(method = 'lm') +   
+  labs (x = "mean arousal", y = "mean projectivity rating", colour = "predicate group")
 ```
+
+```{r, include = FALSE}
+scatter3D(data_by_word$crelativeValence, data_by_word$carousal_mean, data_by_word$response_mean, theta = 30, phi = 10,
+          xlab = "relative valence",
+          ylab ="arousal mean", 
+          zlab = "response mean")
+```
+
 
 ```{r extra plots, include = FALSE}
 # some extra plots
@@ -161,19 +173,19 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = a
 ```
 
 # Mixed effects linear model and ANOVA
-```{r mixed effects linear model, warning = FALSE, echo=FALSE}
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
 data_model <- data
 
 m = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
 summary(m) # main effects of arousal and relative valence!
 plot(fitted(m), residuals(m))
 
-pdf(file="modelcheck_linear.pdf",height=8,width=9)
-check_model(m)
-dev.off()
+#pdf(file="modelcheck_linear.pdf",height=8,width=9)
+#check_model(m)
+#dev.off()
 ```
 
-```{r anova, warning = FALSE, echo=FALSE}
+```{r anova, include = FALSE, warning = FALSE, echo=FALSE}
 projectivity.full = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
 projectivity.reduced = lmer(response_num ~ 1 + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
 anova(projectivity.reduced, projectivity.full)
@@ -193,7 +205,7 @@ anova(projectivity.int, projectivity.valence)
 
 ```
 
-```{r mixed bayes, echo = FALSE}
+```{r mixed bayes, include = FALSE, echo = FALSE}
 
 # m.bayes = brm(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), 
 #               data = data_model,

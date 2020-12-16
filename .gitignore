@@ -4,5 +4,6 @@
 old_*
 .Rproj.user
 Papers
-Experiment/old_repo
+experiment/old_repo
 *workerids.csv
+proliferate-client
