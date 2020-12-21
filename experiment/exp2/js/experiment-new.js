@@ -713,9 +713,9 @@ function init() {
       "voice": "active"
     },
     {
-      "trigger": "promised",
+      "trigger": "promise",
       "Word": "promise",
-      "voice": "passive"
+      "voice": "active"
     }
   ]);
 
