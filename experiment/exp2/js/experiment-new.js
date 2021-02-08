@@ -1387,7 +1387,7 @@ var practice_items = [
   };
   //blocks of the experiment:
       //exp.structure = ["bot", "i0", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
-  exp.structure = ["prolificID", "i0", "instructions", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
+  exp.structure = ["prolificID", "bot", "i0", "instructions", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
   console.log(exp.structure);
 
   exp.data_trials = [];
