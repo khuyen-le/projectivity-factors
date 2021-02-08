@@ -630,7 +630,7 @@ slides.practice2_post = slide({
       setTimeout(function () { turk.submit(exp.data); }, 1000);
     }
   });
-  console.log(slides);
+  //console.log(slides);
 
   return slides;
 }
