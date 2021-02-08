@@ -10,6 +10,7 @@ function make_slides(f) {
             "rt": 0,
             "response": exp.prolificID
         });
+          exp.go();
       }
   })
   slides.bot = slide({
