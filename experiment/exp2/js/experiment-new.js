@@ -1,6 +1,17 @@
 function make_slides(f) {
   var slides = {};
 
+  slides.prolificID = slide ({
+      name: "prolificID", 
+      botton: function () {
+          exp.prolificID = document.getElementById("text_box").value;
+          exp.data_trials.push({
+            "slide_number_in_experiment": exp.phase,
+            "rt": 0,
+            "response": exp.prolificID
+        });
+      }
+  })
   slides.bot = slide({
     name: "bot",
     start: function () {
@@ -1371,7 +1382,7 @@ var practice_items = [
   };
   //blocks of the experiment:
       //exp.structure = ["bot", "i0", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
-  exp.structure = ["bot", "i0", "instructions", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
+  exp.structure = ["prolificID", "bot", "i0", "instructions", "practice1", "practice1_post", "practice2", "practice2_post", "block1", 'questionaire', 'finished'];
   console.log(exp.structure);
 
   exp.data_trials = [];
