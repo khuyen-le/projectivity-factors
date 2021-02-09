@@ -628,7 +628,7 @@ slides.practice2_post = slide({
         "time_in_minutes": (Date.now() - exp.startT) / 60000
       };
       //setTimeout(function () { turk.submit(exp.data); }, 1000);
-        proliferate.submit(data)
+        proliferate.submit(exp.data);
     }
   });
   //console.log(slides);
