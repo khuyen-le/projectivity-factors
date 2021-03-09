@@ -77,7 +77,7 @@ function make_slides(f) {
     	if (exp.stims_block1[0].block == "ai") {
     		inst1 = inst1 + "First you'll answer questions about what the people at the party are asking about."
     	} else {
-    		inst1 = inst1 + "First you'll answer questions about what the people at the party are certain about."    		
+    		inst1 = inst1 + "First you'll answer questions about what the people at the party are asking about."    		
     		}
     	$("#inst1").html(inst1);
     },
@@ -101,18 +101,13 @@ function make_slides(f) {
 	  this.init_sliders();
       exp.sliderPost = null;	 
       console.log(this.stim);    
-     //  if (this.stim.trigger_class == "control") {
-//       	var utterance = "<strong>"+this.stim.fact+"."+this.stim.name + ":</strong> \"<i>"+this.stim.utterance+"</i>\"";
-//       } else {
-//       	var utterance = "<strong>"+this.stim.name+":</strong> \"<i>"+this.stim.fact+". "+ this.stim.utterance+"</i>\"";
-//       }
       var utterance = "";
 
       var sentence = "<strong>"+this.stim.name+" asks:</strong> \"<i>"+ this.stim.utterance+"</i>\"";
 	  $(".sentence").html(sentence);
 	  $(".utterance").html(utterance);
 	  var question = "";
-	  question = "Is "+this.stim.name+" certain that "+this.stim.question+"?";
+	  question = "Is "+this.stim.name+" asking whether "+this.stim.question+"?";
 
 	  $(".question").html(question);	  
     },
