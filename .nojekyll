@@ -1,0 +1,7 @@
+*.DS_Store
+.Rproj
+.Rhistory
+old_*
+.Rproj.user
+Papers
+Experiment/old_repo
