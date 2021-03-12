@@ -28,8 +28,8 @@ library(plot3D)
 ```{r import data}
 top_words_selected <- read.csv("../../../explore/top_words_selected.csv")
 top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
-data_raw <- read.csv("../data/atissue_pilot-trials.csv")
-data_participants_raw <- read.csv("../data/atissue_pilot-subject_information.csv")
+data_raw <- read.csv("../data/atissue_exp-trials.csv")
+data_participants_raw <- read.csv("../data/atissue_exp-subject_information.csv")
 ```
 
 # Native speakers
@@ -39,8 +39,12 @@ data_participants_raw <- read.csv("../data/atissue_pilot-subject_information.csv
 data_participants <- data_participants_raw %>%
   mutate(language = tolower(language))
 
-#filter out participants who did not report English as native language
+nrow(data_participants_raw) #150
+
+
+#filter out participants who did not report English as native language (n=6)
 data_participants = filter(data_participants, grepl("eng", language))
+nrow(data_participants) # 144
 
 worker_id <- data_participants$workerid
 
@@ -68,6 +72,8 @@ id_omit <- data_control %>%
   summarise(response_mean_control = mean(response_num)) %>%
   filter(max_control < response_mean_control)
 id_omit <- id_omit[, "workerid"]
+length(id_omit) # no one removed
+View(id_omit)
 
 id_select <- data_control %>%
   group_by(workerid) %>%
@@ -75,6 +81,7 @@ id_select <- data_control %>%
   filter(response_mean_control <= max_control)
 
 id_select <- pull(id_select[c("workerid")])
+length(id_select) # 144 participants left
 ```
 
 ```{r filter out stimuli trials}
@@ -102,8 +109,6 @@ data_by_word_norm <- data_norm %>%
   group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_norm))
 
-View(data_by_word)
-
 ```
 
 # Plots
@@ -116,6 +121,7 @@ ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label =
   geom_smooth(method = 'lm') + 
   labs (x = "relative valence", y = "mean at-issue rating", colour = "predicate group")
 
+ggsave("../graphs/at-issueness_by_valence.pdf")
 
 ```
 
@@ -126,6 +132,8 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Wo
   geom_text_repel(aes(colour = valence_arousal_group)) +
   geom_smooth(method = 'lm') +   
   labs (x = "mean arousal", y = "mean at-issue rating", colour = "predicate group")
+
+ggsave("../graphs/at-issueness_by_arousal.pdf")
 ```
 
 ```{r, include = FALSE}
