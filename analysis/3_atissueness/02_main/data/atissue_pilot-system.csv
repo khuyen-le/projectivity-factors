@@ -1,0 +1,5 @@
+workerid,proliferate.condition,Browser,OS,screenH,screenW,error
+1592,condition1,Chrome,Windows,864,1536,
+1593,condition1,Chrome,Linux,740,360,
+1590,condition1,Safari,iPhone/iPod,812,375,
+1591,condition1,Safari,iPhone/iPod,667,375,
