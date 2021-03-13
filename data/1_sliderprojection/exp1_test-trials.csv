@@ -1,0 +1,69 @@
+utterance,exp,speakerGender,slide_number_in_experiment,content,object,rt,response,speakerName,Word,Answer.time_in_minutes,workerid
+bot_check,,,1,,Barbara,0,Barbara,,,8.497,0
+Is Ben amused that Olivia left her job?,stim,M,3,Olivia left her job,,24611,0.03,Thomas,amuse,8.497,0
+Is Anna offended that Jason made a cake?,stim,M,4,Jason made a cake,,8591,0.98,Christopher,offend,8.497,0
+Did Madison have a baby?,control,M,5,Madison had a baby,,6768,0.03,Matthew,,8.497,0
+Is Mary's aunt sick?,control,F,6,Mary's aunt is sick,,6688,0.02,Carol,,8.497,0
+Is Laura promised that Danny ate the last cupcake?,stim,F,7,Danny ate the last cupcake,,49624,0,Lisa,promise,8.497,0
+Did Ruth cringe that Charley spilled the wine?,stim,F,8,Charley spilled the wine,,11791,0.96,Dorothy,cringe,8.497,0
+Did Alan scream that Emma studied on Saturday morning?,stim,M,9,Emma studied on Saturday morning,,7199,0.97,Kenneth,scream,8.497,0
+Did Andrew envision that Zoe calculated the tip?,stim,M,10,Zoe calculated the tip,,7856,0.99,Logan,envision,8.497,0
+Did Cynthia murmur that Lucas bought new shoes?,stim,F,11,Lucas bought new shoes,,5912,0.99,Sarah,murmur,8.497,0
+Is Brian excited that Sophia got a tattoo?,stim,M,12,Sophia got a tattoo,,5136,0.99,George,excite,8.497,0
+Did Tim ignore that Courtney woke up early yesterday?,stim,F,13,Courtney woke up early yesterday,,5400,0.99,Sandra,ignore,8.497,0
+Is Patrick tortured that Mia drank 2 cocktails last night?,stim,F,14,Mia drank 2 cocktails last night,,6256,1,Michelle,torture,8.497,0
+Is Regina charmed that Frank got a cat?,stim,F,15,Frank got a cat,,5551,0.99,Jessica,charm,8.497,0
+Did Sharon shout that Owen shoveled snow last winter?,stim,M,16,Owen shoveled snow last winter,,13848,0.98,Steven,shout,8.497,0
+Did Todd play football in high school?,control,M,17,Todd played football in high school,,5825,0,William,,8.497,0
+Is Scott embarrassed that Valerie booked the venue?,stim,F,18,Valerie booked the venue,,5479,0.98,Karen,embarrass,8.497,0
+Did Amanda bet that Josh learned to ride a bike yesterday?,stim,F,19,Josh learned to ride a bike yesterday,,18248,0.98,Donna,bet,8.497,0
+Did Brenda anticipate that Jon went out for dinner?,stim,F,20,Jon went out for dinner,,10760,0.98,Susan,anticipate,8.497,0
+Did Heather celebrate that Tony had a drink last night?,stim,F,21,Tony had a drink last night,,22600,0.99,Linda,celebrate,8.497,0
+Did Eli simulate that Isabella ate a steak on Sunday?,stim,F,22,Isabella ate a steak on Sunday,,9743,0.01,Ashley,simulate,8.497,0
+Did Kathleen verify that Fred missed the train?,stim,F,23,Fred missed the train,,10544,0.02,Helen,verify,8.497,0
+Is Vanessa good at math?,control,F,24,Vanessa is good at math,,3328,0.01,Jennifer,,8.497,0
+Did Justin gossip that Emilia looked after the kids?,stim,M,25,Emilia looked after the kids,,6952,0.01,David,gossip,8.497,0
+Did Manuel love that Danielle painted her room?,stim,F,26,Danielle painted her room,,8720,0.99,Margaret,love,8.497,0
+Is Colby distressed that Molly attended a conference last week?,stim,M,27,Molly attended a conference last week,,6144,0.97,Richard,distress,8.497,0
+Is Rebecca fascinated that Cole celebrated his friend's birthday?,stim,F,28,Cole celebrated his friend's birthday,,9536,0.98,Nancy,facinate,8.497,0
+Did Ray write that Emily bought a car yesterday?,stim,F,29,Emily bought a car yesterday,,16656,0.01,Elizabeth,write,8.497,0
+Is Francisco pained that Mary planted a tree?,stim,M,30,Mary planted a tree,,6952,0.97,Mark,pain,8.497,0
+Is Zack coming to the meeting tomorrow?,control,M,31,Zack is coming to the meeting tomorrow,,3599,0.01,Paul,,8.497,0
+Did Melissa dictate that Jayden rented a car?,stim,M,32,Jayden rented a car,,9991,0.02,James,dictate,8.497,0
+Did Kaitlin suppose that Jackson ran 10 miles?,stim,F,33,Jackson ran 10 miles,,4383,0.02,Betty,suppose,8.497,0
+Was Hendrick's car expensive?,control,M,34,Hendrick's car was expensive,,3768,0.01,Robert,,8.497,0
+Is Shirley alarmed that Julian cleaned his room?,stim,F,35,Julian cleaned his room,,5736,0.97,Kimberly,alarm,8.497,0
+bot_check,,,1,,Linda,0,Linda,,,12.555483333333333,1
+Is Mary's aunt sick?,control,F,3,Mary's aunt is sick,,14576,0.08,Margaret,,12.555483333333333,1
+Is Zack coming to the meeting tomorrow?,control,F,4,Zack is coming to the meeting tomorrow,,8557,0.07,Michelle,,12.555483333333333,1
+Did Noah require that Hannah called her parents?,stim,M,5,Hannah called her parents,,25055,0.35,Christopher,require,12.555483333333333,1
+Is Jerry charmed that Sophia got a tattoo?,stim,F,6,Sophia got a tattoo,,19171,0.87,Sarah,charm,12.555483333333333,1
+Was Hendrick's car expensive?,control,F,7,Hendrick's car was expensive,,10451,0.1,Karen,,12.555483333333333,1
+Did Sharon love that Fred missed the train?,stim,F,8,Fred missed the train,,11713,0.84,Helen,love,12.555483333333333,1
+Did Justin cringe that Zoe calculated the tip?,stim,F,9,Zoe calculated the tip,,13386,0.89,Nancy,cringe,12.555483333333333,1
+Did Amy whine that Owen shoveled snow last winter?,stim,M,10,Owen shoveled snow last winter,,27018,0.51,David,whine,12.555483333333333,1
+Is Brian thrilled that Josie went on vacation to France?,stim,M,11,Josie went on vacation to France,,14776,0.93,James,thrill,12.555483333333333,1
+Is Dennis aggravated that Mary planted a tree?,stim,F,12,Mary planted a tree,,12927,0.91,Betty,aggravate,12.555483333333333,1
+Did Colby anticipate that Danielle painted her room?,stim,F,13,Danielle painted her room,,17954,0.84,Susan,anticipate,12.555483333333333,1
+Did Ben compute that Emilia looked after the kids?,stim,M,14,Emilia looked after the kids,,18379,0.91,Steven,compute,12.555483333333333,1
+Did Manuel dictate that Audrey went to a party?,stim,F,15,Audrey went to a party,,30072,0.48,Lisa,dictate,12.555483333333333,1
+Did Madison have a baby?,control,F,16,Madison had a baby,,8106,0.06,Ashley,,12.555483333333333,1
+Is Laura fascinated that Jayden rented a car?,stim,M,17,Jayden rented a car,,18561,0.88,Matthew,facinate,12.555483333333333,1
+Is Kaitlin promised that Julian cleaned his room?,stim,F,18,Julian cleaned his room,,21628,0.16,Linda,promise,12.555483333333333,1
+Is Stephanie surprised that Charley spilled the wine?,stim,F,19,Charley spilled the wine,,15118,0.9,Dorothy,surprise,12.555483333333333,1
+Did Ruth enjoy that Jackson ran 10 miles?,stim,F,20,Jackson ran 10 miles,,17459,0.93,Elizabeth,enjoy,12.555483333333333,1
+Is Scott distressed that Molly attended a conference last week?,stim,F,21,Molly attended a conference last week,,16434,0.93,Kimberly,distress,12.555483333333333,1
+Is Vanessa good at math?,control,M,22,Vanessa is good at math,,9530,0.08,Thomas,,12.555483333333333,1
+Did Ray gossip that Grace visited her sister?,stim,F,23,Grace visited her sister,,15913,0.85,Sandra,gossip,12.555483333333333,1
+Did Andrew shout that Olivia left her job?,stim,M,24,Olivia left her job,,14172,0.88,Logan,shout,12.555483333333333,1
+Did Anna think that Louis went swimming?,stim,F,25,Louis went swimming,,17283,0.11,Carol,think,12.555483333333333,1
+Did Kathleen express that Allen went to the museum?,stim,F,26,Allen went to the museum,,19096,0.68,Jessica,express,12.555483333333333,1
+Is Amanda embarrassed that Tony had a drink last night?,stim,M,27,Tony had a drink last night,,13541,0.89,George,embarrass,12.555483333333333,1
+Did Todd play football in high school?,control,M,28,Todd played football in high school,,7052,0.06,Paul,,12.555483333333333,1
+Is Nicole offended that Cole celebrated his friend's birthday?,stim,M,29,Cole celebrated his friend's birthday,,17768,0.89,Richard,offend,12.555483333333333,1
+Did Tim retract that Emma studied on Saturday morning?,stim,M,30,Emma studied on Saturday morning,,19173,0.08,Mark,retract,12.555483333333333,1
+Is Shirley troubled that Frank got a cat?,stim,M,31,Frank got a cat,,19360,0.93,William,trouble,12.555483333333333,1
+Did Kevin write that Courtney woke up early yesterday?,stim,F,32,Courtney woke up early yesterday,,25468,0.65,Donna,write,12.555483333333333,1
+Did Eli expose that Isabella ate a steak on Sunday?,stim,M,33,Isabella ate a steak on Sunday,,16347,0.89,Robert,expose,12.555483333333333,1
+Did Patrick bet that Mia drank 2 cocktails last night?,stim,M,34,Mia drank 2 cocktails last night,,20075,0.34,Kenneth,bet,12.555483333333333,1
+Is Rebecca irritated that Danny ate the last cupcake?,stim,F,35,Danny ate the last cupcake,,14484,0.92,Jennifer,irritate,12.555483333333333,1
