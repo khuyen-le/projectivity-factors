@@ -245,7 +245,7 @@ View(total)
 # lmer(projection_response ~ cvalence*carousal*catissueness...)
 ```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
 
-m.proj.atissue.full <- lmer(mean_projection ~ carousal_mean*crelativeValence*catissueness + (1 | Word) + (1 + (carousal_mean*crelativeValence*catissueness) | content), data = total, REML = FALSE)  
+m.proj.atissue.full <- lmer(mean_projection ~ carousal_mean*crelativeValence*catissueness + (1 | Word) + (1 + (carousal_mean*crelativeValence) | content), data = total, REML = FALSE)  
 
 summary(m.proj.atissue.full) # 
 plot(fitted(m.proj.atissue.full), residuals(m.proj.atissue.full))
