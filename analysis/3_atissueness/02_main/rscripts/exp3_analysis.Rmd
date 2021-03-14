@@ -16,6 +16,7 @@ library(ggthemes)
 library(ggrepel)
 library(dichromat)
 library(lme4)
+library(lmerTest)
 library(performance)
 library(languageR)
 library(gghighlight)
@@ -23,6 +24,7 @@ theme_set(theme_bw())
 library(brms)
 library(rstan)
 library(plot3D)
+source("../../../helpers.R")
 ```
 
 ```{r import data}
@@ -40,7 +42,6 @@ data_participants <- data_participants_raw %>%
   mutate(language = tolower(language))
 
 nrow(data_participants_raw) #150
-
 
 #filter out participants who did not report English as native language (n=6)
 data_participants = filter(data_participants, grepl("eng", language))
@@ -73,7 +74,6 @@ id_omit <- data_control %>%
   filter(max_control < response_mean_control)
 id_omit <- id_omit[, "workerid"]
 length(id_omit) # no one removed
-View(id_omit)
 
 id_select <- data_control %>%
   group_by(workerid) %>%
@@ -91,6 +91,12 @@ data_stim <- data_select %>%
   mutate(Word = ifelse(Word == "facinate", "fascinate", as.character(Word))) ## coded "fascinate" wrongly :(
 
 data <- merge(data_stim, top_words_selected, by = "Word")
+
+# center the at-issue response
+data <- data %>%
+  group_by(Word,content) %>%
+  mutate(catissueResponse = response_num-mean(response_num))
+
 data$valence_arousal_group = factor(data$valence_arousal_group, levels=c("high negative valence, low arousal", "high negative valence, medium arousal", "high negative valence, high arousal", "low valence, low arousal", "low valence, medium arousal", "low valence, high arousal", "high positive valence, low arousal", "high positive valence, medium arousal", "high positive valence, high arousal")) 
 
 # normalize response_norm by participants
@@ -99,8 +105,27 @@ data_norm <- data %>%
   mutate(response_norm = (response_num - mean(response_num)) / sd(response_num))
 ```
 
+
+```{r aggregate over items and save to .csv to analyse effect of at-issueness on projectivity}
+length(unique(data$Word)) #54
+length(unique(data$content)) #36
+table(data$Word,data$content)
+
+data_by_item = data %>%
+    group_by(Word, content) %>%
+    summarise(response_mean = mean(response_num), cresponse_mean = mean(catissueResponse))
+nrow(data_by_item) #1673???
+
+length(unique(data_by_item$Word)) #54
+length(unique(data_by_item$content)) #36
+dim(table(data_by_item$Word,data_by_item$content))
+write_csv(data_by_item,"../../../../data/atissue_data-byitem.csv")
+```
+
 ```{r average by word}
 # get participants whose native language is English
+
+View(data)
 data_by_word <- data %>%
   group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_num))
@@ -182,12 +207,14 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = a
   geom_label() +
   geom_smooth(method = 'lm')
 ```
+ 
 
-# Mixed effects linear model and ANOVA
+
+# Mixed effects linear model and ANOVA 
 ```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
 data_model <- data
 
-m = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
+m = lmer(response_num ~ carousal_mean * crelativeValence + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
 summary(m) # main effects of arousal and relative valence!
 plot(fitted(m), residuals(m))
 

@@ -1,0 +1,55 @@
+"","Word","voice","valence_group","valence_bin","valence_bin_group","arousal_bin","valence_arousal_group","carousal_mean","crelativeValence","response_mean"
+"1","aggravate","passive","negative","very negative","high negative","high","high negative valence, high arousal",1.58312220566319,1.05597183997922,0.0877142857142857
+"2","alarm","passive","negative","slightly negative","low","high","low valence, high arousal",2.53312220566319,0.0284334593404144,0.0634426229508197
+"3","amuse","passive","positive","moderately positive","high positive","medium","high positive valence, medium arousal",0.85312220566319,0.6812781218307,0.0832203389830508
+"4","anticipate","active","positive","slightly positive","low","high","low valence, high arousal",1.38312220566319,-0.181540365728602,0.106455696202532
+"5","argue","active","negative","moderately negative","high negative","high","high negative valence, high arousal",2.35312220566319,0.585343574037782,0.193055555555556
+"6","bet","active","negative","slightly negative","low","medium","low valence, medium arousal",0.443122205663189,-0.826541223786531,0.154883720930233
+"7","celebrate","active","positive","very positive","high positive","high","high positive valence, high arousal",2.41312220566319,1.26171964982514,0.0926865671641791
+"8","charm","passive","positive","very positive","high positive","medium","high positive valence, medium arousal",0.193122205663189,0.869529428207276,0.0656944444444444
+"9","compute","active","positive","slightly positive","low","low","low valence, low arousal",-0.86687779433681,-0.385479280969891,0.132753623188406
+"10","cringe","active","negative","moderately negative","high negative","high","high negative valence, high arousal",1.53312220566319,0.514749334146566,0.0472368421052632
+"11","dictate","active","negative","slightly negative","low","low","low valence, low arousal",-1.07687779433681,-0.39513198000688,0.2115
+"12","disgust","passive","negative","moderately negative","high negative","medium","high negative valence, medium arousal",0.68312220566319,0.451998898687708,0.0520833333333333
+"13","distress","passive","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.31687779433681,0.506905529714209,0.0609210526315789
+"14","elaborate","active","positive","moderately positive","high positive","medium","high positive valence, medium arousal",-0.08687779433681,0.116524202700975,0.218493150684931
+"15","embarrass","passive","negative","moderately negative","high negative","medium","high negative valence, medium arousal",1.15312220566319,0.404936072093565,0.0598360655737705
+"16","enjoy","active","positive","very positive","high positive","medium","high positive valence, medium arousal",0.68312220566319,1.12837497447507,0.0701449275362319
+"17","envision","active","positive","moderately positive","high positive","low","high positive valence, low arousal",-0.556877794336811,-0.0717271036756,0.142253521126761
+"18","excite","passive","positive","very positive","high positive","high","high positive valence, high arousal",2.29312220566319,1.22250062766335,0.0748837209302326
+"19","expose","active","negative","slightly negative","low","high","low valence, high arousal",1.57312220566319,-0.19119306476559,0.139710144927536
+"20","express","active","positive","slightly positive","low","medium","low valence, medium arousal",0.47312220566319,-0.550199174049395,0.29
+"21","fantasize","active","positive","moderately positive","high positive","medium","high positive valence, medium arousal",0.68312220566319,0.602840077507128,0.220579710144928
+"22","fascinate","passive","positive","moderately positive","high positive","high","high positive valence, high arousal",1.78312220566319,0.602840077507128,0.0613846153846154
+"23","feel","active","positive","moderately positive","high positive","low","high positive valence, low arousal",-0.266877794336811,0.0302423539450448,0.226119402985075
+"24","gossip","active","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.40687779433681,0.310810418905277,0.23359375
+"25","ignore","active","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.516877794336811,0.444155094255351,0.0402666666666667
+"26","insult","passive","negative","moderately negative","high negative","medium","high negative valence, medium arousal",0.983122205663189,1.00106520895272,0.0824
+"27","irritate","passive","negative","moderately negative","high negative","high","high negative valence, high arousal",1.53312220566319,0.553968356308353,0.0731428571428571
+"28","joke","active","positive","very positive","high positive","high","high positive valence, high arousal",1.41312220566319,1.29309486755457,0.242238805970149
+"29","love","active","positive","very positive","high positive","medium","high positive valence, medium arousal",1.04312220566319,1.38722052074286,0.0676666666666667
+"30","murmur","active","negative","slightly negative","low","low","low valence, low arousal",-0.23687779433681,-0.528476655356954,0.288266666666667
+"31","offend","passive","negative","moderately negative","high negative","medium","high negative valence, medium arousal",0.493122205663189,0.47553031198478,0.0692424242424242
+"32","pain","passive","negative","very negative","high negative","high","high negative valence, high arousal",1.95312220566319,1.48738108375887,0.0538356164383562
+"33","pray","active","positive","moderately positive","high positive","low","high positive valence, low arousal",-1.06687779433681,0.265556486915764,0.102297297297297
+"34","promise","passive","positive","moderately positive","high positive","low","high positive valence, low arousal",-0.41687779433681,0.320463117942265,0.187215189873418
+"35","require","active","negative","slightly negative","low","medium","low valence, medium arousal",0.0131222056631897,-0.661821330707028,0.27171875
+"36","resent","active","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.266877794336811,0.483374116417138,0.0675
+"37","retract","active","positive","slightly positive","low","low","low valence, low arousal",-0.81687779433681,-0.667856240534754,0.180454545454545
+"38","scream","active","negative","moderately negative","high negative","high","high negative valence, high arousal",2.42312220566319,0.687313031658427,0.18943661971831
+"39","shock","passive","negative","slightly negative","low","high","low valence, high arousal",1.63312220566319,-0.00294175838901478,0.0813513513513514
+"40","shout","active","negative","slightly negative","low","high","low valence, high arousal",1.97312220566319,-0.865760245948317,0.243333333333333
+"41","simulate","active","positive","slightly positive","low","medium","low valence, medium arousal",0.523122205663189,-0.369791672105177,0.173194444444444
+"42","squeal","active","positive","slightly positive","low","medium","low valence, medium arousal",1.13312220566319,-0.85610754691133,0.100533333333333
+"43","suppose","active","positive","slightly positive","low","low","low valence, low arousal",-0.98687779433681,-0.754138089290685,0.198030303030303
+"44","surprise","passive","positive","very positive","high positive","high","high positive valence, high arousal",2.25312220566319,0.947967472530849,0.0886111111111111
+"45","testify","active","negative","slightly negative","low","high","low valence, high arousal",1.84312220566319,-0.512789046492239,0.230845070422535
+"46","think","active","positive","moderately positive","high positive","low","high positive valence, low arousal",-0.56687779433681,0.351838335671694,0.152835820895522
+"47","thrill","passive","positive","very positive","high positive","high","high positive valence, high arousal",2.87312220566319,0.893060841504348,0.0821333333333333
+"48","torture","passive","negative","very negative","high negative","medium","high negative valence, medium arousal",0.773122205663189,1.95800934970031,0.0517460317460317
+"49","trouble","passive","negative","moderately negative","high negative","medium","high negative valence, medium arousal",1.27312220566319,0.804970098143787,0.0935789473684211
+"50","tweet","active","positive","slightly positive","low","low","low valence, low arousal",-0.92687779433681,-0.675700044967111,0.229736842105263
+"51","verify","active","positive","slightly positive","low","medium","low valence, medium arousal",-0.10687779433681,-0.628637218372968,0.384153846153846
+"52","weep","active","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.31687779433681,0.79712629371143,0.0915
+"53","whine","active","negative","moderately negative","high negative","low","high negative valence, low arousal",-0.69687779433681,0.844189120305573,0.0983076923076923
+"54","write","active","positive","moderately positive","high positive","low","high positive valence, low arousal",-0.50687779433681,0.171430833727477,0.235135135135135

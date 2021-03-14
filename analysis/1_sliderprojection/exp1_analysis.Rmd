@@ -16,6 +16,7 @@ library(ggthemes)
 library(ggrepel)
 library(dichromat)
 library(lme4)
+library(lmerTest)
 library(performance)
 library(languageR)
 library(gghighlight)
@@ -30,6 +31,7 @@ top_words_selected <- read.csv("../explore/top_words_selected.csv")
 top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
 data_raw <- read.csv("../../Submiterator/exp1/exp1-trials.csv")
 data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_information.csv")
+data_at_issue <- read.csv("../../data/atissue_data-byitem.csv")
 ```
 
 # Native speakers
@@ -84,6 +86,7 @@ data_stim <- data_select %>%
   mutate(Word = ifelse(Word == "facinate", "fascinate", as.character(Word))) ## coded "fascinate" wrongly :(
 
 data <- merge(data_stim, top_words_selected, by = "Word")
+
 data$valence_arousal_group = factor(data$valence_arousal_group, levels=c("high negative valence, low arousal", "high negative valence, medium arousal", "high negative valence, high arousal", "low valence, low arousal", "low valence, medium arousal", "low valence, high arousal", "high positive valence, low arousal", "high positive valence, medium arousal", "high positive valence, high arousal")) 
 
 # normalize response_norm by participants
@@ -101,6 +104,7 @@ data_by_word <- data %>%
 data_by_word_norm <- data_norm %>%
   group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_norm))
+
 ```
 
 # Plots
@@ -216,4 +220,36 @@ m.bayes <- readRDS("bayes.rds")
 summary(m.bayes) # 0 is in 95% CI for interaction, but not for valence / arousal separately
 ```
 
+
+```{r bring in the at-issueness data to test effect on projection}
+
+View(data_at_issue)
+# subset to just words and mean at-issue rating
+# rename mean_response column from at-issue data
+names(data_at_issue)[names(data_at_issue) == "cresponse_mean"] <- "catissueness"
+
+nrow(data_at_issue) #1673
+data_proj <- data %>%
+  group_by(Word,content)%>%
+  summarize(mean_projection = mean(response_num))
+nrow(data_proj) #1908
+
+# merge together
+total = left_join(data_proj,data_at_issue)
+
+# Add crelativeValence and carousal_mean
+total = left_join(total,data_by_word[,c("Word","carousal_mean","crelativeValence")])
+View(total)
+```
+
+# lmer(projection_response ~ cvalence*carousal*catissueness...)
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+
+m.proj.atissue.full <- lmer(mean_projection ~ carousal_mean*crelativeValence*catissueness + (1 | Word) + (1 + (carousal_mean*crelativeValence*catissueness) | content), data = total, REML = FALSE)  
+
+summary(m.proj.atissue.full) # 
+plot(fitted(m.proj.atissue.full), residuals(m.proj.atissue.full))
+
+
+```
 

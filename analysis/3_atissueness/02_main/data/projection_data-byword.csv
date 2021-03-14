@@ -1,0 +1,55 @@
+Word,voice,valence_group,valence_bin,valence_bin_group,arousal_bin,valence_arousal_group,carousal_mean,crelativeValence,response_mean
+aggravate,passive,negative,very negative,high negative,high,"high negative valence, high arousal",1.58312220566319,1.05597183997922,0.35674402588467125
+alarm,passive,negative,slightly negative,low,high,"low valence, high arousal",2.53312220566319,0.0284334593404144,0.27861390775781814
+amuse,passive,positive,moderately positive,high positive,medium,"high positive valence, medium arousal",0.85312220566319,0.6812781218307,0.3281936135559536
+anticipate,active,positive,slightly positive,low,high,"low valence, high arousal",1.38312220566319,-0.181540365728602,-0.07853362289211015
+argue,active,negative,moderately negative,high negative,high,"high negative valence, high arousal",2.35312220566319,0.585343574037782,-0.24082494746311295
+bet,active,negative,slightly negative,low,medium,"low valence, medium arousal",0.443122205663189,-0.826541223786531,-0.472175401406377
+celebrate,active,positive,very positive,high positive,high,"high positive valence, high arousal",2.41312220566319,1.26171964982514,0.2612266172697891
+charm,passive,positive,very positive,high positive,medium,"high positive valence, medium arousal",0.193122205663189,0.869529428207276,0.41811445248285084
+compute,active,positive,slightly positive,low,low,"low valence, low arousal",-0.86687779433681,-0.385479280969891,-0.12233655448033379
+cringe,active,negative,moderately negative,high negative,high,"high negative valence, high arousal",1.53312220566319,0.514749334146566,0.2672573159737677
+dictate,active,negative,slightly negative,low,low,"low valence, low arousal",-1.07687779433681,-0.39513198000688,-0.19202302810416352
+disgust,passive,negative,moderately negative,high negative,medium,"high negative valence, medium arousal",0.68312220566319,0.451998898687708,0.3288844128515961
+distress,passive,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.31687779433681,0.506905529714209,0.2814069839761421
+elaborate,active,positive,moderately positive,high positive,medium,"high positive valence, medium arousal",-0.08687779433681,0.116524202700975,-0.17787419016000994
+embarrass,passive,negative,moderately negative,high negative,medium,"high negative valence, medium arousal",1.15312220566319,0.404936072093565,0.3255107311400562
+enjoy,active,positive,very positive,high positive,medium,"high positive valence, medium arousal",0.68312220566319,1.12837497447507,0.3484002415846326
+envision,active,positive,moderately positive,high positive,low,"high positive valence, low arousal",-0.556877794336811,-0.0717271036756,-0.4624280808926663
+excite,passive,positive,very positive,high positive,high,"high positive valence, high arousal",2.29312220566319,1.22250062766335,0.3803353824978293
+expose,active,negative,slightly negative,low,high,"low valence, high arousal",1.57312220566319,-0.19119306476559,0.16330330971238813
+express,active,positive,slightly positive,low,medium,"low valence, medium arousal",0.47312220566319,-0.550199174049395,-0.2193483144046988
+fantasize,active,positive,moderately positive,high positive,medium,"high positive valence, medium arousal",0.68312220566319,0.602840077507128,-0.5460547897855499
+fascinate,passive,positive,moderately positive,high positive,high,"high positive valence, high arousal",1.78312220566319,0.602840077507128,0.19906471690693267
+feel,active,positive,moderately positive,high positive,low,"high positive valence, low arousal",-0.266877794336811,0.0302423539450448,-0.5981878455970537
+gossip,active,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.40687779433681,0.310810418905277,-0.033279799264247165
+ignore,active,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.516877794336811,0.444155094255351,0.27301414123073775
+insult,passive,negative,moderately negative,high negative,medium,"high negative valence, medium arousal",0.983122205663189,1.00106520895272,0.3882134318654617
+irritate,passive,negative,moderately negative,high negative,high,"high negative valence, high arousal",1.53312220566319,0.553968356308353,0.49668157738755614
+joke,active,positive,very positive,high positive,high,"high positive valence, high arousal",1.41312220566319,1.29309486755457,-0.23028834393519804
+love,active,positive,very positive,high positive,medium,"high positive valence, medium arousal",1.04312220566319,1.38722052074286,0.4167371480447618
+murmur,active,negative,slightly negative,low,low,"low valence, low arousal",-0.23687779433681,-0.528476655356954,-0.2107271360275188
+offend,passive,negative,moderately negative,high negative,medium,"high negative valence, medium arousal",0.493122205663189,0.47553031198478,0.29267335453571697
+pain,passive,negative,very negative,high negative,high,"high negative valence, high arousal",1.95312220566319,1.48738108375887,0.29760647938036966
+pray,active,positive,moderately positive,high positive,low,"high positive valence, low arousal",-1.06687779433681,0.265556486915764,-0.5839230227536609
+promise,passive,positive,moderately positive,high positive,low,"high positive valence, low arousal",-0.41687779433681,0.320463117942265,-0.4046862468868152
+require,active,negative,slightly negative,low,medium,"low valence, medium arousal",0.0131222056631897,-0.661821330707028,-0.33408167206249156
+resent,active,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.266877794336811,0.483374116417138,0.35113171440119617
+retract,active,positive,slightly positive,low,low,"low valence, low arousal",-0.81687779433681,-0.667856240534754,-0.3148946486727515
+scream,active,negative,moderately negative,high negative,high,"high negative valence, high arousal",2.42312220566319,0.687313031658427,-0.2762541993422895
+shock,passive,negative,slightly negative,low,high,"low valence, high arousal",1.63312220566319,-0.00294175838901478,0.2194430217244757
+shout,active,negative,slightly negative,low,high,"low valence, high arousal",1.97312220566319,-0.865760245948317,-0.23438168833832537
+simulate,active,positive,slightly positive,low,medium,"low valence, medium arousal",0.523122205663189,-0.369791672105177,-0.40870408737245506
+squeal,active,positive,slightly positive,low,medium,"low valence, medium arousal",1.13312220566319,-0.85610754691133,0.1734998408253123
+suppose,active,positive,slightly positive,low,low,"low valence, low arousal",-0.98687779433681,-0.754138089290685,-0.6051696829893863
+surprise,passive,positive,very positive,high positive,high,"high positive valence, high arousal",2.25312220566319,0.947967472530849,0.40551501105347326
+testify,active,negative,slightly negative,low,high,"low valence, high arousal",1.84312220566319,-0.512789046492239,-0.34482249571924173
+think,active,positive,moderately positive,high positive,low,"high positive valence, low arousal",-0.56687779433681,0.351838335671694,-0.6501465769951409
+thrill,passive,positive,very positive,high positive,high,"high positive valence, high arousal",2.87312220566319,0.893060841504348,0.39872183466722483
+torture,passive,negative,very negative,high negative,medium,"high negative valence, medium arousal",0.773122205663189,1.95800934970031,0.41023680903612025
+trouble,passive,negative,moderately negative,high negative,medium,"high negative valence, medium arousal",1.27312220566319,0.804970098143787,0.29088758772490364
+tweet,active,positive,slightly positive,low,low,"low valence, low arousal",-0.92687779433681,-0.675700044967111,-0.20315452134591486
+verify,active,positive,slightly positive,low,medium,"low valence, medium arousal",-0.10687779433681,-0.628637218372968,-0.4240389263646026
+weep,active,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.31687779433681,0.79712629371143,0.29203928366314713
+whine,active,negative,moderately negative,high negative,low,"high negative valence, low arousal",-0.69687779433681,0.844189120305573,0.20456805729513625
+write,active,positive,moderately positive,high positive,low,"high positive valence, low arousal",-0.50687779433681,0.171430833727477,-0.44166614442525276

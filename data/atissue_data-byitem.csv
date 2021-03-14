@@ -1,0 +1,1674 @@
+Word,content,response_mean,cresponse_mean
+aggravate,Allen went to the museum,0.31666666666666665,0
+aggravate,Audrey went to a party,0,0
+aggravate,Charley spilled the wine,0.06333333333333334,-9.25185853854297e-18
+aggravate,Cole celebrated his friend's birthday,0,0
+aggravate,Connor fell from a tree,0.095,0
+aggravate,Courtney woke up early yesterday,0.11,0
+aggravate,Danielle painted her room,0.13,0
+aggravate,Danny ate the last cupcake,0.158,-1.6653345369377347e-17
+aggravate,Dylan argued with his parents,0.01,0
+aggravate,Emilia looked after the kids,0.3933333333333333,1.850371707708594e-17
+aggravate,Emily bought a car yesterday,0.056666666666666664,2.311835257372737e-18
+aggravate,Frank got a cat,0.02,5.788058472904386e-19
+aggravate,Grace visited her sister,0.01,0
+aggravate,Hannah called her parents,0.01,-6.938216277549425e-19
+aggravate,Isabella ate a steak on Sunday,0.34,0
+aggravate,Jason made a cake,0,0
+aggravate,Jayden rented a car,0.14,0
+aggravate,Jon went out for dinner,0.025,0
+aggravate,Josh learned to ride a bike yesterday,0.03,0
+aggravate,Julian cleaned his room,0.06999999999999999,3.469446951953614e-18
+aggravate,Louis went swimming,0.345,0
+aggravate,Lucas bought new shoes,0.01,0
+aggravate,Mary planted a tree,0,0
+aggravate,Mia drank 2 cocktails last night,0.01,0
+aggravate,Natasha got a promotion,0.02,0
+aggravate,Olivia left her job,0.023333333333333334,0
+aggravate,Owen shoveled snow last winter,0.09,0
+aggravate,Sophia got a tattoo,0.005,0
+aggravate,Tony had a drink last night,0.013333333333333334,-5.782411586589357e-19
+aggravate,Valerie booked the venue,0.013333333333333332,5.783117447378736e-19
+aggravate,Zoe calculated the tip,0.0175,-1.734723475976807e-18
+alarm,Allen went to the museum,0,0
+alarm,Audrey went to a party,0.04,0
+alarm,Charley spilled the wine,0.045,0
+alarm,Courtney woke up early yesterday,0.005,0
+alarm,Danielle painted her room,0.016666666666666666,2.3129646346357427e-18
+alarm,Dylan argued with his parents,0.086,5.548404617694569e-18
+alarm,Emilia looked after the kids,0.18666666666666668,-9.248823337148644e-18
+alarm,Emma studied on Saturday morning,0.043333333333333335,-1.1559176286863686e-18
+alarm,Frank got a cat,0.11666666666666667,0
+alarm,Fred missed the train,0.06,0
+alarm,Grace visited her sister,0.02666666666666667,-1.1564823173178713e-18
+alarm,Hannah called her parents,0.01,0
+alarm,Isabella ate a steak on Sunday,0.03,0
+alarm,Jackson ran 10 miles,0.016666666666666666,5.782411586589357e-19
+alarm,Jayden rented a car,0.315,0
+alarm,Jon went out for dinner,0.22666666666666668,0
+alarm,Josie went on vacation to France,0.015,8.673617379884035e-19
+alarm,Julian cleaned his room,0.08333333333333333,0
+alarm,Louis went swimming,0,0
+alarm,Lucas bought new shoes,0.06,0
+alarm,Mary planted a tree,0.03666666666666667,0
+alarm,Mia drank 2 cocktails last night,0.02,0
+alarm,Molly attended a conference last week,0.016666666666666666,5.788058472904386e-19
+alarm,Natasha got a promotion,0.005,0
+alarm,Olivia left her job,0.05,0
+alarm,Sophia got a tattoo,0.016666666666666666,0
+alarm,Zoe calculated the tip,0,0
+amuse,Allen went to the museum,0.006666666666666667,-5.782411586589357e-19
+amuse,Charley spilled the wine,0.006666666666666667,-2.8912057932946783e-19
+amuse,Cole celebrated his friend's birthday,0.11,0
+amuse,Connor fell from a tree,0.01,0
+amuse,Courtney woke up early yesterday,0.15666666666666668,-9.250729161279966e-18
+amuse,Danny ate the last cupcake,0.015,0
+amuse,Dylan argued with his parents,0,0
+amuse,Emilia looked after the kids,0.02,-8.673617379884035e-19
+amuse,Emma studied on Saturday morning,0.06,0
+amuse,Frank got a cat,0,0
+amuse,Fred missed the train,0,0
+amuse,Grace visited her sister,0.05,6.945670167485263e-19
+amuse,Isabella ate a steak on Sunday,0.015,0
+amuse,Jayden rented a car,0.02,0
+amuse,Jon went out for dinner,0.03,0
+amuse,Louis went swimming,0,0
+amuse,Lucas bought new shoes,0,0
+amuse,Mary planted a tree,0.1625,6.938893903907228e-18
+amuse,Mia drank 2 cocktails last night,0.0425,-2.6020852139652106e-18
+amuse,Molly attended a conference last week,0.51,0
+amuse,Natasha got a promotion,0,0
+amuse,Olivia left her job,0.025,0
+amuse,Owen shoveled snow last winter,0.3,0
+amuse,Sophia got a tattoo,0.016666666666666666,2.3129646346357427e-18
+amuse,Tony had a drink last night,0.02666666666666667,-1.1564823173178713e-18
+amuse,Valerie booked the venue,0.33999999999999997,2.0816681711721685e-17
+amuse,Zoe calculated the tip,0,0
+anticipate,Allen went to the museum,0.015,0
+anticipate,Charley spilled the wine,0.16499999999999998,1.3877787807814457e-17
+anticipate,Cole celebrated his friend's birthday,0.060000000000000005,-3.469446951953614e-18
+anticipate,Connor fell from a tree,0.052500000000000005,-3.469446951953614e-18
+anticipate,Courtney woke up early yesterday,0.02,0
+anticipate,Danielle painted her room,0,0
+anticipate,Dylan argued with his parents,0.395,1.3877787807814457e-17
+anticipate,Emilia looked after the kids,0,0
+anticipate,Emily bought a car yesterday,0.16,0
+anticipate,Emma studied on Saturday morning,0.015,0
+anticipate,Frank got a cat,0,0
+anticipate,Fred missed the train,0,0
+anticipate,Grace visited her sister,0.06,0
+anticipate,Hannah called her parents,0.085,-6.938893903907228e-18
+anticipate,Isabella ate a steak on Sunday,0.33,-2.7755575615628914e-17
+anticipate,Jackson ran 10 miles,0.012,0
+anticipate,Jason made a cake,0.07200000000000001,-4.1660468477755505e-18
+anticipate,Jayden rented a car,0.01,0
+anticipate,Jon went out for dinner,0.27,0
+anticipate,Josh learned to ride a bike yesterday,0,0
+anticipate,Josie went on vacation to France,0.09666666666666666,-2.3107058801097313e-18
+anticipate,Julian cleaned his room,0.08499999999999999,3.469446951953614e-18
+anticipate,Louis went swimming,0.08,-4.623670514745474e-18
+anticipate,Lucas bought new shoes,0.095,0
+anticipate,Mia drank 2 cocktails last night,0.31,-1.3877787807814457e-17
+anticipate,Molly attended a conference last week,0.26,-6.938893903907228e-18
+anticipate,Natasha got a promotion,0.24,6.938893903907228e-18
+anticipate,Olivia left her job,0.03,0
+anticipate,Owen shoveled snow last winter,0.015,8.673617379884035e-19
+anticipate,Sophia got a tattoo,0.13666666666666666,4.6270586465344916e-18
+anticipate,Tony had a drink last night,0.005,0
+anticipate,Valerie booked the venue,0.013333333333333334,-1.1564823173178713e-18
+anticipate,Zoe calculated the tip,0.28500000000000003,0
+argue,Allen went to the museum,0.06333333333333332,6.938893903907228e-18
+argue,Audrey went to a party,0.01,0
+argue,Charley spilled the wine,0.095,0
+argue,Cole celebrated his friend's birthday,0.02,-8.673617379884035e-19
+argue,Connor fell from a tree,0.375,1.3877787807814457e-17
+argue,Courtney woke up early yesterday,0.49,0
+argue,Danielle painted her room,0.246,5.5578913867038174e-18
+argue,Danny ate the last cupcake,0.18,0
+argue,Dylan argued with his parents,0.2833333333333333,1.3877787807814457e-17
+argue,Emilia looked after the kids,0.11499999999999999,0
+argue,Emily bought a car yesterday,0.51,0
+argue,Emma studied on Saturday morning,0.87,0
+argue,Frank got a cat,0.2,0
+argue,Fred missed the train,0.135,0
+argue,Grace visited her sister,0.36333333333333334,0
+argue,Hannah called her parents,0.2,0
+argue,Isabella ate a steak on Sunday,0.05,0
+argue,Jackson ran 10 miles,0.23,0
+argue,Jason made a cake,0.02,0
+argue,Jayden rented a car,0.2,0
+argue,Jon went out for dinner,0.265,-1.3877787807814457e-17
+argue,Josh learned to ride a bike yesterday,0.07,0
+argue,Josie went on vacation to France,0.33999999999999997,2.7755575615628914e-17
+argue,Julian cleaned his room,0.03,0
+argue,Louis went swimming,0.93,0
+argue,Lucas bought new shoes,0.03,0
+argue,Mary planted a tree,0.12,0
+argue,Mia drank 2 cocktails last night,0,0
+argue,Molly attended a conference last week,0.115,-6.938893903907228e-18
+argue,Natasha got a promotion,0.19,0
+argue,Olivia left her job,0.04,0
+argue,Owen shoveled snow last winter,0.07666666666666666,4.623670514745474e-18
+argue,Tony had a drink last night,0.13999999999999999,1.3877787807814457e-17
+argue,Zoe calculated the tip,0.01,0
+bet,Allen went to the museum,0.02,5.785235029746871e-19
+bet,Audrey went to a party,0.35,0
+bet,Charley spilled the wine,0.02,0
+bet,Cole celebrated his friend's birthday,0.1775,6.938893903907228e-18
+bet,Connor fell from a tree,0.2533333333333333,2.7755575615628914e-17
+bet,Courtney woke up early yesterday,0.02,0
+bet,Danielle painted her room,0.02,-8.673617379884035e-19
+bet,Danny ate the last cupcake,0.48,0
+bet,Dylan argued with his parents,0.045,3.469446951953614e-18
+bet,Emilia looked after the kids,0.26,0
+bet,Emily bought a car yesterday,0.043333333333333335,5.789823124877832e-19
+bet,Emma studied on Saturday morning,0.155,6.938893903907228e-18
+bet,Frank got a cat,0,0
+bet,Fred missed the train,0.01,0
+bet,Hannah called her parents,0.02,-5.779588143431843e-19
+bet,Isabella ate a steak on Sunday,0.025,-8.673617379884035e-19
+bet,Jackson ran 10 miles,0.20500000000000002,0
+bet,Jason made a cake,0.10333333333333333,-4.625929269271485e-18
+bet,Jayden rented a car,0.07500000000000001,-6.938893903907228e-18
+bet,Jon went out for dinner,0,0
+bet,Josh learned to ride a bike yesterday,0.006,0
+bet,Josie went on vacation to France,0.2833333333333333,3.701646917227593e-17
+bet,Louis went swimming,0.262,-1.1096809235389137e-17
+bet,Lucas bought new shoes,0.21,0
+bet,Mary planted a tree,0,0
+bet,Mia drank 2 cocktails last night,0.142,1.1104263125324976e-17
+bet,Molly attended a conference last week,0.24,1.3877787807814457e-17
+bet,Natasha got a promotion,0.125,0
+bet,Olivia left her job,0.3233333333333333,1.8496940813507907e-17
+bet,Owen shoveled snow last winter,0.10500000000000001,-6.938893903907228e-18
+bet,Sophia got a tattoo,0.6950000000000001,-5.551115123125783e-17
+bet,Tony had a drink last night,0.2,9.25185853854297e-18
+bet,Valerie booked the venue,0.31,0
+bet,Zoe calculated the tip,0.04,0
+celebrate,Allen went to the museum,0.02,0
+celebrate,Audrey went to a party,0,0
+celebrate,Charley spilled the wine,0.17,0
+celebrate,Cole celebrated his friend's birthday,0.335,-2.7755575615628914e-17
+celebrate,Courtney woke up early yesterday,0.08,4.6270586465344916e-18
+celebrate,Danielle painted her room,0.33666666666666667,0
+celebrate,Danny ate the last cupcake,0.1275,-3.469446951953614e-18
+celebrate,Dylan argued with his parents,0,0
+celebrate,Emilia looked after the kids,0.14,0
+celebrate,Emily bought a car yesterday,0.006666666666666667,-5.782411586589357e-19
+celebrate,Frank got a cat,0.024,-3.4694469519536144e-19
+celebrate,Hannah called her parents,0.03666666666666667,2.3129646346357427e-18
+celebrate,Isabella ate a steak on Sunday,0.01,0
+celebrate,Jackson ran 10 miles,0.02,0
+celebrate,Jason made a cake,0.1,-5.782411586589357e-18
+celebrate,Jayden rented a car,0.65,0
+celebrate,Jon went out for dinner,0.02,0
+celebrate,Josh learned to ride a bike yesterday,0.12000000000000001,-6.938893903907228e-18
+celebrate,Josie went on vacation to France,0.155,-2.31635276642476e-18
+celebrate,Lucas bought new shoes,0.02,0
+celebrate,Mary planted a tree,0.01,0
+celebrate,Mia drank 2 cocktails last night,0.005,0
+celebrate,Molly attended a conference last week,0.11499999999999999,6.938893903907228e-18
+celebrate,Olivia left her job,0.1,0
+celebrate,Tony had a drink last night,0,0
+celebrate,Valerie booked the venue,0.065,0
+celebrate,Zoe calculated the tip,0.02,0
+charm,Allen went to the museum,0.12,0
+charm,Audrey went to a party,0.1,0
+charm,Cole celebrated his friend's birthday,0.058333333333333334,-1.1569058337914985e-18
+charm,Connor fell from a tree,0.755,0
+charm,Courtney woke up early yesterday,0,0
+charm,Danielle painted her room,0.08,0
+charm,Danny ate the last cupcake,0.01,0
+charm,Dylan argued with his parents,0.08,0
+charm,Emilia looked after the kids,0,0
+charm,Emily bought a car yesterday,0.08,0
+charm,Emma studied on Saturday morning,0.04,0
+charm,Frank got a cat,0.04,0
+charm,Fred missed the train,0.05,0
+charm,Grace visited her sister,0.155,0
+charm,Hannah called her parents,0.10666666666666667,-4.628188023797497e-18
+charm,Isabella ate a steak on Sunday,0.008,-3.466058820164597e-19
+charm,Jackson ran 10 miles,0.034999999999999996,3.469446951953614e-18
+charm,Jason made a cake,0.004,0
+charm,Jayden rented a car,0.005,-2.168404344971009e-19
+charm,Jon went out for dinner,0.05,0
+charm,Josh learned to ride a bike yesterday,0.072,1.3894728466759544e-18
+charm,Josie went on vacation to France,0.02,0
+charm,Julian cleaned his room,0.043333333333333335,-2.3129646346357427e-18
+charm,Lucas bought new shoes,0.015,0
+charm,Mary planted a tree,0.01,-1.1564823173178713e-18
+charm,Molly attended a conference last week,0.0125,-8.673617379884035e-19
+charm,Natasha got a promotion,0.0033333333333333335,-2.8912057932946783e-19
+charm,Owen shoveled snow last winter,0.01,0
+charm,Sophia got a tattoo,0.0375,8.673617379884035e-19
+charm,Tony had a drink last night,0.22499999999999998,1.3877787807814457e-17
+charm,Valerie booked the venue,0.13,0
+charm,Zoe calculated the tip,0.03,0
+compute,Allen went to the museum,0,0
+compute,Audrey went to a party,0.04,0
+compute,Charley spilled the wine,0.28500000000000003,-2.7755575615628914e-17
+compute,Connor fell from a tree,0,0
+compute,Courtney woke up early yesterday,0.13666666666666666,9.24959978401696e-18
+compute,Danielle painted her room,0.02,-8.673617379884035e-19
+compute,Dylan argued with his parents,0.385,0
+compute,Emilia looked after the kids,0.172,1.3877787807814457e-17
+compute,Emily bought a car yesterday,0.006666666666666667,-2.8912057932946783e-19
+compute,Emma studied on Saturday morning,0.01,0
+compute,Frank got a cat,0.015,0
+compute,Fred missed the train,0.043333333333333335,-1.1567646616336229e-18
+compute,Grace visited her sister,0.23333333333333334,0
+compute,Isabella ate a steak on Sunday,0.02333333333333333,1.734723475976807e-18
+compute,Jason made a cake,0.07,-4.624235203376977e-18
+compute,Jon went out for dinner,0.24,0
+compute,Josh learned to ride a bike yesterday,0.07,-6.938893903907228e-18
+compute,Josie went on vacation to France,0.57,0
+compute,Julian cleaned his room,0.278,-5.551115123125783e-18
+compute,Louis went swimming,0,0
+compute,Mary planted a tree,0.21,0
+compute,Mia drank 2 cocktails last night,0.02,0
+compute,Natasha got a promotion,0.03,1.734723475976807e-18
+compute,Olivia left her job,0.02666666666666667,-1.1564823173178713e-18
+compute,Owen shoveled snow last winter,0.34,-3.700743415417188e-17
+compute,Valerie booked the venue,0.08,5.204170427930421e-18
+compute,Zoe calculated the tip,0.32,0
+cringe,Audrey went to a party,0.02,0
+cringe,Charley spilled the wine,0.25333333333333335,-2.7755575615628914e-17
+cringe,Cole celebrated his friend's birthday,0.04,0
+cringe,Courtney woke up early yesterday,0.01,0
+cringe,Danielle painted her room,0.09,0
+cringe,Emilia looked after the kids,0.02,5.785235029746871e-19
+cringe,Emily bought a car yesterday,0.085,0
+cringe,Emma studied on Saturday morning,0.015,0
+cringe,Frank got a cat,0.0175,-8.673617379884035e-19
+cringe,Fred missed the train,0.22,0
+cringe,Hannah called her parents,0.02,0
+cringe,Isabella ate a steak on Sunday,0.02,0
+cringe,Jackson ran 10 miles,0.04,0
+cringe,Jason made a cake,0.01,-8.673617379884035e-19
+cringe,Jayden rented a car,0.024999999999999998,2.168404344971009e-18
+cringe,Jon went out for dinner,0.03,0
+cringe,Josh learned to ride a bike yesterday,0.02,0
+cringe,Josie went on vacation to France,0.02,0
+cringe,Julian cleaned his room,0.01,0
+cringe,Louis went swimming,0.07,-3.469446951953614e-18
+cringe,Lucas bought new shoes,0.004,0
+cringe,Mary planted a tree,0.02666666666666667,-2.3129646346357427e-18
+cringe,Mia drank 2 cocktails last night,0.21333333333333335,-1.8501458322559932e-17
+cringe,Molly attended a conference last week,0.025555555555555557,-9.635470348877253e-19
+cringe,Olivia left her job,0.04,2.3135293232672458e-18
+cringe,Owen shoveled snow last winter,0.05,0
+cringe,Tony had a drink last night,0.04666666666666667,4.625929269271485e-18
+cringe,Zoe calculated the tip,0.0475,3.469446951953614e-18
+dictate,Allen went to the museum,0.29333333333333333,1.8494682058981897e-17
+dictate,Audrey went to a party,0.02,0
+dictate,Charley spilled the wine,0.2175,3.469446951953614e-18
+dictate,Cole celebrated his friend's birthday,0.93,0
+dictate,Connor fell from a tree,0.435,0
+dictate,Courtney woke up early yesterday,0.26,0
+dictate,Danny ate the last cupcake,0.1,0
+dictate,Emilia looked after the kids,0.06666666666666667,9.25185853854297e-18
+dictate,Emily bought a car yesterday,0.28200000000000003,-2.2208526250649952e-17
+dictate,Emma studied on Saturday morning,0.09,0
+dictate,Frank got a cat,0.41000000000000003,-2.2204460492503132e-17
+dictate,Fred missed the train,0.105,0
+dictate,Grace visited her sister,0.025,-1.734723475976807e-18
+dictate,Hannah called her parents,0.015,0
+dictate,Isabella ate a steak on Sunday,0.12,0
+dictate,Jackson ran 10 miles,0.07,-4.625364580639983e-18
+dictate,Jason made a cake,0.3675,1.3877787807814457e-17
+dictate,Jon went out for dinner,0.0775,-5.204170427930421e-18
+dictate,Josh learned to ride a bike yesterday,0.59,0
+dictate,Josie went on vacation to France,0.05333333333333333,2.3129646346357427e-18
+dictate,Julian cleaned his room,0,0
+dictate,Louis went swimming,0.1625,-1.3877787807814457e-17
+dictate,Lucas bought new shoes,0.08,0
+dictate,Mary planted a tree,0.025,0
+dictate,Mia drank 2 cocktails last night,0.79,0
+dictate,Molly attended a conference last week,0.0625,1.734723475976807e-18
+dictate,Natasha got a promotion,0.07,0
+dictate,Olivia left her job,0.01,0
+dictate,Owen shoveled snow last winter,0.4866666666666667,-3.700743415417188e-17
+dictate,Sophia got a tattoo,0.04,0
+dictate,Valerie booked the venue,0.48333333333333334,0
+dictate,Zoe calculated the tip,0.135,0
+disgust,Allen went to the museum,0.013333333333333334,-1.1564823173178713e-18
+disgust,Audrey went to a party,0.0075,0
+disgust,Charley spilled the wine,0.05,-1.15619997300212e-18
+disgust,Cole celebrated his friend's birthday,0.02,0
+disgust,Connor fell from a tree,0.3333333333333333,3.700743415417188e-17
+disgust,Courtney woke up early yesterday,0,0
+disgust,Danny ate the last cupcake,0.045,0
+disgust,Dylan argued with his parents,0.04,0
+disgust,Emilia looked after the kids,0.02,0
+disgust,Emily bought a car yesterday,0.055,0
+disgust,Emma studied on Saturday morning,0.02,-8.673617379884035e-19
+disgust,Frank got a cat,0.19666666666666666,4.625929269271485e-18
+disgust,Fred missed the train,0.02857142857142857,1.983025134229068e-18
+disgust,Grace visited her sister,0,0
+disgust,Hannah called her parents,0,0
+disgust,Isabella ate a steak on Sunday,0,0
+disgust,Jackson ran 10 miles,0.05,0
+disgust,Jayden rented a car,0.025,0
+disgust,Jon went out for dinner,0.015,0
+disgust,Josh learned to ride a bike yesterday,0.115,-6.938893903907228e-18
+disgust,Julian cleaned his room,0.015,0
+disgust,Louis went swimming,0.005,0
+disgust,Lucas bought new shoes,0.07,0
+disgust,Mary planted a tree,0.01,0
+disgust,Mia drank 2 cocktails last night,0.025,-8.673617379884035e-19
+disgust,Molly attended a conference last week,0.03,2.3135293232672458e-18
+disgust,Natasha got a promotion,0.16,0
+disgust,Olivia left her job,0,0
+disgust,Owen shoveled snow last winter,0.08499999999999999,6.938893903907228e-18
+disgust,Sophia got a tattoo,0.035,0
+disgust,Tony had a drink last night,0,0
+disgust,Valerie booked the venue,0.01,0
+disgust,Zoe calculated the tip,0.013333333333333334,-1.1564823173178713e-18
+distress,Allen went to the museum,0.02,0
+distress,Audrey went to a party,0.005,0
+distress,Cole celebrated his friend's birthday,0.0033333333333333335,-2.8912057932946783e-19
+distress,Connor fell from a tree,0,0
+distress,Danielle painted her room,0,0
+distress,Danny ate the last cupcake,0.04,2.3135293232672458e-18
+distress,Dylan argued with his parents,0.06999999999999999,6.938893903907228e-18
+distress,Emilia looked after the kids,0.01,0
+distress,Emily bought a car yesterday,0.08499999999999999,3.469446951953614e-18
+distress,Emma studied on Saturday morning,0.33999999999999997,3.700743415417188e-17
+distress,Grace visited her sister,0.076,0
+distress,Hannah called her parents,0.02,5.785235029746871e-19
+distress,Isabella ate a steak on Sunday,0.060000000000000005,-2.311835257372737e-18
+distress,Jason made a cake,0.05,0
+distress,Jayden rented a car,0.2575,-2.7755575615628914e-17
+distress,Jon went out for dinner,0.04,8.673617379884035e-19
+distress,Julian cleaned his room,0.01,-1.1564823173178713e-18
+distress,Louis went swimming,0.01,-4.336808689942018e-19
+distress,Lucas bought new shoes,0.0575,0
+distress,Mary planted a tree,0.05,0
+distress,Mia drank 2 cocktails last night,0.09,0
+distress,Molly attended a conference last week,0.03,0
+distress,Natasha got a promotion,0.02666666666666667,-1.1564823173178713e-18
+distress,Olivia left her job,0.02,0
+distress,Owen shoveled snow last winter,0.08,4.625929269271485e-18
+distress,Sophia got a tattoo,0.02,-5.780529291151014e-19
+distress,Tony had a drink last night,0.06,0
+distress,Valerie booked the venue,0.02,-8.673617379884035e-19
+distress,Zoe calculated the tip,0.005,0
+elaborate,Audrey went to a party,0.31,-2.7755575615628914e-17
+elaborate,Charley spilled the wine,0.02666666666666667,-2.3129646346357427e-18
+elaborate,Cole celebrated his friend's birthday,0.02,0
+elaborate,Courtney woke up early yesterday,0.025,0
+elaborate,Danielle painted her room,0.15,0
+elaborate,Danny ate the last cupcake,0.09,0
+elaborate,Dylan argued with his parents,0.37,0
+elaborate,Emilia looked after the kids,0.01,0
+elaborate,Emily bought a car yesterday,0.89,0
+elaborate,Emma studied on Saturday morning,0.075,0
+elaborate,Frank got a cat,0.265,-1.3877787807814457e-17
+elaborate,Fred missed the train,0.06666666666666667,4.625929269271485e-18
+elaborate,Grace visited her sister,0.44,0
+elaborate,Hannah called her parents,0,0
+elaborate,Isabella ate a steak on Sunday,0.2,0
+elaborate,Jackson ran 10 miles,0.04,5.7908819160619e-19
+elaborate,Jason made a cake,0.015,0
+elaborate,Jayden rented a car,0.3125,0
+elaborate,Jon went out for dinner,0.01,0
+elaborate,Josie went on vacation to France,0.20666666666666667,9.25185853854297e-18
+elaborate,Julian cleaned his room,0.17,-1.850371707708594e-17
+elaborate,Louis went swimming,0.0175,-8.673617379884035e-19
+elaborate,Lucas bought new shoes,0.19,0
+elaborate,Mary planted a tree,0.63,0
+elaborate,Mia drank 2 cocktails last night,0.56,0
+elaborate,Molly attended a conference last week,0.026666666666666665,1.1564823173178713e-18
+elaborate,Natasha got a promotion,0.325,-2.7755575615628914e-17
+elaborate,Olivia left her job,0.49333333333333335,0
+elaborate,Owen shoveled snow last winter,0.69,0
+elaborate,Sophia got a tattoo,0.5016666666666667,-3.701053994164515e-17
+elaborate,Tony had a drink last night,0.15,0
+elaborate,Valerie booked the venue,0.68,0
+elaborate,Zoe calculated the tip,0.13,0
+embarrass,Allen went to the museum,0.045,0
+embarrass,Audrey went to a party,0.01,0
+embarrass,Charley spilled the wine,0.42500000000000004,-2.7755575615628914e-17
+embarrass,Cole celebrated his friend's birthday,0.023333333333333334,-5.783117447378736e-19
+embarrass,Connor fell from a tree,0.015,8.673617379884035e-19
+embarrass,Courtney woke up early yesterday,0.17,0
+embarrass,Danielle painted her room,0.048,2.774879935205088e-18
+embarrass,Danny ate the last cupcake,0.04,0
+embarrass,Dylan argued with his parents,0.27,0
+embarrass,Emilia looked after the kids,0.21250000000000002,-6.938893903907228e-18
+embarrass,Emily bought a car yesterday,0.01,-1.1564823173178713e-18
+embarrass,Emma studied on Saturday morning,0.02,0
+embarrass,Frank got a cat,0,0
+embarrass,Fred missed the train,0.01,0
+embarrass,Grace visited her sister,0.013333333333333334,-5.782411586589357e-19
+embarrass,Hannah called her parents,0.09,0
+embarrass,Isabella ate a steak on Sunday,0,0
+embarrass,Jackson ran 10 miles,0.11,0
+embarrass,Jason made a cake,0.02,0
+embarrass,Jayden rented a car,0.015,8.673617379884035e-19
+embarrass,Josh learned to ride a bike yesterday,0.04,0
+embarrass,Josie went on vacation to France,0,0
+embarrass,Louis went swimming,0.01,0
+embarrass,Lucas bought new shoes,0.005,0
+embarrass,Mary planted a tree,0.01,-1.1564823173178713e-18
+embarrass,Mia drank 2 cocktails last night,0.18,0
+embarrass,Molly attended a conference last week,0.07,0
+embarrass,Natasha got a promotion,0.0075,4.336808689942018e-19
+embarrass,Owen shoveled snow last winter,0.03833333333333334,-5.759824041329242e-19
+embarrass,Sophia got a tattoo,0.03,0
+embarrass,Zoe calculated the tip,0,0
+enjoy,Audrey went to a party,0.32,0
+enjoy,Charley spilled the wine,0.025,-1.734723475976807e-18
+enjoy,Connor fell from a tree,0,0
+enjoy,Courtney woke up early yesterday,0.10500000000000001,0
+enjoy,Danielle painted her room,0,0
+enjoy,Danny ate the last cupcake,0.04,0
+enjoy,Dylan argued with his parents,0.07,-2.3107058801097313e-18
+enjoy,Emilia looked after the kids,0.035,-1.734723475976807e-18
+enjoy,Emily bought a car yesterday,0.03,0
+enjoy,Emma studied on Saturday morning,0.02,0
+enjoy,Frank got a cat,0.01,0
+enjoy,Fred missed the train,0.0675,-6.938893903907228e-18
+enjoy,Grace visited her sister,0.01,0
+enjoy,Hannah called her parents,0,0
+enjoy,Jackson ran 10 miles,0.08,0
+enjoy,Jason made a cake,0.26,-1.3877787807814457e-17
+enjoy,Jayden rented a car,0.11499999999999999,6.938893903907228e-18
+enjoy,Jon went out for dinner,0.02,-8.673617379884035e-19
+enjoy,Josh learned to ride a bike yesterday,0,0
+enjoy,Josie went on vacation to France,0.05333333333333333,2.3129646346357427e-18
+enjoy,Julian cleaned his room,0.045,0
+enjoy,Louis went swimming,0.03333333333333333,0
+enjoy,Lucas bought new shoes,0,0
+enjoy,Mary planted a tree,0.02,-5.779588143431843e-19
+enjoy,Mia drank 2 cocktails last night,0,0
+enjoy,Natasha got a promotion,0.065,2.3140940118987485e-18
+enjoy,Olivia left her job,0.04,0
+enjoy,Owen shoveled snow last winter,0.0025,-1.0842021724855044e-19
+enjoy,Tony had a drink last night,0.5433333333333333,0
+enjoy,Valerie booked the venue,0,0
+enjoy,Zoe calculated the tip,0.055,0
+envision,Allen went to the museum,0.015,0
+envision,Audrey went to a party,0.015,0
+envision,Charley spilled the wine,0.02,4.336808689942018e-19
+envision,Connor fell from a tree,0.16,0
+envision,Courtney woke up early yesterday,0.07500000000000001,-6.938893903907228e-18
+envision,Danielle painted her room,0.02,0
+envision,Danny ate the last cupcake,0.445,0
+envision,Dylan argued with his parents,0.37,0
+envision,Emilia looked after the kids,0.265,0
+envision,Emily bought a car yesterday,0.305,1.3877787807814457e-17
+envision,Emma studied on Saturday morning,0.03666666666666667,0
+envision,Frank got a cat,0.013333333333333334,-5.782411586589357e-19
+envision,Fred missed the train,0.055,3.469446951953614e-18
+envision,Hannah called her parents,0.105,0
+envision,Isabella ate a steak on Sunday,0.13333333333333333,9.25185853854297e-18
+envision,Jason made a cake,0.04,0
+envision,Jayden rented a car,0.84,0
+envision,Jon went out for dinner,0.045,0
+envision,Josh learned to ride a bike yesterday,0.005,0
+envision,Julian cleaned his room,0.0033333333333333335,-2.8912057932946783e-19
+envision,Lucas bought new shoes,0.02,-8.673617379884035e-19
+envision,Mary planted a tree,0.06,0
+envision,Mia drank 2 cocktails last night,0.01,-4.336808689942018e-19
+envision,Molly attended a conference last week,0.69,0
+envision,Natasha got a promotion,0,0
+envision,Olivia left her job,0.47,0
+envision,Owen shoveled snow last winter,0.17333333333333334,-9.25185853854297e-18
+envision,Sophia got a tattoo,0.445,0
+envision,Tony had a drink last night,0.02,-5.779588143431843e-19
+envision,Valerie booked the venue,0.09333333333333334,-4.624376375534853e-18
+envision,Zoe calculated the tip,0.385,-6.938893903907228e-18
+excite,Allen went to the museum,0.006666666666666667,-5.782411586589357e-19
+excite,Audrey went to a party,0.075,3.469446951953614e-18
+excite,Charley spilled the wine,0,0
+excite,Cole celebrated his friend's birthday,0.015,8.673617379884035e-19
+excite,Connor fell from a tree,0.02,0
+excite,Courtney woke up early yesterday,0.022857142857142857,9.914823159378461e-19
+excite,Danielle painted her room,0.08333333333333334,-4.623670514745474e-18
+excite,Danny ate the last cupcake,0.013333333333333334,-5.782411586589357e-19
+excite,Dylan argued with his parents,0.04666666666666666,3.469446951953614e-18
+excite,Emilia looked after the kids,0.03666666666666667,-1.1559176286863686e-18
+excite,Emily bought a car yesterday,0,0
+excite,Emma studied on Saturday morning,0.10250000000000001,-1.0408340855860843e-17
+excite,Frank got a cat,0.4675,-2.7755575615628914e-17
+excite,Fred missed the train,0.07,0
+excite,Grace visited her sister,0.1175,6.938893903907228e-18
+excite,Hannah called her parents,0.04,-3.469446951953614e-18
+excite,Jackson ran 10 miles,0.01,0
+excite,Jason made a cake,0,0
+excite,Josh learned to ride a bike yesterday,0.21333333333333335,-1.8501458322559932e-17
+excite,Josie went on vacation to France,0,0
+excite,Julian cleaned his room,0,0
+excite,Louis went swimming,0.1,-2.3107058801097313e-18
+excite,Lucas bought new shoes,0.01,0
+excite,Mary planted a tree,0.015,8.673617379884035e-19
+excite,Mia drank 2 cocktails last night,0.01,0
+excite,Molly attended a conference last week,0.28,0
+excite,Olivia left her job,0.052500000000000005,-1.734723475976807e-18
+excite,Owen shoveled snow last winter,0.01,0
+excite,Sophia got a tattoo,0.04,0
+excite,Tony had a drink last night,0.09,0
+excite,Valerie booked the venue,0.034,6.933811706223703e-19
+excite,Zoe calculated the tip,0.04,0
+expose,Allen went to the museum,0.06666666666666667,2.3129646346357427e-18
+expose,Audrey went to a party,0.28500000000000003,-1.3877787807814457e-17
+expose,Charley spilled the wine,0.047142857142857146,-2.9738116731030977e-18
+expose,Cole celebrated his friend's birthday,0.09000000000000001,-6.938893903907228e-18
+expose,Connor fell from a tree,0.06,0
+expose,Courtney woke up early yesterday,0,0
+expose,Danielle painted her room,0.175,0
+expose,Danny ate the last cupcake,0.135,-6.938893903907228e-18
+expose,Dylan argued with his parents,0.7,0
+expose,Emilia looked after the kids,0.015,8.673617379884035e-19
+expose,Emily bought a car yesterday,0.37,0
+expose,Emma studied on Saturday morning,0,0
+expose,Frank got a cat,0.03,0
+expose,Fred missed the train,0.07333333333333333,0
+expose,Hannah called her parents,0.06,0
+expose,Isabella ate a steak on Sunday,0.005,-2.168404344971009e-19
+expose,Jackson ran 10 miles,0.37666666666666665,0
+expose,Jayden rented a car,0,0
+expose,Jon went out for dinner,0.01,0
+expose,Josh learned to ride a bike yesterday,0.01,0
+expose,Julian cleaned his room,0.56,-3.7002916645119864e-17
+expose,Louis went swimming,0.53,0
+expose,Lucas bought new shoes,0.12000000000000001,4.625929269271485e-18
+expose,Mary planted a tree,0.22666666666666666,-9.25185853854297e-18
+expose,Mia drank 2 cocktails last night,0.0475,2.6020852139652106e-18
+expose,Molly attended a conference last week,0.11,0
+expose,Natasha got a promotion,0.2866666666666667,-3.700743415417188e-17
+expose,Olivia left her job,0.035,0
+expose,Owen shoveled snow last winter,0.21,0
+expose,Sophia got a tattoo,0,0
+expose,Valerie booked the venue,0,0
+expose,Zoe calculated the tip,0,0
+express,Allen went to the museum,0.325,0
+express,Charley spilled the wine,0.645,-2.7755575615628914e-17
+express,Cole celebrated his friend's birthday,0.54,-5.551115123125783e-17
+express,Connor fell from a tree,0.03,0
+express,Courtney woke up early yesterday,0.043333333333333335,0
+express,Danielle painted her room,0.33,9.25185853854297e-18
+express,Danny ate the last cupcake,0.25,0
+express,Dylan argued with his parents,0.59,0
+express,Emilia looked after the kids,0.05,0
+express,Emily bought a car yesterday,0.22,-9.248752751069705e-18
+express,Frank got a cat,0.8400000000000001,-5.551115123125783e-17
+express,Fred missed the train,0.165,-6.938893903907228e-18
+express,Grace visited her sister,0.85,0
+express,Hannah called her parents,0.2275,-1.3877787807814457e-17
+express,Jackson ran 10 miles,0.06333333333333334,-2.3129646346357427e-18
+express,Jason made a cake,0.48,0
+express,Jayden rented a car,0.135,0
+express,Jon went out for dinner,0.34,-3.700743415417188e-17
+express,Josie went on vacation to France,0,0
+express,Julian cleaned his room,0.07,0
+express,Lucas bought new shoes,0.4,-2.2209881503365558e-17
+express,Mary planted a tree,0.26,0
+express,Mia drank 2 cocktails last night,0.14333333333333334,0
+express,Molly attended a conference last week,0.5833333333333334,-3.700630477690888e-17
+express,Natasha got a promotion,0,0
+express,Olivia left her job,0.385,0
+express,Owen shoveled snow last winter,0.02,0
+express,Sophia got a tattoo,0.06333333333333334,-9.25185853854297e-18
+express,Tony had a drink last night,0.12,0
+express,Zoe calculated the tip,0.19333333333333336,-9.25185853854297e-18
+fantasize,Allen went to the museum,0.33,-2.7755575615628914e-17
+fantasize,Audrey went to a party,0.01,0
+fantasize,Charley spilled the wine,0.562,-4.44156972485843e-17
+fantasize,Connor fell from a tree,0.04,0
+fantasize,Courtney woke up early yesterday,0.09333333333333334,-4.625929269271485e-18
+fantasize,Danny ate the last cupcake,0.0033333333333333335,-2.8912057932946783e-19
+fantasize,Dylan argued with his parents,0.045,3.469446951953614e-18
+fantasize,Emilia looked after the kids,0.225,0
+fantasize,Emily bought a car yesterday,0.01,0
+fantasize,Emma studied on Saturday morning,0.5,0
+fantasize,Frank got a cat,0.27,-1.3877787807814457e-17
+fantasize,Fred missed the train,0.125,-6.938893903907228e-18
+fantasize,Grace visited her sister,0.05,-3.469446951953614e-18
+fantasize,Hannah called her parents,0.475,0
+fantasize,Isabella ate a steak on Sunday,0.015,0
+fantasize,Jackson ran 10 miles,0.275,-2.7755575615628914e-17
+fantasize,Jason made a cake,0.0725,5.204170427930421e-18
+fantasize,Jayden rented a car,0.07500000000000001,-6.938893903907228e-18
+fantasize,Jon went out for dinner,0.08499999999999999,6.938893903907228e-18
+fantasize,Josh learned to ride a bike yesterday,0.6,0
+fantasize,Julian cleaned his room,0.0575,-1.734723475976807e-18
+fantasize,Louis went swimming,0.3466666666666667,-1.8494682058981897e-17
+fantasize,Lucas bought new shoes,0.09,0
+fantasize,Mary planted a tree,0,0
+fantasize,Mia drank 2 cocktails last night,0,0
+fantasize,Molly attended a conference last week,0.84,0
+fantasize,Natasha got a promotion,0.55,0
+fantasize,Owen shoveled snow last winter,0.07,-3.469446951953614e-18
+fantasize,Sophia got a tattoo,0.005,0
+fantasize,Tony had a drink last night,0.65,0
+fantasize,Valerie booked the venue,0.278,-2.7755575615628914e-17
+fantasize,Zoe calculated the tip,0.71,0
+fascinate,Allen went to the museum,0.13,0
+fascinate,Audrey went to a party,0.09,0
+fascinate,Charley spilled the wine,0,0
+fascinate,Cole celebrated his friend's birthday,0.1275,3.469446951953614e-18
+fascinate,Connor fell from a tree,0.006666666666666667,-5.782411586589357e-19
+fascinate,Courtney woke up early yesterday,0.41,0
+fascinate,Danielle painted her room,0.14,-6.938893903907228e-18
+fascinate,Danny ate the last cupcake,0.094,2.7728470561316775e-18
+fascinate,Dylan argued with his parents,0,0
+fascinate,Emilia looked after the kids,0.06,0
+fascinate,Emily bought a car yesterday,0.015,8.673617379884035e-19
+fascinate,Fred missed the train,0,0
+fascinate,Grace visited her sister,0.14,0
+fascinate,Hannah called her parents,0.04,0
+fascinate,Isabella ate a steak on Sunday,0.1575,1.3877787807814457e-17
+fascinate,Jackson ran 10 miles,0.01,0
+fascinate,Jason made a cake,0.11,0
+fascinate,Jayden rented a car,0,0
+fascinate,Jon went out for dinner,0.015,8.673617379884035e-19
+fascinate,Josie went on vacation to France,0.013333333333333334,-1.1564823173178713e-18
+fascinate,Louis went swimming,0.005,0
+fascinate,Mary planted a tree,0.045,3.469446951953614e-18
+fascinate,Mia drank 2 cocktails last night,0.1125,-6.938893903907228e-18
+fascinate,Molly attended a conference last week,0.006666666666666667,-2.8912057932946783e-19
+fascinate,Natasha got a promotion,0.04,0
+fascinate,Olivia left her job,0.0033333333333333335,-2.8912057932946783e-19
+fascinate,Owen shoveled snow last winter,0.03,0
+fascinate,Sophia got a tattoo,0.005,0
+fascinate,Tony had a drink last night,0.08,0
+fascinate,Zoe calculated the tip,0.015,0
+feel,Allen went to the museum,0.075,0
+feel,Audrey went to a party,0.006666666666666667,-5.782411586589357e-19
+feel,Charley spilled the wine,0.82,0
+feel,Cole celebrated his friend's birthday,0.36333333333333334,-1.850371707708594e-17
+feel,Connor fell from a tree,0.0875,3.469446951953614e-18
+feel,Courtney woke up early yesterday,0.07,0
+feel,Danielle painted her room,0.12000000000000001,-4.624517547692729e-18
+feel,Danny ate the last cupcake,0.025,-8.673617379884035e-19
+feel,Dylan argued with his parents,0.115,0
+feel,Emilia looked after the kids,0.02,0
+feel,Emily bought a car yesterday,0.21666666666666667,-1.850371707708594e-17
+feel,Emma studied on Saturday morning,0,0
+feel,Frank got a cat,0.22999999999999998,1.3877787807814457e-17
+feel,Fred missed the train,0.38,-1.3877787807814457e-17
+feel,Grace visited her sister,0.5033333333333333,3.701646917227593e-17
+feel,Hannah called her parents,0.33,0
+feel,Isabella ate a steak on Sunday,0.3566666666666667,-1.850371707708594e-17
+feel,Jackson ran 10 miles,0.04,0
+feel,Jason made a cake,0.0225,8.673617379884035e-19
+feel,Jayden rented a car,0.354,0
+feel,Josh learned to ride a bike yesterday,0.325,0
+feel,Julian cleaned his room,0.28500000000000003,-2.7755575615628914e-17
+feel,Lucas bought new shoes,0.58,0
+feel,Mary planted a tree,0.01,0
+feel,Mia drank 2 cocktails last night,0.26,0
+feel,Molly attended a conference last week,0.05,0
+feel,Olivia left her job,0,0
+feel,Owen shoveled snow last winter,0.97,0
+feel,Sophia got a tattoo,0.46,0
+feel,Tony had a drink last night,0,0
+feel,Valerie booked the venue,0.01,0
+feel,Zoe calculated the tip,0.07,0
+gossip,Allen went to the museum,0.52,0
+gossip,Audrey went to a party,0.19666666666666668,9.25185853854297e-18
+gossip,Charley spilled the wine,0.39,0
+gossip,Cole celebrated his friend's birthday,0.305,0
+gossip,Connor fell from a tree,0.5175,2.7755575615628914e-17
+gossip,Courtney woke up early yesterday,0,0
+gossip,Danielle painted her room,0.11,0
+gossip,Danny ate the last cupcake,0.17500000000000002,-1.3877787807814457e-17
+gossip,Dylan argued with his parents,0.46499999999999997,2.7755575615628914e-17
+gossip,Emily bought a car yesterday,0,0
+gossip,Emma studied on Saturday morning,0.03333333333333333,0
+gossip,Frank got a cat,0.04,0
+gossip,Fred missed the train,0.56,0
+gossip,Grace visited her sister,0.026000000000000002,-6.932117640329194e-19
+gossip,Hannah called her parents,0.22000000000000003,-1.3877787807814457e-17
+gossip,Jason made a cake,0.01,0
+gossip,Josh learned to ride a bike yesterday,0.19166666666666668,9.25185853854297e-18
+gossip,Josie went on vacation to France,0.20750000000000002,-1.3877787807814457e-17
+gossip,Julian cleaned his room,0.01,0
+gossip,Mary planted a tree,0.7,0
+gossip,Mia drank 2 cocktails last night,0.25333333333333335,-1.8506540520243458e-17
+gossip,Molly attended a conference last week,0.01,0
+gossip,Olivia left her job,0.36,1.8498070190770915e-17
+gossip,Owen shoveled snow last winter,0.305,0
+gossip,Sophia got a tattoo,0.15,0
+gossip,Tony had a drink last night,0.04,0
+gossip,Valerie booked the venue,0.325,0
+gossip,Zoe calculated the tip,0.35,1.850371707708594e-17
+ignore,Allen went to the museum,0.05,0
+ignore,Audrey went to a party,0,0
+ignore,Charley spilled the wine,0,0
+ignore,Cole celebrated his friend's birthday,0.005,0
+ignore,Connor fell from a tree,0.005,0
+ignore,Courtney woke up early yesterday,0.1514285714285714,1.5863233036178537e-17
+ignore,Danielle painted her room,0.05,0
+ignore,Dylan argued with his parents,0.035,0
+ignore,Emilia looked after the kids,0,0
+ignore,Emily bought a car yesterday,0.02,0
+ignore,Emma studied on Saturday morning,0.043333333333333335,0
+ignore,Frank got a cat,0.02,0
+ignore,Fred missed the train,0.02,0
+ignore,Grace visited her sister,0.013333333333333334,-1.1564823173178713e-18
+ignore,Hannah called her parents,0.16,0
+ignore,Isabella ate a steak on Sunday,0.078,2.7755575615628915e-18
+ignore,Jackson ran 10 miles,0.13,0
+ignore,Jason made a cake,0.03,0
+ignore,Jayden rented a car,0.03,0
+ignore,Jon went out for dinner,0.035,0
+ignore,Josh learned to ride a bike yesterday,0.01,0
+ignore,Josie went on vacation to France,0.015,0
+ignore,Julian cleaned his room,0.0033333333333333335,-2.8912057932946783e-19
+ignore,Louis went swimming,0.02,-5.779588143431843e-19
+ignore,Lucas bought new shoes,0,0
+ignore,Mary planted a tree,0,0
+ignore,Mia drank 2 cocktails last night,0,0
+ignore,Natasha got a promotion,0.022,1.734723475976807e-18
+ignore,Owen shoveled snow last winter,0.035,0
+ignore,Sophia got a tattoo,0.06666666666666667,2.3140940118987485e-18
+ignore,Tony had a drink last night,0,0
+ignore,Valerie booked the venue,0,0
+ignore,Zoe calculated the tip,0,0
+insult,Allen went to the museum,0,0
+insult,Audrey went to a party,0.112,5.548404617694569e-18
+insult,Charley spilled the wine,0.015,8.673617379884035e-19
+insult,Connor fell from a tree,0.015,0
+insult,Courtney woke up early yesterday,0.08,0
+insult,Danielle painted her room,0,0
+insult,Danny ate the last cupcake,0.5900000000000001,-5.551115123125783e-17
+insult,Emilia looked after the kids,0.01,0
+insult,Emily bought a car yesterday,0.0475,1.734723475976807e-18
+insult,Emma studied on Saturday morning,0.13666666666666666,9.250729161279966e-18
+insult,Fred missed the train,0.095,-3.469446951953614e-18
+insult,Grace visited her sister,0.07,-4.625929269271485e-18
+insult,Hannah called her parents,0.05,0
+insult,Isabella ate a steak on Sunday,0.07,0
+insult,Jackson ran 10 miles,0.023333333333333334,0
+insult,Jayden rented a car,0.015,8.673617379884035e-19
+insult,Jon went out for dinner,0,0
+insult,Josh learned to ride a bike yesterday,0.013333333333333334,-5.782411586589357e-19
+insult,Josie went on vacation to France,0.02,0
+insult,Julian cleaned his room,0.22,6.938893903907228e-18
+insult,Lucas bought new shoes,0.18,0
+insult,Mary planted a tree,0.105,0
+insult,Mia drank 2 cocktails last night,0.02,0
+insult,Molly attended a conference last week,0.035,-2.8917704819261814e-18
+insult,Olivia left her job,0.005,-2.168404344971009e-19
+insult,Owen shoveled snow last winter,0.065,0
+insult,Sophia got a tattoo,0.015,8.673617379884035e-19
+insult,Tony had a drink last night,0.10666666666666667,-4.624235203376977e-18
+insult,Valerie booked the venue,0.12400000000000001,-2.778268066994105e-18
+insult,Zoe calculated the tip,0.03,0
+irritate,Allen went to the museum,0.018000000000000002,-6.932117640329194e-19
+irritate,Audrey went to a party,0.36,2.7755575615628914e-17
+irritate,Charley spilled the wine,0,0
+irritate,Cole celebrated his friend's birthday,0.023333333333333334,-1.1560588008442442e-18
+irritate,Connor fell from a tree,0.06,3.469446951953614e-18
+irritate,Courtney woke up early yesterday,0.06333333333333334,-9.25185853854297e-18
+irritate,Danielle painted her room,0.51,0
+irritate,Danny ate the last cupcake,0.03333333333333333,1.1564117312389335e-18
+irritate,Emilia looked after the kids,0.05,0
+irritate,Emily bought a car yesterday,0.24666666666666667,-1.850371707708594e-17
+irritate,Emma studied on Saturday morning,0.1575,1.3877787807814457e-17
+irritate,Frank got a cat,0.01,0
+irritate,Fred missed the train,0.01,0
+irritate,Hannah called her parents,0,0
+irritate,Isabella ate a steak on Sunday,0.09666666666666666,2.31239994600424e-18
+irritate,Jason made a cake,0.02,-8.673617379884035e-19
+irritate,Jon went out for dinner,0.05,0
+irritate,Josh learned to ride a bike yesterday,0.22666666666666666,0
+irritate,Josie went on vacation to France,0.07,0
+irritate,Julian cleaned his room,0,0
+irritate,Louis went swimming,0.006666666666666667,-5.782411586589357e-19
+irritate,Mary planted a tree,0,0
+irritate,Mia drank 2 cocktails last night,0.044,3.469446951953614e-18
+irritate,Natasha got a promotion,0,0
+irritate,Olivia left her job,0.02,0
+irritate,Owen shoveled snow last winter,0.03,0
+irritate,Sophia got a tattoo,0.016666666666666666,0
+irritate,Tony had a drink last night,0.04,-1.3877787807814458e-18
+irritate,Valerie booked the venue,0.01,0
+irritate,Zoe calculated the tip,0.065,0
+joke,Allen went to the museum,0.33,0
+joke,Audrey went to a party,0.85,0
+joke,Charley spilled the wine,0.19,4.6264939579029885e-18
+joke,Cole celebrated his friend's birthday,0.21,9.25185853854297e-18
+joke,Connor fell from a tree,0.525,-2.7755575615628914e-17
+joke,Danielle painted her room,0,0
+joke,Dylan argued with his parents,0.10500000000000001,-6.938893903907228e-18
+joke,Emilia looked after the kids,0.23,0
+joke,Emily bought a car yesterday,0.04666666666666666,3.469446951953614e-18
+joke,Emma studied on Saturday morning,0.013333333333333334,-5.782411586589357e-19
+joke,Frank got a cat,0.49,0
+joke,Fred missed the train,0.335,0
+joke,Grace visited her sister,0.73,0
+joke,Hannah called her parents,0.015,0
+joke,Isabella ate a steak on Sunday,0.36,0
+joke,Jackson ran 10 miles,0,0
+joke,Jason made a cake,0.075,0
+joke,Jayden rented a car,0.12000000000000001,-6.938893903907228e-18
+joke,Jon went out for dinner,0.08,0
+joke,Josh learned to ride a bike yesterday,0,0
+joke,Josie went on vacation to France,0.28714285714285714,-7.93016446160826e-18
+joke,Julian cleaned his room,0.39,0
+joke,Louis went swimming,0.1,0
+joke,Mary planted a tree,0.29,0
+joke,Mia drank 2 cocktails last night,0.49666666666666665,1.8494682058981897e-17
+joke,Molly attended a conference last week,0.37285714285714283,2.3782749083592744e-17
+joke,Natasha got a promotion,0.02,0
+joke,Olivia left her job,0,0
+joke,Sophia got a tattoo,0.1,-6.938893903907228e-18
+joke,Tony had a drink last night,0.06,0
+joke,Zoe calculated the tip,0.37,0
+love,Allen went to the museum,0.015,0
+love,Audrey went to a party,0,0
+love,Charley spilled the wine,0.01,-1.1564823173178713e-18
+love,Cole celebrated his friend's birthday,0.15666666666666668,-9.25185853854297e-18
+love,Connor fell from a tree,0.195,0
+love,Courtney woke up early yesterday,0.06333333333333334,-4.62479989200848e-18
+love,Danielle painted her room,0.08,6.938893903907228e-18
+love,Danny ate the last cupcake,0.02,0
+love,Dylan argued with his parents,0.05,0
+love,Emilia looked after the kids,0.006666666666666667,-5.782411586589357e-19
+love,Emily bought a car yesterday,0.01,0
+love,Emma studied on Saturday morning,0.043333333333333335,1.1576116945808772e-18
+love,Frank got a cat,0.05,-1.1559176286863686e-18
+love,Fred missed the train,0.01,0
+love,Grace visited her sister,0.02,0
+love,Hannah called her parents,0.02666666666666667,-2.3129646346357427e-18
+love,Isabella ate a steak on Sunday,0.074,5.55153863959941e-18
+love,Jason made a cake,0.07666666666666666,4.625929269271485e-18
+love,Jon went out for dinner,0.02,0
+love,Josh learned to ride a bike yesterday,0.55,0
+love,Josie went on vacation to France,0.015,0
+love,Julian cleaned his room,0.142,5.548404617694569e-18
+love,Louis went swimming,0.045,2.6020852139652106e-18
+love,Lucas bought new shoes,0.02,0
+love,Mary planted a tree,0.05,-1.734723475976807e-18
+love,Mia drank 2 cocktails last night,0.11,4.625929269271485e-18
+love,Molly attended a conference last week,0.023333333333333334,2.3129646346357427e-18
+love,Natasha got a promotion,0.01,0
+love,Owen shoveled snow last winter,0.02666666666666667,-1.1564823173178713e-18
+love,Sophia got a tattoo,0.27,0
+love,Tony had a drink last night,0.023333333333333334,5.7908819160619e-19
+love,Valerie booked the venue,0.1,0
+love,Zoe calculated the tip,0.03333333333333333,1.1573293502651256e-18
+murmur,Allen went to the museum,0.43,0
+murmur,Audrey went to a party,0.85,0
+murmur,Charley spilled the wine,0.17800000000000002,-1.6653895940793064e-17
+murmur,Cole celebrated his friend's birthday,0.01,0
+murmur,Connor fell from a tree,0.484,2.2209881503365558e-17
+murmur,Courtney woke up early yesterday,0.08,0
+murmur,Danielle painted her room,0.21666666666666667,0
+murmur,Danny ate the last cupcake,0.38,0
+murmur,Dylan argued with his parents,0.21,0
+murmur,Emilia looked after the kids,0.1366666666666667,-1.850371707708594e-17
+murmur,Emma studied on Saturday morning,0.32666666666666666,9.242823520438925e-18
+murmur,Frank got a cat,0,0
+murmur,Fred missed the train,0.4425,-1.3877787807814457e-17
+murmur,Grace visited her sister,0.21,0
+murmur,Hannah called her parents,0.065,-3.469446951953614e-18
+murmur,Isabella ate a steak on Sunday,0,0
+murmur,Jackson ran 10 miles,0.01,0
+murmur,Jason made a cake,0.135,-6.938893903907228e-18
+murmur,Jayden rented a car,0.49,0
+murmur,Jon went out for dinner,0.37,0
+murmur,Josh learned to ride a bike yesterday,0.27749999999999997,2.7755575615628914e-17
+murmur,Josie went on vacation to France,0.5475,0
+murmur,Julian cleaned his room,0.08,-6.938893903907228e-18
+murmur,Louis went swimming,0,0
+murmur,Lucas bought new shoes,0.01,0
+murmur,Mary planted a tree,0.63,-2.7755575615628914e-17
+murmur,Mia drank 2 cocktails last night,0.33999999999999997,3.700743415417188e-17
+murmur,Molly attended a conference last week,0.07,0
+murmur,Olivia left her job,0.2,0
+murmur,Owen shoveled snow last winter,0.74,0
+murmur,Sophia got a tattoo,0.87,0
+murmur,Tony had a drink last night,0.02666666666666667,-1.1559176286863686e-18
+murmur,Valerie booked the venue,0.07666666666666666,4.623670514745474e-18
+murmur,Zoe calculated the tip,0.01,0
+offend,Allen went to the museum,0.125,0
+offend,Audrey went to a party,0,0
+offend,Charley spilled the wine,0,0
+offend,Connor fell from a tree,0.01,0
+offend,Courtney woke up early yesterday,0.24333333333333332,9.25185853854297e-18
+offend,Danielle painted her room,0.10333333333333333,0
+offend,Danny ate the last cupcake,0,0
+offend,Dylan argued with his parents,0.17666666666666667,0
+offend,Emilia looked after the kids,0,0
+offend,Emily bought a car yesterday,0.09333333333333334,4.625929269271485e-18
+offend,Emma studied on Saturday morning,0.025,5.785235029746871e-19
+offend,Frank got a cat,0.0025,-1.0842021724855044e-19
+offend,Fred missed the train,0.49,0
+offend,Grace visited her sister,0.01,0
+offend,Isabella ate a steak on Sunday,0.04,3.469446951953614e-18
+offend,Jason made a cake,0,0
+offend,Jayden rented a car,0.02,0
+offend,Josh learned to ride a bike yesterday,0.02,-8.673617379884035e-19
+offend,Josie went on vacation to France,0.08,0
+offend,Julian cleaned his room,0.03,0
+offend,Louis went swimming,0.11,-6.938893903907228e-18
+offend,Lucas bought new shoes,0.016666666666666666,2.3129646346357427e-18
+offend,Mary planted a tree,0,0
+offend,Mia drank 2 cocktails last night,0.01,0
+offend,Natasha got a promotion,0.0033333333333333335,-2.8912057932946783e-19
+offend,Olivia left her job,0.005,0
+offend,Owen shoveled snow last winter,0.03,0
+offend,Tony had a drink last night,0,0
+offend,Valerie booked the venue,0.315,0
+offend,Zoe calculated the tip,0.02333333333333333,1.734723475976807e-18
+pain,Allen went to the museum,0.04,0
+pain,Audrey went to a party,0.01,0
+pain,Charley spilled the wine,0.13,0
+pain,Cole celebrated his friend's birthday,0,0
+pain,Connor fell from a tree,0.025,0
+pain,Courtney woke up early yesterday,0.065,-3.469446951953614e-18
+pain,Danielle painted her room,0.030000000000000002,-1.734723475976807e-18
+pain,Danny ate the last cupcake,0.01,0
+pain,Dylan argued with his parents,0.01,-1.1564823173178713e-18
+pain,Emilia looked after the kids,0.15333333333333332,4.628188023797497e-18
+pain,Emma studied on Saturday morning,0.29,0
+pain,Frank got a cat,0.045,1.734723475976807e-18
+pain,Fred missed the train,0.0275,0
+pain,Grace visited her sister,0.02,-8.673617379884035e-19
+pain,Hannah called her parents,0.0675,-1.734723475976807e-18
+pain,Isabella ate a steak on Sunday,0.08,0
+pain,Jackson ran 10 miles,0.005,0
+pain,Jason made a cake,0.17,0
+pain,Jayden rented a car,0.03,0
+pain,Jon went out for dinner,0.035,0
+pain,Josh learned to ride a bike yesterday,0.19,0
+pain,Josie went on vacation to France,0.20500000000000002,0
+pain,Julian cleaned his room,0.02,0
+pain,Lucas bought new shoes,0.043333333333333335,1.1561293869231822e-18
+pain,Mary planted a tree,0.04666666666666667,2.3129646346357427e-18
+pain,Mia drank 2 cocktails last night,0,0
+pain,Molly attended a conference last week,0.026666666666666665,1.1566234894757471e-18
+pain,Natasha got a promotion,0.08,-6.938893903907228e-18
+pain,Olivia left her job,0.04,0
+pain,Owen shoveled snow last winter,0.015,0
+pain,Sophia got a tattoo,0.02,-8.673617379884035e-19
+pain,Tony had a drink last night,0,0
+pain,Valerie booked the venue,0.02,0
+pain,Zoe calculated the tip,0.07,0
+pray,Allen went to the museum,0.01,0
+pray,Audrey went to a party,0.02,0
+pray,Charley spilled the wine,0.19,1.1098842114462549e-17
+pray,Cole celebrated his friend's birthday,0.22666666666666668,-9.254117293068983e-18
+pray,Connor fell from a tree,0.105,0
+pray,Courtney woke up early yesterday,0.028,6.945670167485263e-19
+pray,Danielle painted her room,0.11,0
+pray,Danny ate the last cupcake,0.02666666666666667,-1.1564823173178713e-18
+pray,Dylan argued with his parents,0.10333333333333333,0
+pray,Emilia looked after the kids,0.33666666666666667,0
+pray,Emily bought a car yesterday,0,0
+pray,Emma studied on Saturday morning,0.02,-8.673617379884035e-19
+pray,Frank got a cat,0.075,0
+pray,Grace visited her sister,0.005,0
+pray,Hannah called her parents,0.085,0
+pray,Isabella ate a steak on Sunday,0.15000000000000002,-1.3877787807814457e-17
+pray,Jackson ran 10 miles,0.0225,1.3010426069826053e-18
+pray,Jason made a cake,0.005,0
+pray,Josh learned to ride a bike yesterday,0.38,0
+pray,Josie went on vacation to France,0.065,-3.469446951953614e-18
+pray,Julian cleaned his room,0.18,0
+pray,Lucas bought new shoes,0.04666666666666667,4.625929269271485e-18
+pray,Mary planted a tree,0.005,0
+pray,Mia drank 2 cocktails last night,0,0
+pray,Molly attended a conference last week,0,0
+pray,Natasha got a promotion,0.078,-1.3864235280658388e-18
+pray,Olivia left her job,0.005,0
+pray,Owen shoveled snow last winter,0.3566666666666667,0
+pray,Tony had a drink last night,0.09666666666666666,0
+pray,Valerie booked the venue,0.02,0
+pray,Zoe calculated the tip,0.085,-6.938893903907228e-18
+promise,Allen went to the museum,0.17400000000000002,-1.6653345369377347e-17
+promise,Audrey went to a party,0.324,-3.3306690738754695e-17
+promise,Cole celebrated his friend's birthday,0.11333333333333334,-4.625929269271485e-18
+promise,Connor fell from a tree,0.03,0
+promise,Danny ate the last cupcake,0.04,-1.734723475976807e-18
+promise,Dylan argued with his parents,0.38,0
+promise,Emilia looked after the kids,0.49,0
+promise,Emily bought a car yesterday,0.02,0
+promise,Emma studied on Saturday morning,0.04,0
+promise,Frank got a cat,0.46499999999999997,2.7755575615628914e-17
+promise,Fred missed the train,0.005,0
+promise,Grace visited her sister,0.03333333333333333,4.625929269271485e-18
+promise,Hannah called her parents,0.11,-6.938893903907228e-18
+promise,Isabella ate a steak on Sunday,0.29666666666666663,1.8494682058981897e-17
+promise,Jackson ran 10 miles,0.1575,6.938893903907228e-18
+promise,Jason made a cake,0.115,0
+promise,Jayden rented a car,0.12142857142857143,1.982541115402065e-18
+promise,Jon went out for dinner,0,0
+promise,Josh learned to ride a bike yesterday,0.39,-1.8501458322559932e-17
+promise,Josie went on vacation to France,0.62,0
+promise,Julian cleaned his room,0.08,0
+promise,Louis went swimming,0.19,-6.938893903907228e-18
+promise,Lucas bought new shoes,0.21,1.1104940751682779e-17
+promise,Mary planted a tree,0.18,1.3877787807814457e-17
+promise,Mia drank 2 cocktails last night,0.39,0
+promise,Natasha got a promotion,0.05,0
+promise,Olivia left her job,0,0
+promise,Owen shoveled snow last winter,0,0
+promise,Sophia got a tattoo,0.055,-3.469446951953614e-18
+promise,Tony had a drink last night,0.21,0
+promise,Valerie booked the venue,0.03,0
+promise,Zoe calculated the tip,0.09,0
+require,Allen went to the museum,0,0
+require,Audrey went to a party,0.95,0
+require,Charley spilled the wine,0.28,0
+require,Cole celebrated his friend's birthday,0.08,0
+require,Connor fell from a tree,0.5966666666666667,0
+require,Courtney woke up early yesterday,0.35,3.700743415417188e-17
+require,Danielle painted her room,0.515,-2.7755575615628914e-17
+require,Danny ate the last cupcake,0.02,0
+require,Dylan argued with his parents,0,0
+require,Emilia looked after the kids,0.13,0
+require,Emily bought a car yesterday,0.245,1.3877787807814457e-17
+require,Emma studied on Saturday morning,0.78,0
+require,Frank got a cat,0.36000000000000004,-1.850371707708594e-17
+require,Fred missed the train,0,0
+require,Grace visited her sister,0,0
+require,Hannah called her parents,0.013333333333333332,5.782411586589357e-19
+require,Isabella ate a steak on Sunday,0.295,-6.938893903907228e-18
+require,Jackson ran 10 miles,0.42,0
+require,Jason made a cake,0.02,0
+require,Jayden rented a car,0.71,0
+require,Jon went out for dinner,0.235,1.3877787807814457e-17
+require,Josh learned to ride a bike yesterday,0.49,0
+require,Josie went on vacation to France,0.04,0
+require,Julian cleaned his room,0.17,0
+require,Louis went swimming,0.12,0
+require,Lucas bought new shoes,0.03666666666666667,0
+require,Mary planted a tree,0.64,0
+require,Mia drank 2 cocktails last night,0.06,0
+require,Natasha got a promotion,0.195,0
+require,Olivia left her job,0.07666666666666666,6.938893903907228e-18
+require,Owen shoveled snow last winter,0.3,0
+require,Sophia got a tattoo,0.09,0
+require,Tony had a drink last night,0.45666666666666667,0
+require,Valerie booked the venue,0.16,0
+resent,Allen went to the museum,0.075,0
+resent,Charley spilled the wine,0.02,0
+resent,Cole celebrated his friend's birthday,0.04,0
+resent,Connor fell from a tree,0,0
+resent,Courtney woke up early yesterday,0.01,0
+resent,Danielle painted her room,0.005,0
+resent,Danny ate the last cupcake,0.025,-1.734723475976807e-18
+resent,Dylan argued with his parents,0.023333333333333334,-1.1559176286863686e-18
+resent,Emilia looked after the kids,0,0
+resent,Emily bought a car yesterday,0.12000000000000001,0
+resent,Emma studied on Saturday morning,0.495,0
+resent,Frank got a cat,0.0325,-8.673617379884035e-19
+resent,Fred missed the train,0.045,0
+resent,Grace visited her sister,0.01,-8.673617379884035e-19
+resent,Hannah called her parents,0.02,0
+resent,Isabella ate a steak on Sunday,0.12,0
+resent,Jayden rented a car,0.31,1.3877787807814457e-17
+resent,Jon went out for dinner,0.075,-3.469446951953614e-18
+resent,Josh learned to ride a bike yesterday,0,0
+resent,Josie went on vacation to France,0.005,0
+resent,Louis went swimming,0.01,0
+resent,Lucas bought new shoes,0.015,0
+resent,Mary planted a tree,0.02,0
+resent,Mia drank 2 cocktails last night,0,0
+resent,Molly attended a conference last week,0.2075,6.938893903907228e-18
+resent,Natasha got a promotion,0.045,3.469446951953614e-18
+resent,Olivia left her job,0.06,0
+resent,Owen shoveled snow last winter,0.0525,1.734723475976807e-18
+resent,Sophia got a tattoo,0.0375,3.469446951953614e-18
+resent,Valerie booked the venue,0.16,0
+resent,Zoe calculated the tip,0,0
+retract,Allen went to the museum,0.26,-1.3877787807814457e-17
+retract,Charley spilled the wine,0.175,1.3877787807814457e-17
+retract,Cole celebrated his friend's birthday,0.255,0
+retract,Connor fell from a tree,0.02,0
+retract,Courtney woke up early yesterday,0.015,0
+retract,Danielle painted her room,0.132,-2.7787762867624576e-18
+retract,Emilia looked after the kids,0.034999999999999996,3.469446951953614e-18
+retract,Emily bought a car yesterday,0,0
+retract,Grace visited her sister,0.24,0
+retract,Jackson ran 10 miles,0.27199999999999996,4.4417052501299904e-17
+retract,Jayden rented a car,0.15666666666666668,0
+retract,Jon went out for dinner,0.35333333333333333,1.3877787807814457e-17
+retract,Josh learned to ride a bike yesterday,0.285,3.469446951953614e-17
+retract,Josie went on vacation to France,0,0
+retract,Louis went swimming,0.04,0
+retract,Lucas bought new shoes,0.12333333333333334,0
+retract,Mary planted a tree,0.11333333333333333,-4.625929269271485e-18
+retract,Mia drank 2 cocktails last night,0,0
+retract,Molly attended a conference last week,0.05,0
+retract,Natasha got a promotion,0.2,0
+retract,Olivia left her job,0.04666666666666666,3.469446951953614e-18
+retract,Owen shoveled snow last winter,0.81,0
+retract,Sophia got a tattoo,0.04,0
+retract,Tony had a drink last night,0.075,-3.469446951953614e-18
+retract,Valerie booked the venue,0.17333333333333334,-4.62479989200848e-18
+retract,Zoe calculated the tip,0.2833333333333333,9.25185853854297e-18
+scream,Audrey went to a party,0.037500000000000006,-1.734723475976807e-18
+scream,Charley spilled the wine,0.2866666666666667,1.8508234586137966e-17
+scream,Cole celebrated his friend's birthday,0.12,0
+scream,Connor fell from a tree,0.434,0
+scream,Courtney woke up early yesterday,0.365,1.3877787807814457e-17
+scream,Danielle painted her room,0,0
+scream,Danny ate the last cupcake,1,0
+scream,Dylan argued with his parents,0.495,-2.7755575615628914e-17
+scream,Emilia looked after the kids,0.07,-2.3135293232672458e-18
+scream,Emily bought a car yesterday,0.04,0
+scream,Emma studied on Saturday morning,0.37,2.7755575615628914e-17
+scream,Frank got a cat,0,0
+scream,Fred missed the train,0.07,0
+scream,Grace visited her sister,0.01,-1.1564823173178713e-18
+scream,Isabella ate a steak on Sunday,0.005,0
+scream,Jackson ran 10 miles,0.155,0
+scream,Jason made a cake,0.13,0
+scream,Jayden rented a car,0.3,0
+scream,Jon went out for dinner,0.23,0
+scream,Josie went on vacation to France,0.505,-2.7755575615628914e-17
+scream,Julian cleaned his room,0.305,0
+scream,Louis went swimming,0.026666666666666665,1.1564823173178713e-18
+scream,Lucas bought new shoes,0.23,0
+scream,Mary planted a tree,0.2733333333333333,0
+scream,Molly attended a conference last week,0,0
+scream,Natasha got a promotion,0.2025,-6.938893903907228e-18
+scream,Olivia left her job,0,0
+scream,Owen shoveled snow last winter,0.16,0
+scream,Sophia got a tattoo,0.08499999999999999,6.938893903907228e-18
+scream,Tony had a drink last night,0,0
+scream,Valerie booked the venue,0.01,0
+scream,Zoe calculated the tip,0.08499999999999999,6.938893903907228e-18
+shock,Allen went to the museum,0.01,0
+shock,Charley spilled the wine,0,0
+shock,Cole celebrated his friend's birthday,0.035,-1.734723475976807e-18
+shock,Courtney woke up early yesterday,0,0
+shock,Danielle painted her room,0.023333333333333334,-1.1564823173178713e-18
+shock,Danny ate the last cupcake,0.023333333333333334,2.3129646346357427e-18
+shock,Dylan argued with his parents,0.045,3.469446951953614e-18
+shock,Emilia looked after the kids,0,0
+shock,Emily bought a car yesterday,0.02,0
+shock,Emma studied on Saturday morning,0.01,0
+shock,Frank got a cat,0.035,-2.6020852139652106e-18
+shock,Fred missed the train,0,0
+shock,Grace visited her sister,0.09333333333333334,9.25185853854297e-18
+shock,Hannah called her parents,0,0
+shock,Isabella ate a steak on Sunday,0,0
+shock,Jackson ran 10 miles,0.05,0
+shock,Jayden rented a car,0.2125,-1.3877787807814457e-17
+shock,Josh learned to ride a bike yesterday,0.065,0
+shock,Josie went on vacation to France,0.0125,8.673617379884035e-19
+shock,Julian cleaned his room,0.04,0
+shock,Louis went swimming,0.06,0
+shock,Lucas bought new shoes,0.12000000000000001,-6.938893903907228e-18
+shock,Mary planted a tree,0.04,0
+shock,Mia drank 2 cocktails last night,0.09,0
+shock,Molly attended a conference last week,0.5,0
+shock,Natasha got a promotion,0.2575,1.3877787807814457e-17
+shock,Olivia left her job,0.0225,8.673617379884035e-19
+shock,Owen shoveled snow last winter,0,0
+shock,Sophia got a tattoo,0.0033333333333333335,-2.8912057932946783e-19
+shock,Tony had a drink last night,0.165,-6.938893903907228e-18
+shock,Zoe calculated the tip,1,0
+shout,Allen went to the museum,0.125,0
+shout,Audrey went to a party,0.5900000000000001,-5.551115123125783e-17
+shout,Charley spilled the wine,0.5833333333333334,-3.701646917227593e-17
+shout,Cole celebrated his friend's birthday,0.21333333333333335,-9.256376047594994e-18
+shout,Connor fell from a tree,0.39,0
+shout,Courtney woke up early yesterday,0.060000000000000005,0
+shout,Danielle painted her room,0.37,0
+shout,Dylan argued with his parents,0.02,0
+shout,Emilia looked after the kids,0.01,0
+shout,Emily bought a car yesterday,0.015,8.673617379884035e-19
+shout,Emma studied on Saturday morning,0.08666666666666667,-2.3121176016884884e-18
+shout,Frank got a cat,0.05,0
+shout,Fred missed the train,0.3666666666666667,-2.7755575615628914e-17
+shout,Grace visited her sister,0.07666666666666667,-4.624235203376977e-18
+shout,Hannah called her parents,0.03,0
+shout,Jackson ran 10 miles,0.02,0
+shout,Jason made a cake,0.065,-3.469446951953614e-18
+shout,Jayden rented a car,0.38,0
+shout,Jon went out for dinner,0.5633333333333334,-3.701646917227593e-17
+shout,Josh learned to ride a bike yesterday,0.07333333333333333,-4.625929269271485e-18
+shout,Julian cleaned his room,0,0
+shout,Louis went swimming,0.52,-3.7013081040486915e-17
+shout,Lucas bought new shoes,0.028,-6.935082255644584e-19
+shout,Mary planted a tree,0.275,0
+shout,Mia drank 2 cocktails last night,0.5650000000000001,-2.7755575615628914e-17
+shout,Molly attended a conference last week,0.39,-1.850371707708594e-17
+shout,Natasha got a promotion,0.73,0
+shout,Olivia left her job,0.735,0
+shout,Owen shoveled snow last winter,0.03,0
+shout,Sophia got a tattoo,0.045,3.469446951953614e-18
+shout,Valerie booked the venue,0.216,0
+shout,Zoe calculated the tip,0.06333333333333334,0
+simulate,Allen went to the museum,0.055,0
+simulate,Audrey went to a party,0.125,0
+simulate,Charley spilled the wine,0.02,0
+simulate,Cole celebrated his friend's birthday,0.295,2.312964634635743e-17
+simulate,Connor fell from a tree,0.015,8.673617379884035e-19
+simulate,Courtney woke up early yesterday,0.74,0
+simulate,Danielle painted her room,0.13,0
+simulate,Danny ate the last cupcake,0.3725,0
+simulate,Dylan argued with his parents,0.89,0
+simulate,Emilia looked after the kids,0.17333333333333334,0
+simulate,Emily bought a car yesterday,0.03,0
+simulate,Emma studied on Saturday morning,0.12,0
+simulate,Frank got a cat,0.182,0
+simulate,Fred missed the train,0,0
+simulate,Grace visited her sister,0.09,-1.734723475976807e-18
+simulate,Hannah called her parents,0,0
+simulate,Isabella ate a steak on Sunday,0,0
+simulate,Jackson ran 10 miles,0.01,0
+simulate,Jason made a cake,0.12666666666666668,-9.248470406753953e-18
+simulate,Jayden rented a car,0.10666666666666667,-4.623670514745474e-18
+simulate,Josh learned to ride a bike yesterday,0.05666666666666667,2.3129646346357427e-18
+simulate,Josie went on vacation to France,0.044,4.8572257327350596e-18
+simulate,Louis went swimming,0,0
+simulate,Mary planted a tree,0.02,0
+simulate,Mia drank 2 cocktails last night,0.06,3.469446951953614e-18
+simulate,Molly attended a conference last week,0.18,6.938893903907228e-18
+simulate,Natasha got a promotion,0.5,0
+simulate,Olivia left her job,0.2733333333333333,1.849919956803392e-17
+simulate,Owen shoveled snow last winter,0.23333333333333334,0
+simulate,Sophia got a tattoo,0.01,0
+simulate,Tony had a drink last night,0.04,0
+simulate,Valerie booked the venue,0.81,0
+simulate,Zoe calculated the tip,0,0
+squeal,Allen went to the museum,0.03,0
+squeal,Audrey went to a party,0.03,0
+squeal,Charley spilled the wine,0.01,0
+squeal,Connor fell from a tree,0.196,0
+squeal,Courtney woke up early yesterday,0.02,-5.779588143431843e-19
+squeal,Danielle painted her room,0.05,0
+squeal,Danny ate the last cupcake,0,0
+squeal,Dylan argued with his parents,0.07,0
+squeal,Emilia looked after the kids,0.31,0
+squeal,Emily bought a car yesterday,0.03,0
+squeal,Emma studied on Saturday morning,0,0
+squeal,Frank got a cat,0.025,-1.734723475976807e-18
+squeal,Fred missed the train,0.10500000000000001,-6.938893903907228e-18
+squeal,Grace visited her sister,0.08,-6.938893903907228e-18
+squeal,Hannah called her parents,0.2,0
+squeal,Isabella ate a steak on Sunday,0.015,4.336808689942018e-19
+squeal,Jackson ran 10 miles,0.018333333333333333,5.782411586589357e-19
+squeal,Jason made a cake,0.034999999999999996,3.469446951953614e-18
+squeal,Jayden rented a car,0,0
+squeal,Jon went out for dinner,0.060000000000000005,2.3129646346357427e-18
+squeal,Josh learned to ride a bike yesterday,0.03,0
+squeal,Julian cleaned his room,0.41500000000000004,0
+squeal,Louis went swimming,0,0
+squeal,Lucas bought new shoes,0.07,-4.625929269271485e-18
+squeal,Mary planted a tree,0.25,0
+squeal,Mia drank 2 cocktails last night,0.09333333333333334,-4.624235203376977e-18
+squeal,Molly attended a conference last week,1,0
+squeal,Natasha got a promotion,0,0
+squeal,Olivia left her job,0.01,0
+squeal,Owen shoveled snow last winter,0.2,1.3877787807814457e-17
+squeal,Sophia got a tattoo,0.066,0
+squeal,Tony had a drink last night,0.026666666666666665,1.1564823173178713e-18
+squeal,Valerie booked the venue,0.24,0
+squeal,Zoe calculated the tip,0,0
+suppose,Allen went to the museum,0.15250000000000002,-1.3877787807814457e-17
+suppose,Audrey went to a party,0.45999999999999996,1.3877787807814457e-17
+suppose,Charley spilled the wine,0.705,0
+suppose,Cole celebrated his friend's birthday,0.092,-5.551115123125783e-18
+suppose,Connor fell from a tree,0.28,-2.7755575615628914e-17
+suppose,Courtney woke up early yesterday,0.005,0
+suppose,Danielle painted her room,0.21,0
+suppose,Dylan argued with his parents,0.24333333333333332,1.8501458322559932e-17
+suppose,Emilia looked after the kids,0.02,0
+suppose,Emily bought a car yesterday,0.09,0
+suppose,Emma studied on Saturday morning,0.04,0
+suppose,Fred missed the train,0.155,0
+suppose,Hannah called her parents,0.03,0
+suppose,Isabella ate a steak on Sunday,0.55,0
+suppose,Jason made a cake,0.02666666666666667,-2.3129646346357427e-18
+suppose,Jayden rented a car,0.35,0
+suppose,Jon went out for dinner,0.27,0
+suppose,Josh learned to ride a bike yesterday,0.006666666666666667,-5.782411586589357e-19
+suppose,Josie went on vacation to France,0.19,0
+suppose,Julian cleaned his room,0.075,3.469446951953614e-18
+suppose,Louis went swimming,0,0
+suppose,Lucas bought new shoes,0.005,-2.168404344971009e-19
+suppose,Mary planted a tree,0.22,0
+suppose,Mia drank 2 cocktails last night,0.12,0
+suppose,Molly attended a conference last week,0.2,0
+suppose,Natasha got a promotion,0.07,0
+suppose,Olivia left her job,0.17500000000000002,-6.938893903907228e-18
+suppose,Owen shoveled snow last winter,0.92,0
+suppose,Tony had a drink last night,0.2675,-2.7755575615628914e-17
+suppose,Valerie booked the venue,0.198,5.547049364978962e-18
+suppose,Zoe calculated the tip,0.48,0
+surprise,Allen went to the museum,0.21000000000000002,-1.850371707708594e-17
+surprise,Audrey went to a party,0.108,8.325317431973067e-18
+surprise,Cole celebrated his friend's birthday,0.01,0
+surprise,Connor fell from a tree,0.015,8.673617379884035e-19
+surprise,Courtney woke up early yesterday,0.006666666666666667,-2.8912057932946783e-19
+surprise,Danielle painted her room,0.15,0
+surprise,Danny ate the last cupcake,0.01,0
+surprise,Dylan argued with his parents,0.015,0
+surprise,Emilia looked after the kids,0.095,0
+surprise,Emily bought a car yesterday,0,0
+surprise,Emma studied on Saturday morning,0.006666666666666667,-5.782411586589357e-19
+surprise,Frank got a cat,0.025,-1.734723475976807e-18
+surprise,Fred missed the train,0.04,0
+surprise,Grace visited her sister,0.37,0
+surprise,Hannah called her parents,0.2733333333333333,0
+surprise,Isabella ate a steak on Sunday,0.04,0
+surprise,Jackson ran 10 miles,0.265,-1.3877787807814457e-17
+surprise,Jason made a cake,0.02,0
+surprise,Jayden rented a car,0.03666666666666667,0
+surprise,Jon went out for dinner,0.03666666666666667,-1.1576116945808772e-18
+surprise,Josh learned to ride a bike yesterday,0,0
+surprise,Josie went on vacation to France,0.03,0
+surprise,Louis went swimming,0.006666666666666667,-5.782411586589357e-19
+surprise,Lucas bought new shoes,0.58,0
+surprise,Mary planted a tree,0.13,0
+surprise,Mia drank 2 cocktails last night,0.04,0
+surprise,Molly attended a conference last week,0.02,0
+surprise,Natasha got a promotion,0.07,-6.938893903907228e-18
+surprise,Olivia left her job,0.02666666666666667,-1.1564823173178713e-18
+surprise,Owen shoveled snow last winter,0.06999999999999999,6.938893903907228e-18
+surprise,Tony had a drink last night,0.19666666666666668,9.25185853854297e-18
+surprise,Valerie booked the venue,0.060000000000000005,0
+surprise,Zoe calculated the tip,0.015,8.673617379884035e-19
+testify,Allen went to the museum,0.525,-5.551115123125783e-17
+testify,Audrey went to a party,0.11800000000000001,0
+testify,Charley spilled the wine,0.5,0
+testify,Connor fell from a tree,0.5,0
+testify,Courtney woke up early yesterday,0,0
+testify,Danielle painted her room,0.25666666666666665,9.260893556647018e-18
+testify,Danny ate the last cupcake,0.07333333333333333,-2.3129646346357427e-18
+testify,Dylan argued with his parents,0.07,0
+testify,Emilia looked after the kids,0.63,0
+testify,Emily bought a car yesterday,0.04,0
+testify,Emma studied on Saturday morning,0,0
+testify,Frank got a cat,0.028333333333333332,0
+testify,Fred missed the train,0.255,0
+testify,Grace visited her sister,0.05,0
+testify,Hannah called her parents,0.5466666666666666,3.700630477690888e-17
+testify,Isabella ate a steak on Sunday,0,0
+testify,Jason made a cake,0.035,-3.469446951953614e-18
+testify,Jayden rented a car,0.215,0
+testify,Jon went out for dinner,0.32,-1.3877787807814457e-17
+testify,Josie went on vacation to France,0.056666666666666664,0
+testify,Julian cleaned his room,0.53,-2.2209881503365558e-17
+testify,Louis went swimming,0,0
+testify,Molly attended a conference last week,0.79,0
+testify,Natasha got a promotion,0.1,0
+testify,Olivia left her job,0.02,0
+testify,Owen shoveled snow last winter,0.128,-1.1099519740820352e-17
+testify,Sophia got a tattoo,0.23,0
+testify,Tony had a drink last night,0.645,-5.551115123125783e-17
+testify,Valerie booked the venue,0.21999999999999997,9.25185853854297e-18
+testify,Zoe calculated the tip,0.3225,0
+think,Allen went to the museum,0,0
+think,Audrey went to a party,0.025,-8.673617379884035e-19
+think,Charley spilled the wine,0,0
+think,Cole celebrated his friend's birthday,0.05,0
+think,Connor fell from a tree,0.18,1.3877787807814457e-17
+think,Courtney woke up early yesterday,0.12,0
+think,Danielle painted her room,0.34,-3.700743415417188e-17
+think,Danny ate the last cupcake,0.245,1.3877787807814457e-17
+think,Dylan argued with his parents,0.05,2.3129646346357427e-18
+think,Emilia looked after the kids,0.37,0
+think,Emily bought a car yesterday,0.11,4.623670514745474e-18
+think,Emma studied on Saturday morning,0.12,6.938893903907228e-18
+think,Frank got a cat,0.56,0
+think,Hannah called her parents,0.01,0
+think,Isabella ate a steak on Sunday,0.23,0
+think,Jackson ran 10 miles,0.14,-1.3877787807814457e-17
+think,Jason made a cake,0.05666666666666667,-2.3129646346357427e-18
+think,Jayden rented a car,0.03,0
+think,Jon went out for dinner,0.24571428571428572,-1.5864201073832543e-17
+think,Josh learned to ride a bike yesterday,0.04,0
+think,Josie went on vacation to France,0.025,-8.673617379884035e-19
+think,Mary planted a tree,0.023333333333333334,-5.782411586589357e-19
+think,Molly attended a conference last week,0.060000000000000005,-3.469446951953614e-18
+think,Natasha got a promotion,0.415,1.3877787807814457e-17
+think,Olivia left her job,0.03666666666666667,2.3140940118987485e-18
+think,Owen shoveled snow last winter,0.46,-1.8494682058981897e-17
+think,Sophia got a tattoo,0.13,0
+think,Tony had a drink last night,0.23,0
+think,Valerie booked the venue,0,0
+thrill,Allen went to the museum,0,0
+thrill,Audrey went to a party,0.115,0
+thrill,Charley spilled the wine,0.060000000000000005,0
+thrill,Cole celebrated his friend's birthday,0.03,0
+thrill,Connor fell from a tree,0.05666666666666667,0
+thrill,Danielle painted her room,0.025,0
+thrill,Danny ate the last cupcake,0,0
+thrill,Dylan argued with his parents,0.13333333333333333,0
+thrill,Emilia looked after the kids,0,0
+thrill,Emily bought a car yesterday,0.02,0
+thrill,Emma studied on Saturday morning,0.02,0
+thrill,Frank got a cat,0,0
+thrill,Grace visited her sister,0.36333333333333334,1.850371707708594e-17
+thrill,Hannah called her parents,0.02,-5.780529291151014e-19
+thrill,Isabella ate a steak on Sunday,0,0
+thrill,Jackson ran 10 miles,0.0225,8.673617379884035e-19
+thrill,Jason made a cake,0.065,0
+thrill,Jayden rented a car,0.01,0
+thrill,Jon went out for dinner,0.07,0
+thrill,Josh learned to ride a bike yesterday,0.125,0
+thrill,Josie went on vacation to France,0.11,-5.551115123125783e-18
+thrill,Julian cleaned his room,0.2733333333333333,1.8494682058981897e-17
+thrill,Louis went swimming,0.06,0
+thrill,Lucas bought new shoes,0.37,0
+thrill,Mary planted a tree,0,0
+thrill,Molly attended a conference last week,0,0
+thrill,Natasha got a promotion,0.16666666666666669,-9.25185853854297e-18
+thrill,Olivia left her job,0.0175,-1.734723475976807e-18
+thrill,Sophia got a tattoo,0.043333333333333335,-1.1559176286863686e-18
+thrill,Tony had a drink last night,0.0033333333333333335,-2.8912057932946783e-19
+thrill,Valerie booked the venue,0.013333333333333334,-1.1564823173178713e-18
+thrill,Zoe calculated the tip,0.03,1.1567646616336229e-18
+torture,Allen went to the museum,0.17,0
+torture,Audrey went to a party,0.02,0
+torture,Cole celebrated his friend's birthday,0.015,0
+torture,Connor fell from a tree,0.025,0
+torture,Courtney woke up early yesterday,0.04,-2.3121176016884884e-18
+torture,Danielle painted her room,0.01,0
+torture,Danny ate the last cupcake,0.09,0
+torture,Dylan argued with his parents,0.10500000000000001,-6.938893903907228e-18
+torture,Emma studied on Saturday morning,0,0
+torture,Fred missed the train,0.015,0
+torture,Grace visited her sister,0.025,-8.673617379884035e-19
+torture,Hannah called her parents,0.023333333333333334,2.3129646346357427e-18
+torture,Isabella ate a steak on Sunday,0.035,-1.734723475976807e-18
+torture,Jason made a cake,0,0
+torture,Jayden rented a car,0.02,-8.673617379884035e-19
+torture,Jon went out for dinner,0.30666666666666664,1.850371707708594e-17
+torture,Julian cleaned his room,0.25,0
+torture,Louis went swimming,0.01,0
+torture,Lucas bought new shoes,0.030000000000000002,1.1567646616336229e-18
+torture,Mia drank 2 cocktails last night,0.006,0
+torture,Molly attended a conference last week,0,0
+torture,Natasha got a promotion,0.03,0
+torture,Olivia left her job,0.01,0
+torture,Owen shoveled snow last winter,0.035,-1.734723475976807e-18
+torture,Sophia got a tattoo,0,0
+torture,Tony had a drink last night,0,0
+torture,Valerie booked the venue,0.005,0
+torture,Zoe calculated the tip,0.005,0
+trouble,Allen went to the museum,0.06333333333333332,6.938893903907228e-18
+trouble,Audrey went to a party,0,0
+trouble,Charley spilled the wine,0.012,-3.466058820164597e-19
+trouble,Connor fell from a tree,0.03,0
+trouble,Courtney woke up early yesterday,0.47,2.7755575615628914e-17
+trouble,Danielle painted her room,0.02,0
+trouble,Dylan argued with his parents,0.047142857142857146,-2.9738116731030977e-18
+trouble,Emilia looked after the kids,0.02,0
+trouble,Emma studied on Saturday morning,0.02,5.785235029746871e-19
+trouble,Frank got a cat,0,0
+trouble,Fred missed the train,0.0033333333333333335,-2.8912057932946783e-19
+trouble,Grace visited her sister,0.26,0
+trouble,Hannah called her parents,0.023333333333333334,-5.782411586589357e-19
+trouble,Isabella ate a steak on Sunday,0.21333333333333335,0
+trouble,Jackson ran 10 miles,0.1925,-6.938893903907228e-18
+trouble,Jason made a cake,0.44,0
+trouble,Jayden rented a car,0.062,-1.3877787807814458e-18
+trouble,Jon went out for dinner,0.0625,0
+trouble,Josh learned to ride a bike yesterday,0.17,0
+trouble,Josie went on vacation to France,0.0175,-1.3010426069826053e-18
+trouble,Julian cleaned his room,0.01,0
+trouble,Louis went swimming,0.27,0
+trouble,Lucas bought new shoes,0.17666666666666667,1.850371707708594e-17
+trouble,Mary planted a tree,0.15000000000000002,-1.3877787807814457e-17
+trouble,Molly attended a conference last week,0.015,8.673617379884035e-19
+trouble,Natasha got a promotion,0.072,6.938893903907228e-18
+trouble,Olivia left her job,0.09,0
+trouble,Owen shoveled snow last winter,0.045,3.469446951953614e-18
+trouble,Sophia got a tattoo,0.17428571428571427,1.3877787807814457e-17
+trouble,Tony had a drink last night,0.046,-6.945670167485263e-19
+trouble,Valerie booked the venue,0.0575,-1.734723475976807e-18
+trouble,Zoe calculated the tip,0.07,0
+tweet,Allen went to the museum,0.69,0
+tweet,Audrey went to a party,0.56,-5.551115123125783e-17
+tweet,Charley spilled the wine,0.16,0
+tweet,Cole celebrated his friend's birthday,0.1,-6.938893903907228e-18
+tweet,Courtney woke up early yesterday,0.305,0
+tweet,Danielle painted her room,0.29666666666666663,1.8508234586137966e-17
+tweet,Danny ate the last cupcake,0.415,0
+tweet,Dylan argued with his parents,0.21,1.850371707708594e-17
+tweet,Emily bought a car yesterday,0.07,0
+tweet,Emma studied on Saturday morning,0.54,0
+tweet,Fred missed the train,0.016666666666666666,0
+tweet,Grace visited her sister,0,0
+tweet,Hannah called her parents,0,0
+tweet,Isabella ate a steak on Sunday,0.1575,3.469446951953614e-18
+tweet,Jackson ran 10 miles,0.37,9.247341029490949e-18
+tweet,Jason made a cake,0.024,2.0816681711721684e-18
+tweet,Jayden rented a car,0.01,0
+tweet,Jon went out for dinner,0.3,0
+tweet,Josh learned to ride a bike yesterday,0,0
+tweet,Josie went on vacation to France,0.095,0
+tweet,Julian cleaned his room,0.22,0
+tweet,Mary planted a tree,0.14,-5.547049364978962e-18
+tweet,Mia drank 2 cocktails last night,0.015,0
+tweet,Molly attended a conference last week,0.22,0
+tweet,Natasha got a promotion,0.6633333333333333,0
+tweet,Olivia left her job,0.3125,0
+tweet,Owen shoveled snow last winter,0.316,0
+tweet,Sophia got a tattoo,0.03,0
+tweet,Tony had a drink last night,0.30333333333333334,-1.8508234586137966e-17
+tweet,Valerie booked the venue,0.26666666666666666,0
+tweet,Zoe calculated the tip,0.02,0
+verify,Allen went to the museum,0.15,1.3877787807814457e-17
+verify,Audrey went to a party,0.26,-1.3877787807814457e-17
+verify,Cole celebrated his friend's birthday,0.46499999999999997,2.7755575615628914e-17
+verify,Connor fell from a tree,0.87,0
+verify,Courtney woke up early yesterday,0.13,0
+verify,Danielle painted her room,1,0
+verify,Danny ate the last cupcake,0.5,0
+verify,Dylan argued with his parents,0.31499999999999995,2.7755575615628914e-17
+verify,Emilia looked after the kids,0.8066666666666666,3.7002916645119864e-17
+verify,Emily bought a car yesterday,0.455,0
+verify,Emma studied on Saturday morning,0.525,0
+verify,Fred missed the train,0.14,0
+verify,Grace visited her sister,0.45,-2.7755575615628914e-17
+verify,Hannah called her parents,0.47,0
+verify,Isabella ate a steak on Sunday,0.95,0
+verify,Jackson ran 10 miles,0.245,0
+verify,Jason made a cake,0.4975,-1.3877787807814457e-17
+verify,Jayden rented a car,0.03,0
+verify,Jon went out for dinner,0.03,0
+verify,Josh learned to ride a bike yesterday,0.25,0
+verify,Josie went on vacation to France,0.25,0
+verify,Julian cleaned his room,0.32,0
+verify,Lucas bought new shoes,0.178,2.2204460492503132e-17
+verify,Mia drank 2 cocktails last night,0.425,0
+verify,Molly attended a conference last week,0.64,0
+verify,Natasha got a promotion,0.415,2.7755575615628914e-17
+verify,Olivia left her job,0,0
+verify,Owen shoveled snow last winter,0.18,0
+verify,Sophia got a tattoo,0.57,0
+verify,Tony had a drink last night,0.52,-1.8494682058981897e-17
+verify,Valerie booked the venue,0.48,0
+verify,Zoe calculated the tip,0.65,0
+weep,Audrey went to a party,0.074,6.938893903907228e-18
+weep,Charley spilled the wine,0.29000000000000004,0
+weep,Cole celebrated his friend's birthday,0.09999999999999999,8.092270433751833e-18
+weep,Connor fell from a tree,0.016666666666666666,0
+weep,Courtney woke up early yesterday,0.005,0
+weep,Danielle painted her room,0.04,-1.734723475976807e-18
+weep,Danny ate the last cupcake,0.034999999999999996,3.469446951953614e-18
+weep,Dylan argued with his parents,0.06,0
+weep,Emily bought a car yesterday,0.06666666666666667,4.62444696161379e-18
+weep,Emma studied on Saturday morning,0.015,0
+weep,Frank got a cat,0,0
+weep,Fred missed the train,0.0033333333333333335,-2.8912057932946783e-19
+weep,Grace visited her sister,0.1475,1.3877787807814457e-17
+weep,Hannah called her parents,0.21000000000000002,0
+weep,Jackson ran 10 miles,0,0
+weep,Jason made a cake,0.02,0
+weep,Jayden rented a car,0.065,0
+weep,Jon went out for dinner,0.28,-2.7755575615628914e-17
+weep,Josh learned to ride a bike yesterday,0.14,-5.551115123125783e-18
+weep,Julian cleaned his room,0.34,0
+weep,Lucas bought new shoes,0.11,0
+weep,Mia drank 2 cocktails last night,0.2225,-1.3877787807814457e-17
+weep,Molly attended a conference last week,0.015,0
+weep,Natasha got a promotion,0.0175,0
+weep,Olivia left her job,0.17,0
+weep,Owen shoveled snow last winter,0,0
+weep,Sophia got a tattoo,0.1,-6.938893903907228e-18
+weep,Tony had a drink last night,0.01,0
+weep,Zoe calculated the tip,0.016,0
+whine,Allen went to the museum,0,0
+whine,Audrey went to a party,0.013333333333333332,5.782411586589357e-19
+whine,Charley spilled the wine,0,0
+whine,Connor fell from a tree,0.075,-3.469446951953614e-18
+whine,Courtney woke up early yesterday,0.26333333333333336,-1.8496940813507907e-17
+whine,Danielle painted her room,0.10666666666666666,4.625929269271485e-18
+whine,Emily bought a car yesterday,0.02,-8.673617379884035e-19
+whine,Emma studied on Saturday morning,0.505,0
+whine,Fred missed the train,0.065,0
+whine,Hannah called her parents,0.05,-2.3129646346357427e-18
+whine,Isabella ate a steak on Sunday,0.006666666666666667,-5.782411586589357e-19
+whine,Jackson ran 10 miles,0.065,0
+whine,Jason made a cake,0.21500000000000002,-1.3877787807814457e-17
+whine,Jayden rented a car,0.01,0
+whine,Jon went out for dinner,0.08,4.625929269271485e-18
+whine,Josh learned to ride a bike yesterday,0.094,0
+whine,Josie went on vacation to France,0,0
+whine,Julian cleaned his room,0.06,0
+whine,Louis went swimming,0.04,0
+whine,Lucas bought new shoes,0.02666666666666667,-2.3129646346357427e-18
+whine,Mary planted a tree,0.065,0
+whine,Mia drank 2 cocktails last night,0.03333333333333333,0
+whine,Natasha got a promotion,0,0
+whine,Owen shoveled snow last winter,0,0
+whine,Sophia got a tattoo,0.56,0
+whine,Tony had a drink last night,0.06333333333333332,6.938893903907228e-18
+whine,Valerie booked the venue,0.02,-8.673617379884035e-19
+whine,Zoe calculated the tip,0.275,-2.0816681711721685e-17
+write,Allen went to the museum,0.16,-2.0816681711721685e-17
+write,Audrey went to a party,0.09000000000000001,-3.469446951953614e-18
+write,Charley spilled the wine,0.085,0
+write,Cole celebrated his friend's birthday,0.20249999999999999,6.938893903907228e-18
+write,Connor fell from a tree,0,0
+write,Danielle painted her room,0.48,0
+write,Danny ate the last cupcake,0.18,1.3877787807814457e-17
+write,Dylan argued with his parents,0.48,2.7755575615628914e-17
+write,Emilia looked after the kids,0.20333333333333337,-1.850371707708594e-17
+write,Emily bought a car yesterday,0.02,-5.780529291151014e-19
+write,Emma studied on Saturday morning,0.02,0
+write,Grace visited her sister,0.32,0
+write,Hannah called her parents,0.02,0
+write,Isabella ate a steak on Sunday,0.05,-2.3126822903199915e-18
+write,Jackson ran 10 miles,0.01,0
+write,Jayden rented a car,0.535,-2.7755575615628914e-17
+write,Jon went out for dinner,0.32,-2.7755575615628914e-17
+write,Josh learned to ride a bike yesterday,0.38,0
+write,Josie went on vacation to France,0.735,0
+write,Julian cleaned his room,0.12000000000000001,0
+write,Louis went swimming,0.12,3.469446951953614e-18
+write,Lucas bought new shoes,0.40800000000000003,-2.2204460492503132e-17
+write,Mary planted a tree,0.39,0
+write,Mia drank 2 cocktails last night,0.8999999999999999,5.551115123125783e-17
+write,Molly attended a conference last week,0.24666666666666667,-1.850371707708594e-17
+write,Natasha got a promotion,0.04,1.1576116945808772e-18
+write,Olivia left her job,0.15666666666666665,1.850371707708594e-17
+write,Sophia got a tattoo,0.05,0
+write,Tony had a drink last night,0.69,0
+write,Valerie booked the venue,0.01,0
+write,Zoe calculated the tip,0,0
