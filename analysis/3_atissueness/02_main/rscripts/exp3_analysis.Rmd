@@ -92,11 +92,6 @@ data_stim <- data_select %>%
 
 data <- merge(data_stim, top_words_selected, by = "Word")
 
-# center the at-issue response to use as a predictor in projection exp
-data <- data %>%
-  group_by(Word,content) %>%
-  mutate(catissueResponse = response_num-mean(response_num))
-
 data$valence_arousal_group = factor(data$valence_arousal_group, levels=c("high negative valence, low arousal", "high negative valence, medium arousal", "high negative valence, high arousal", "low valence, low arousal", "low valence, medium arousal", "low valence, high arousal", "high positive valence, low arousal", "high positive valence, medium arousal", "high positive valence, high arousal")) 
 
 # normalize response_norm by participants
@@ -105,19 +100,20 @@ data_norm <- data %>%
   mutate(response_norm = (response_num - mean(response_num)) / sd(response_num))
 ```
 
+# center the at-issue response to use as a predictor in projection exp
+```{r center at-issueness measure, aggregate and save to .csv to analyse effect of at-issueness on projectivity}
 
-```{r aggregate over items and save to .csv to analyse effect of at-issueness on projectivity}
-length(unique(data$Word)) #54
-length(unique(data$content)) #36
-table(data$Word,data$content)
-
-data_by_item = data %>%
-    group_by(Word, content) %>%
-    summarise(response_mean = mean(response_num), cresponse_mean = mean(catissueResponse))
-nrow(data_by_item) #1673???
+data <- data %>%
+  mutate(catissueResponse = response_num-mean(response_num))
+# by predicate 
+data_by_pred = data %>%
+    group_by(Word) %>%
+    summarise(cresponse_mean_pred = mean(catissueResponse))
+nrow(data_by_pred) #1673???
+View(data_by_pred)
 
 # table(data_by_item$Word,data_by_item$content)
-# write_csv(data_by_item,"../../../../data/atissue_data-byitem.csv")
+write_csv(data_by_pred,"../../../../data/atissue_data-bypred.csv")
 ```
 
 ```{r average by word}

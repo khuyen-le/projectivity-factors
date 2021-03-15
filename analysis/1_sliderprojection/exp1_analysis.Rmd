@@ -31,7 +31,7 @@ top_words_selected <- read.csv("../explore/top_words_selected.csv")
 top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
 data_raw <- read.csv("../../Submiterator/exp1/exp1-trials.csv")
 data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_information.csv")
-data_at_issue <- read.csv("../../data/atissue_data-byitem.csv")
+data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
 ```
 
 # Native speakers
@@ -226,9 +226,8 @@ summary(m.bayes) # 0 is in 95% CI for interaction, but not for valence / arousal
 View(data_at_issue)
 # subset to just words and mean at-issue rating
 # rename mean_response column from at-issue data
-names(data_at_issue)[names(data_at_issue) == "cresponse_mean"] <- "catissueness"
+names(data_at_issue)[names(data_at_issue) == "cresponse_mean_pred"] <- "catissueness"
 
-nrow(data_at_issue) #1673
 data_proj <- data %>%
   group_by(Word,content)%>%
   summarize(mean_projection = mean(response_num))
