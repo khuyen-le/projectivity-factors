@@ -24,6 +24,8 @@ theme_set(theme_bw())
 library(brms)
 library(rstan)
 library(plot3D)
+# this.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+# setwd(this.dir)
 source("../../../helpers.R")
 ```
 
@@ -93,27 +95,17 @@ data_stim <- data_select %>%
 data <- merge(data_stim, top_words_selected, by = "Word")
 
 data$valence_arousal_group = factor(data$valence_arousal_group, levels=c("high negative valence, low arousal", "high negative valence, medium arousal", "high negative valence, high arousal", "low valence, low arousal", "low valence, medium arousal", "low valence, high arousal", "high positive valence, low arousal", "high positive valence, medium arousal", "high positive valence, high arousal")) 
-
-# normalize response_norm by participants
-data_norm <- data %>%
-  group_by(workerid) %>%
-  mutate(response_norm = (response_num - mean(response_num)) / sd(response_num))
 ```
 
-# center the at-issue response to use as a predictor in projection exp
+# get at-issueness means to use as a predictor in projection exp
 ```{r center at-issueness measure, aggregate and save to .csv to analyse effect of at-issueness on projectivity}
 
-data <- data %>%
-  mutate(catissueResponse = response_num-mean(response_num))
-# by predicate 
-data_by_pred = data %>%
-    group_by(Word) %>%
-    summarise(cresponse_mean_pred = mean(catissueResponse))
-nrow(data_by_pred) #1673???
-View(data_by_pred)
+means <- data %>%
+  group_by(Word) %>% 
+  summarize(mean_atissue = mean(response_num))
 
 # table(data_by_item$Word,data_by_item$content)
-write_csv(data_by_pred,"../../../../data/atissue_data-bypred.csv")
+write_csv(means,"../../../../data/atissue_data-bypred.csv")
 ```
 
 ```{r average by word}
@@ -123,10 +115,6 @@ data_by_word <- data %>%
   group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   summarise(response_mean = mean(response_num))
 
-data_by_word_norm <- data_norm %>%
-  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
-  summarise(response_mean = mean(response_norm))
-
 ```
 
 # Plots
@@ -134,24 +122,24 @@ data_by_word_norm <- data_norm %>%
 
 ```{r}
 ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word)) +
-  geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
-  geom_text_repel(aes(colour = valence_arousal_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
   geom_smooth(method = 'lm') + 
-  labs (x = "relative valence", y = "mean at-issue rating", colour = "predicate group")
+  labs (x = "Relative predicate valence", y = "Mean at-issueness rating", colour = "predicate group")
 
-ggsave("../graphs/at-issueness_by_valence.pdf")
+ggsave("../graphs/at-issueness_by_valence.pdf",width=4.5,height=3.5)
 
 ```
 
 ## Unnormalized rating agaist arousal mean
 ```{r}
 ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word)) +
-  geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
-  geom_text_repel(aes(colour = valence_arousal_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
   geom_smooth(method = 'lm') +   
-  labs (x = "mean arousal", y = "mean at-issue rating", colour = "predicate group")
+  labs (x = "Relative predicate arousal", y = "Mean at-issueness rating", colour = "predicate group")
 
-ggsave("../graphs/at-issueness_by_arousal.pdf")
+ggsave("../graphs/at-issueness_by_arousal.pdf",width=4.5,height=3.5)
 ```
 
 ```{r, include = FALSE}
