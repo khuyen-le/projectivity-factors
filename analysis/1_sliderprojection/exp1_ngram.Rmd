@@ -124,61 +124,92 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Wo
 ```
 
 ```{r ngram stuff}
-words <- c("surprised", "thrilled", "excited", "joke", "fascinated", "celebrate", "amused", "enjoy", "elaborate", "charmed", "fantasize", "love", "think", "feel", "pray", "envision", "write", "promised", "irritated", "cringe", "scream", "aggravated", "argue", "pained", "embarrassed", "offended", "troubled", "tortured", "insulted", "disgusted", "weep", "distressed", "resent", "ignore", "gossip", "whine", "shocked", "anticipate", "alarmed", "expose", "shout", "testify", "verify", "simulate", "squeal", "express", "require", "bet", "confess", "tweet", "murmur", "suppose", "retract", "dictate", "compute", "remark")
+words <- c("surprised", "thrilled", "excited", "joke", "fascinated", "celebrate", "amused", "enjoy", "elaborate")
+words= c("charmed", "fantasize", "love", "think", "feel", "pray", "envision", "write", "promised")
+words = c("irritated","cringe", "scream", "aggravated", "argue")
+words = c("pained", "embarrassed", "offended", "troubled","tortured", "insulted", "disgusted", "weep")
+words = c("distressed", "resent", "ignore", "gossip", "whine", "shocked", "anticipate", "alarmed", "expose", "shout", "testify")
+words = c("verify", "simulate", "squeal", "express", "require", "bet", "confess", "tweet", "murmur", "suppose", "retract")
+words = c("dictate", "compute", "remark")
+           
+be = c("surprised", "thrilled", "excited", "fascinated", "amused", "charmed", "irritated", "aggravated", "pained", "embarrassed", "offended", "troubled", "tortured", "insulted", "disgusted", "distressed", "ignore", "shocked", "alarmed")
 
-#ngrami only queries 12 words at a time, so we have to cut words into 12-word groups
-words1 <- c("surprised", "thrilled", "excited", "joke", "fascinated", "celebrate")
-words2 <- c("amused", "enjoy", "elaborate", "charmed", "fantasize", "love")
-words3 <- c("think", "feel", "pray", "envision", "write", "promised")
-words4 <- c("irritated", "cringe", "scream", "aggravated", "argue", "pained")
-words5 <- c("embarrassed", "offended", "troubled", "tortured", "insulted", "disgusted")
-words6 <- c("weep", "distressed", "resent", "ignore", "gossip", "whine")
-words7 <- c("shocked", "anticipate", "alarmed", "expose", "shout", "testify")
-words8 <- c("verify", "simulate", "squeal", "express", "require", "bet")
-words9 <- c("confess", "tweet", "murmur", "suppose", "retract", "dictate")
-words10 <- c("compute", "remark")
+do = words[! words %in% be]
 
+# ngrams = tibble(Word="word",Frequency=-555)
 
-ngram_temp <- ngrami(words1, year_start = 2018)
-ngram <- ngram1 %>% filter(Year == 2019)
+for (word in words) {
+  if (word %in% be) {
+      am <- ngram(paste("am *", word,"that"), year_start = 1980, aggregate=T)
+      Am <- ngram(paste("Am *", word,"that"), year_start = 1980, aggregate=T)
+      are <- ngram(paste("are *", word,"that"), year_start = 1980, aggregate=T)
+      Are <- ngram(paste("Are *", word,"that"), year_start = 1980, aggregate=T)
+      were <- ngram(paste("were *", word,"that"), year_start = 1980, aggregate=T)
+      Were <- ngram(paste("Were *", word,"that"), year_start = 1980, aggregate=T)
+      is <- ngram(paste("is *", word,"that"), year_start = 1980, aggregate=T)
+      Is <- ngram(paste("Is *", word,"that"), year_start = 1980, aggregate=T)
+      was <- ngram(paste("was *", word,"that"), year_start = 1980, aggregate=T)
+      Was <- ngram(paste("Was *", word,"that"), year_start = 1980, aggregate=T)
+      ng = bind_rows(am,Am,are,Are,were,Were,is,Is,was,Was) %>% 
+        summarize(Frequency=sum(Frequency)) %>% 
+        mutate(Word=word)
+      closeAllConnections()
+  } else {
+      did <- ngram(paste("did *", word,"that"), year_start = 1980, aggregate=T)
+      Did <- ngram(paste("Did *", word,"that"), year_start = 1980, aggregate=T)
+      do <- ngram(paste("do *", word,"that"), year_start = 1980, aggregate=T)
+      Do <- ngram(paste("Do *", word,"that"), year_start = 1980, aggregate=T)
+      if (is.null(did) & is.null(do) & is.null(Did) & is.null(Do)) {
+        ng = tibble(Word=word,Frequency=0)
+      } else {
+      ng = bind_rows(did,Did,do,Do) %>% 
+        summarize(Frequency=sum(Frequency)) %>% 
+        mutate(Word=word)
+      closeAllConnections()
+  }}
 
-for (x in c(words2, words3, words4, words5, words6, words7, words8, words9, words10)) {
-  ngram_temp <- ngrami(x, year_start = 2018)
-  ngram_2019 <- ngram_temp %>% filter(Year == 2019)
-  ngram <- bind_rows(ngram, ngram_2019)
-  view(ngram)
+  ngrams = bind_rows(ngrams,ng)
 }
 
-closeAllConnections()
+ngrams$Surprisal = -log(ngrams$Frequency)
+ngrams[is.infinite(ngrams$Surprisal),]$Surprisal = 22
 
-ngram <- ngram %>%
-  mutate(Word = Phrase)
+# write_csv(ngrams,"frequencies.csv")
 
-ngram_data_by_word <- merge(ngram, data_by_word, by = "Word")
+ngrams = read_csv("frequencies.csv")
 
-ngram_data_by_word <- select(ngram_data_by_word, "Word", "Frequency", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "response_mean")
 
-ngram_data_by_word <- ngram_data_by_word %>%
-  mutate(log_freq = log(Frequency))
+ngram_data_by_word <- merge(ngrams, data_by_word, by = "Word")
 
-ggplot(data = ngram_data_by_word, aes(x = log_freq, y = response_mean, label = Word)) +
-  geom_point(width = .3,height = .025, aes(colour = valence_arousal_group)) +
-  geom_text_repel(aes(colour = valence_arousal_group)) +
+ngram_data_by_word <- select(ngram_data_by_word, "Word", "Frequency", "Surprisal", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "response_mean")
+
+tmp = ngram_data_by_word %>% 
+  filter(Word != "love")
+
+
+ggplot(data = ngram_data_by_word, aes(x = Surprisal, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +
+  labs(x="Predicate surprisal",
+       y="Mean projection rating")
+ggsave("graphs/projection_by_surprisal.pdf",width=4.5,height=3.5)
+
+ggplot(data = ngram_data_by_word, aes(x = carousal_mean, y = Surprisal, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
   geom_smooth(method = 'lm')
 
-ggplot(data = ngram_data_by_word, aes(x = log_freq, y = carousal_mean, label = Word, group = valence_group)) +
-  geom_point(width = .3,height = .025, aes(colour = valence_group)) +
-  geom_text_repel(aes(colour = valence_group)) +
-  geom_smooth(method = 'lm')
 
-
-ggplot(data = ngram_data_by_word, aes(x = log_freq, y = crelativeValence, label = Word, group = valence_group)) +
-  geom_point(width = .3,height = .025, aes(colour = valence_group)) +
-  geom_text_repel(aes(colour = valence_group)) +
+ggplot(data = ngram_data_by_word, aes(x = crelativeValence, y = Surprisal, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
   geom_smooth(method = 'lm')
 
 #correlation with response_mean
-cor.test (x = ngram_data_by_word$Frequency, y = ngram_data_by_word$response_mean)
+cor.test (x = ngram_data_by_word$Surprisal, y = ngram_data_by_word$response_mean)
+cor.test (x = ngram_data_by_word$Surprisal, y = ngram_data_by_word$crelativeValence)
+cor.test (x = ngram_data_by_word$Surprisal, y = ngram_data_by_word$carousal_mean)
 
 nsim <- 10000
 res <- numeric(nsim) ## set aside space for results
@@ -295,7 +326,7 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = a
 ```{r mixed effects linear model, warning = FALSE, echo=FALSE}
 data_model <- data
 
-m = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
+m = lmer(response_num ~ carousal_mean * crelativeValence  + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
 summary(m) # main effects of arousal and relative valence!
 plot(fitted(m), residuals(m))
 
