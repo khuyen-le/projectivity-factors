@@ -37,7 +37,10 @@ top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group
 data_raw <- read.csv("../../Submiterator/exp1/exp1-trials.csv")
 data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_information.csv")
 data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
-frequencies = read_csv("frequencies.csv")
+frequencies = read_csv("../../data/frequencies.csv")
+anand = read_csv("../../data/anand-etal-typology_filledout.csv")
+names(anand)[names(anand) == "predicate"] <- "Word"
+names(anand)[names(anand) == "broad class"] <- "broad_class"
 ```
 
 # Native speakers
@@ -47,7 +50,7 @@ frequencies = read_csv("frequencies.csv")
 data_participants <- data_participants_raw %>%
   mutate(language = tolower(language))
 
-#filter out participants who did not report English as native language
+#filter out participants who did not rep ort English as native language
 data_participants = filter(data_participants, grepl("eng", language))
 
 worker_id <- data_participants$workerid
@@ -73,7 +76,7 @@ ggplot(data_control, aes(x=response_num)) +
 worker_control = ggplot(data_control, aes(x=response_num)) +
   geom_histogram() +
   facet_wrap(~workerid)
-ggsave(worker_control, file="graphs/worker_control_items.pdf",width=15,height=20)
+# ggsave(worker_control, file="graphs/worker_control_items.pdf",width=15,height=20)
 
 control_mean = mean(data_control[, "response_num"])
 control_median = median(data_control[, "response_num"])
@@ -115,6 +118,10 @@ frequencies$Word = predlevels # risky new assignment if predicates not ordered c
 data = data %>% 
   left_join(data_at_issue,by=c("Word")) %>% 
   left_join(frequencies, by=c("Word"))
+
+# Add in the Anand et al (2019) coding
+data = left_join(data,anand, by=c("Word"))
+
 ```
 
 ```{r average by word}
@@ -303,3 +310,18 @@ summary(m.valar) #
 
 ```
 
+### Main analysis including Anand et al Categories
+
+```{r bring in the Anand et al categories}
+# data$cFativity = data$factivity - mean(data$factivity)
+data$cAgentivity = data$agentivity - mean(data$agentivity)
+names(data)
+```
+
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+m.full.AGH <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + cAgentivity + broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.full.AGH) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
+
+m.full <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.full)
+```
