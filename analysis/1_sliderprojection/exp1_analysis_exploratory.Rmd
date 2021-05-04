@@ -131,66 +131,20 @@ data = left_join(data,avg_bert, by=c("Word"))
 ```
 
 
-# Mixed effects linear model and ANOVA
-```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
-data_model <- data
-
-m = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
-summary(m) # main effects of arousal and relative valence!
-plot(fitted(m), residuals(m))
-
-#pdf(file="modelcheck_linear.pdf",height=8,width=9)
-#check_model(m)
-#dev.off()
-```
-
-```{r anova, include = FALSE, warning = FALSE, echo=FALSE}
-projectivity.full = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
-projectivity.reduced = lmer(response_num ~ 1 + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
-anova(projectivity.reduced, projectivity.full)
-
-
-#interaction removed
-projectivity.int = lmer(response_num ~ carousal_mean + crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
-anova(projectivity.int, projectivity.full)
-
-#only arousal
-projectivity.arousal = lmer(response_num ~ carousal_mean + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
-anova(projectivity.int, projectivity.arousal)
-
-#only valence
-projectivity.valence = lmer(response_num ~ crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
-anova(projectivity.int, projectivity.valence)
-
-```
-
-```{r mixed bayes, include = FALSE, echo = FALSE}
-
-# m.bayes = brm(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), 
-#               data = data_model,
-#               chains = 4,
-#               cores = 4)
-# saveRDS(m.bayes, "bayes.rds")
-m.bayes <- readRDS("bayes.rds")
-summary(m.bayes) # 0 is in 95% CI for interaction, but not for valence / arousal separately
-```
-
-
-Main analysis reported by JD in workshop talk
-
 ```{r bring in the at-issueness data to test effect on projection}
 names(data)
 data$workerid = as.factor(as.character(data$workerid))
 data$catissue = data$mean_atissue - mean(data$mean_atissue)
-# Surprisal from google n-gram
+# Surprisal from the GoogleBooks n-gram
 data$cSurprisal = data$Surprisal - mean(data$Surprisal)
-View(data$BertSurprisal)
-
-# surprisal from BERT INCLUDING CC
-data$cBert = data$meanBertSurprisal - mean(data$mean_bert_score)
+# Surprisal from BERT
+data$cBert = data$mean_bert_score - mean(data$mean_bert_score)
+data$BertSurprisal = -log(data$mean_bert_score)
 data$cBertSurprisal = data$BertSurprisal - mean(data$BertSurprisal)
 ```
 
+
+# Analysis using google n-gram surprisal
 ```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
 m.full <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
 summary(m.full) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
@@ -199,27 +153,16 @@ m.valar <- lmer(response_num ~ carousal_mean*crelativeValence + (1 | Word) + (1 
 summary(m.valar) # 
 
 ```
-```{r}
 
-```
-
-### Main analysis using bert scores rather than surprisal from google books
+# Main analysis using bert scores rather than surprisal from google books
 ```{r Using surprisal estimates from BERT in a masked language modeling task, include = FALSE, warning = FALSE, echo=FALSE}
 m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
-summary(m.bert) 
-
-# exploratory
-m.bert <- lmer(response_num ~ carousal_mean*crelativeValence*broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
-summary(m.bert) 
-
-m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + broad_class + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
 summary(m.bert) 
 ```
 
 ### Main analysis including Anand et al Categories
-
 ```{r bring in the Anand et al categories}
-# data$cFativity = data$factivity - mean(data$factivity)
+data$cFativity = data$factivity - mean(data$factivity)
 data$cAgentivity = data$agentivity - mean(data$agentivity)
 names(data)
 ```
@@ -230,5 +173,15 @@ summary(m.full.AGH) # at-issueness subsumes all other effects except for arousal
 
 m.full <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
 summary(m.full)
+```
+
+
+```{r exploratory analyses looking at the relationship between predictors}
+# exploratory
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence*broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + broad_class + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
 ```
 
