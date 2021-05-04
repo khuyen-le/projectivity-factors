@@ -1,0 +1,327 @@
+---
+title: "exp1_analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE, warning=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(jsonlite)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(dichromat)
+library(lme4)
+library(lmerTest)
+library(performance)
+library(languageR)
+library(gghighlight)
+theme_set(theme_bw())
+library(brms)
+library(rstan)
+library(plot3D)
+
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# color-blind-friendly palette
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7") 
+```
+
+```{r import data}
+top_words_selected <- read.csv("../explore/top_words_selected.csv")
+top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
+data_raw <- read.csv("../../Submiterator/exp1/exp1-trials.csv")
+data_participants_raw <- read.csv("../../Submiterator/exp1/exp1-subject_information.csv")
+data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
+frequencies = read_csv("../../data/frequencies.csv")
+anand = read_csv("../../data/anand-etal-typology_filledout.csv")
+names(anand)[names(anand) == "predicate"] <- "Word"
+names(anand)[names(anand) == "broad class"] <- "broad_class"
+```
+
+# Native speakers
+## We exclude any speakers who did not report English as a native language in the post-survey demographic questions.
+```{r filter native English speakers, warning = FALSE}
+# get participants whose native language is English
+data_participants <- data_participants_raw %>%
+  mutate(language = tolower(language))
+
+#filter out participants who did not rep ort English as native language
+data_participants = filter(data_participants, grepl("eng", language))
+
+worker_id <- data_participants$workerid
+
+data_select <- data_raw %>%
+  filter(utterance != "bot_check") %>%
+  filter(workerid %in% worker_id)
+
+data_select <- data_select %>%
+  mutate(response_num = as.numeric(response))
+  #mutate(response_num = as.numeric(levels(response))[response])
+```
+# Control trials
+## We exclude any speakers whose mean performance on control trials is 3 SD above the group mean.
+```{r filter out control trials}
+data_control <- data_select %>%
+  filter(exp == "control") 
+
+ggplot(data_control, aes(x=response_num)) +
+  geom_histogram() +
+  facet_wrap(~utterance)
+
+worker_control = ggplot(data_control, aes(x=response_num)) +
+  geom_histogram() +
+  facet_wrap(~workerid)
+# ggsave(worker_control, file="graphs/worker_control_items.pdf",width=15,height=20)
+
+control_mean = mean(data_control[, "response_num"])
+control_median = median(data_control[, "response_num"])
+control_sd = sd(data_control[, "response_num"])
+max_control = control_mean + 3 * control_sd
+
+# omit mean response 3 SD above the group mean (per factive paper)
+id_omit <- data_control %>%
+  group_by(workerid) %>%
+  summarise(response_mean_control = mean(response_num)) %>%
+  filter(max_control < response_mean_control)
+id_omit <- id_omit[, "workerid"]
+
+id_select <- data_control %>%
+  group_by(workerid) %>%
+  summarise(response_mean_control = mean(response_num)) %>%
+  filter(response_mean_control <= max_control)
+
+id_select <- pull(id_select[c("workerid")])
+```
+
+```{r filter out stimuli trials}
+data_stim <- data_select %>% 
+  filter(workerid %in% id_select) %>%
+  filter(exp == "stim") %>%
+  mutate(Word = ifelse(Word == "facinate", "fascinate", as.character(Word))) ## coded "fascinate" wrongly :(
+
+data <- merge(data_stim, top_words_selected, by = "Word")
+
+data$valence_arousal_group = factor(data$valence_arousal_group, levels=c("high negative valence, low arousal", "high negative valence, medium arousal", "high negative valence, high arousal", "low valence, low arousal", "low valence, medium arousal", "low valence, high arousal", "high positive valence, low arousal", "high positive valence, medium arousal", "high positive valence, high arousal")) 
+
+predlevels = unique(data$Word) %>% 
+  sort()
+# JD: hm, "confess" and "remark" are in frequencies but not in data, wonder why?
+frequencies = frequencies %>% 
+  filter(! Word %in% c("confess","remark")) %>% 
+  arrange(Word)
+frequencies$Word = predlevels # risky new assignment if predicates not ordered correctly
+data = data %>% 
+  left_join(data_at_issue,by=c("Word")) %>% 
+  left_join(frequencies, by=c("Word"))
+
+# Add in the Anand et al (2019) coding
+data = left_join(data,anand, by=c("Word"))
+
+```
+
+```{r average by word}
+data_by_word <- data %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence,mean_atissue,Surprisal) %>%
+  summarise(response_mean = mean(response_num))
+
+```
+
+# Plots
+
+## Unnormalized projection rating against relative valence
+
+```{r}
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Relative predicate valence", y = "Mean projection rating")
+ggsave("graphs/means_by_valence.pdf",width=4,height=3)
+
+```
+
+## Unnormalized rating agaist arousal mean
+```{r}
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+ggsave("graphs/means_by_arousal.pdf",width=4,height=3)
+```
+
+## Unnormalized projection rating against relative valence, by valence group
+
+```{r}
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word, color=valence_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  scale_color_manual(values=cbPalette,name="Valence") +
+  labs (x = "Relative predicate valence", y = "Mean projection rating")
+ggsave("graphs/means_by_valence.pdf",width=4.5,height=3)
+
+```
+
+## Unnormalized rating agaist arousal mean, by valence group
+```{r}
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word,color=valence_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +  
+  scale_color_manual(values=cbPalette,name="Valence") +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+ggsave("graphs/means_by_arousal.pdf",width=4.5,height=3)
+```
+
+
+## Unnormalized rating agaist at-issueness
+
+```{r}
+ggplot(data = data_by_word, aes(x = mean_atissue, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') + 
+  labs (x = "Mean at-issueness rating", y = "Mean projection rating", colour = "predicate group")
+ggsave("graphs/projection_by_atissue.pdf",width=4.5,height=3.5)
+
+```
+
+
+```{r, include = FALSE}
+scatter3D(data_by_word$crelativeValence, data_by_word$carousal_mean, data_by_word$response_mean, theta = 30, phi = 10,
+          xlab = "relative valence",
+          ylab ="arousal mean", 
+          zlab = "response mean")
+```
+
+
+```{r extra plots, include = FALSE}
+# some extra plots
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm') +
+  scale_color_manual(values=cbPalette)
+
+ggplot(data = data_by_word, aes(x = carousalMean, y = response_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm') +
+  scale_color_manual(values=cbPalette)
+
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~voice) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, colour = valence_group, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~valence_arousal_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+#maybe color with gradient? 
+#maybe color = arousal, shape = valence? 
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~voice) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, colour = arousal_bin, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  facet_grid(~valence_arousal_group) +
+  geom_label() +
+  geom_smooth(method = 'lm')
+```
+
+# Mixed effects linear model and ANOVA
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+data_model <- data
+
+m = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model)
+summary(m) # main effects of arousal and relative valence!
+plot(fitted(m), residuals(m))
+
+#pdf(file="modelcheck_linear.pdf",height=8,width=9)
+#check_model(m)
+#dev.off()
+```
+
+```{r anova, include = FALSE, warning = FALSE, echo=FALSE}
+projectivity.full = lmer(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+projectivity.reduced = lmer(response_num ~ 1 + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(projectivity.reduced, projectivity.full)
+
+
+#interaction removed
+projectivity.int = lmer(response_num ~ carousal_mean + crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(projectivity.int, projectivity.full)
+
+#only arousal
+projectivity.arousal = lmer(response_num ~ carousal_mean + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(projectivity.int, projectivity.arousal)
+
+#only valence
+projectivity.valence = lmer(response_num ~ crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), data = data_model, REML = FALSE)
+anova(projectivity.int, projectivity.valence)
+
+```
+
+```{r mixed bayes, include = FALSE, echo = FALSE}
+
+# m.bayes = brm(response_num ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crelativeValence) | workerid) + (1 | Word) + (1 + (carousal_mean * crelativeValence) | content), 
+#               data = data_model,
+#               chains = 4,
+#               cores = 4)
+# saveRDS(m.bayes, "bayes.rds")
+m.bayes <- readRDS("bayes.rds")
+summary(m.bayes) # 0 is in 95% CI for interaction, but not for valence / arousal separately
+```
+
+
+Main analysis reported by JD in workshop talk
+
+```{r bring in the at-issueness data to test effect on projection}
+names(data)
+data$catissue = data$mean_atissue - mean(data$mean_atissue)
+data$cSurprisal = data$Surprisal - mean(data$Surprisal)
+data$workerid = as.factor(as.character(data$workerid))
+```
+
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+m.full <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.full) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
+
+m.valar <- lmer(response_num ~ carousal_mean*crelativeValence + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.valar) # 
+
+```
+
+### Main analysis including Anand et al Categories
+
+```{r bring in the Anand et al categories}
+# data$cFativity = data$factivity - mean(data$factivity)
+data$cAgentivity = data$agentivity - mean(data$agentivity)
+names(data)
+```
+
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+m.full.AGH <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + cAgentivity + broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.full.AGH) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
+
+m.full <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.full)
+```
