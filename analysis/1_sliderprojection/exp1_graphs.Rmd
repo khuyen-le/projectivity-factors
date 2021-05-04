@@ -246,7 +246,7 @@ ggsave("graphs/at_issueness_by_surprisal_NoCC.pdf",width=4,height=3)
 
 ## Surprisal+CC by Valence
 ```{r}
-ggplot(data = data_by_word, aes(x = crelativeValence, y = meanBertSurprisal, label = Word)) +
+ggplot(data = data_by_word, aes(x = crelativeValence, y = meanBertSurprisalCC, label = Word)) +
   geom_point(width = .3,height = .025) +
   geom_smooth(method = 'lm') + 
   geom_text_repel() +
@@ -256,7 +256,7 @@ ggsave("graphs/surprisal_by_valence.pdf",width=4,height=3)
 
 ## Surprisal+CC by arousal mean
 ```{r}
-ggplot(data = data_by_word, aes(x = carousal_mean, y = meanBertSurprisal, label = Word)) +
+ggplot(data = data_by_word, aes(x = carousal_mean, y = meanBertSurprisalCC, label = Word)) +
   geom_point(width = .3,height = .025) +
   geom_text_repel() +
   geom_smooth(method = 'lm') +
@@ -264,7 +264,26 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = meanBertSurprisal, label 
 ggsave("graphs/surprisal_by_arousal.pdf",width=4,height=3)
 ```
 
+## BERT Surprisal+CC x google ngram surprisal
+```{r}
+ggplot(data = data_by_word, aes(x = Surprisal, y = meanBertSurprisalCC, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +
+  labs (x = "Google n-gram surprisal", y = "BertSurprisal+CC")
+ggsave("graphs/BertSurprisalCC_by_googleNgram.pdf",width=4,height=3)
+```
 
+
+## BERT Surprisal-CC x google ngram surprisal
+```{r}
+ggplot(data = data_by_word, aes(x = Surprisal, y = meanBertSurprisalNoCC, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +
+  labs (x = "Google n-gram surprisal", y = "BertSurprisal-CC")
+ggsave("graphs/BertSurprisalNoCC_by_googleNgram.pdf",width=4,height=3)
+```
 
 
 # Verb classes
