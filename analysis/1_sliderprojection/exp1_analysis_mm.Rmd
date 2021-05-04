@@ -23,7 +23,7 @@ library(gghighlight)
 theme_set(theme_bw())
 library(brms)
 library(rstan)
-library(plot3D)
+# library(plot3D)
 
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -41,6 +41,7 @@ frequencies = read_csv("../../data/frequencies.csv")
 anand = read_csv("../../data/anand-etal-typology_filledout.csv")
 names(anand)[names(anand) == "predicate"] <- "Word"
 names(anand)[names(anand) == "broad class"] <- "broad_class"
+bert_score = read_csv("../../data/bert_scores.csv")
 ```
 
 # Native speakers
@@ -122,11 +123,18 @@ data = data %>%
 # Add in the Anand et al (2019) coding
 data = left_join(data,anand, by=c("Word"))
 
+avg_bert = bert_score %>%
+  group_by(Verb) %>%
+  summarize(mean_bert_score = mean(BertScore))
+View(avg_bert)
+names(avg_bert)[names(avg_bert) == "Verb"] <- "Word"
+
+data = left_join(data,avg_bert, by=c("Word"))
 ```
 
 ```{r average by word}
 data_by_word <- data %>%
-  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence,mean_atissue,Surprisal) %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence,mean_atissue,Surprisal,mean_bert_score,broad_class) %>%
   summarise(response_mean = mean(response_num))
 
 ```
@@ -190,6 +198,62 @@ ggplot(data = data_by_word, aes(x = mean_atissue, y = response_mean, label = Wor
   labs (x = "Mean at-issueness rating", y = "Mean projection rating", colour = "predicate group")
 ggsave("graphs/projection_by_atissue.pdf",width=4.5,height=3.5)
 
+```
+
+## Verb classes
+```{r}
+
+ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  facet_wrap(~broad_class) +
+  labs (x = "Relative predicate valence", y = "Mean projection rating")
+ggsave("graphs/means_broad_class_by_valence.pdf",width=4,height=3)
+
+
+# uncenter these values
+ggplot(data = data_by_word, aes(x = crelativeValence, fill = broad_class)) +
+  geom_density(alpha = .4) +
+  labs (x = "Relative predicate valence", y = "Mean projection rating")
+
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  facet_wrap(~broad_class) +
+  geom_smooth(method = 'lm') +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+ggsave("graphs/means_broad_class_by_arousal.pdf",width=4,height=3)
+
+ggplot(data = data_by_word, aes(x = carousal_mean, fill = broad_class)) +
+  geom_density(alpha = .4) +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+
+
+
+
+ggplot(data_by_word, aes(x = carousal_mean, y = response_mean, fill = broad_class)) +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+
+
+ggplot(data = data_by_word, aes(x = mean, y = carousal_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  facet_wrap(~broad_class) +
+  geom_smooth(method = 'lm') +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+```
+
+
+```{r}
+
+ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word,color=valence_group)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +  
+  scale_color_manual(values=cbPalette,name="Valence") +
+  labs (x = "Relative predicate arousal", y = "Mean projection rating")
+ggsave("graphs/means_by_arousal.pdf",width=4.5,height=3)
 ```
 
 
@@ -309,6 +373,24 @@ m.valar <- lmer(response_num ~ carousal_mean*crelativeValence + (1 | Word) + (1 
 summary(m.valar) # 
 
 ```
+```{r}
+data$cBert = data$mean_bert_score - mean(data$mean_bert_score)
+data$BertSurprisal = -log(data$mean_bert_score)
+data$cBertSurprisal = data$BertSurprisal - mean(data$BertSurprisal)
+```
+
+### Main analysis using bert scores rather than surprisal from google books
+```{r Using surprisal estimates from BERT in a masked language modeling task, include = FALSE, warning = FALSE, echo=FALSE}
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+
+# exploratory
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence*broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + broad_class + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+```
 
 ### Main analysis including Anand et al Categories
 
@@ -325,3 +407,4 @@ summary(m.full.AGH) # at-issueness subsumes all other effects except for arousal
 m.full <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
 summary(m.full)
 ```
+
