@@ -123,22 +123,20 @@ data = data %>%
 # Add in the Anand et al (2019) coding
 data = left_join(data,anand, by=c("Word"))
 
-bert_score$BertSurprisal = -log(bert_score$BertScore)
+bert_score$BertSurprisalCC = -log(bert_score$BertScoreCC)
+bert_score$BertSurprisalNoCC = -log(bert_score$BertScoreNoCC)
 avg_bert = bert_score %>%
   group_by(Verb) %>%
-  summarize(meanBertSurprisal = mean(BertSurprisal))
+  summarize(meanBertSurprisalCC = mean(BertSurprisalCC),meanBertSurprisalNoCC = mean(BertSurprisalNoCC))
 
 names(avg_bert)[names(avg_bert) == "Verb"] <- "Word"
 data = left_join(data,avg_bert, by=c("Word"))
-
-View(data)
 ```
 
 ```{r average by word}
 data_by_word <- data %>%
-  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence,mean_atissue,Surprisal,BertSurprisal,broad_class) %>%
+  group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean,valence_mean, crelativeValence,mean_atissue,Surprisal,meanBertSurprisalCC,meanBertSurprisalNoCC,broad_class) %>%
   summarise(response_mean = mean(response_num))
-View(data)
 ```
 
 # Plots
@@ -190,7 +188,7 @@ ggsave("graphs/means_by_arousal.pdf",width=4.5,height=3)
 ```
 
 
-## Unnormalized rating agaist at-issueness
+# Unnormalized rating agaist at-issueness
 
 ```{r}
 ggplot(data = data_by_word, aes(x = mean_atissue, y = response_mean, label = Word)) +
@@ -202,7 +200,75 @@ ggsave("graphs/projection_by_atissue.pdf",width=4.5,height=3.5)
 
 ```
 
-## Verb classes
+# Surprisal
+
+## Surprisal+CC by Projection
+```{r}
+ggplot(data = data_by_word, aes(x = meanBertSurprisalCC, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Surprisal+CC", y = "Mean projection rating")
+ggsave("graphs/projection_by_surprisal_CC.pdf",width=4,height=3)
+```
+
+## Surprisal noCC by Projection
+```{r}
+ggplot(data = data_by_word, aes(x = meanBertSurprisalNoCC, y = response_mean, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Surprisal-CC", y = "Mean projection rating")
+ggsave("graphs/projection_by_surprisal_noCC.pdf",width=4,height=3)
+```
+
+## Surprisal+CC by at-issueness
+```{r}
+names(data_by_word)
+ggplot(data = data_by_word, aes(x = meanBertSurprisalCC, y = mean_atissue, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Surprisal+CC", y = "Mean at issue rating")
+ggsave("graphs/at_issueness_by_surprisal_CC.pdf",width=4,height=3)
+```
+
+## Surprisal-CC by at-issueness
+```{r}
+names(data_by_word)
+ggplot(data = data_by_word, aes(x = meanBertSurprisalNoCC, y = mean_atissue, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Surprisal-CC", y = "Mean at issue rating")
+ggsave("graphs/at_issueness_by_surprisal_NoCC.pdf",width=4,height=3)
+```
+
+## Surprisal+CC by Valence
+```{r}
+ggplot(data = data_by_word, aes(x = crelativeValence, y = meanBertSurprisal, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_smooth(method = 'lm') + 
+  geom_text_repel() +
+  labs (x = "Relative predicate valence", y = "Surprisal")
+ggsave("graphs/surprisal_by_valence.pdf",width=4,height=3)
+```
+
+## Surprisal+CC by arousal mean
+```{r}
+ggplot(data = data_by_word, aes(x = carousal_mean, y = meanBertSurprisal, label = Word)) +
+  geom_point(width = .3,height = .025) +
+  geom_text_repel() +
+  geom_smooth(method = 'lm') +
+  labs (x = "Relative predicate arousal", y = "Surprisal")
+ggsave("graphs/surprisal_by_arousal.pdf",width=4,height=3)
+```
+
+
+
+
+# Verb classes
+## Valence
 ```{r}
 
 ggplot(data = data_by_word, aes(x = crelativeValence, y = response_mean, label = Word)) +
@@ -218,6 +284,11 @@ ggsave("graphs/means_broad_class_by_valence.pdf",width=4,height=3)
 ggplot(data = data_by_word, aes(x = crelativeValence, fill = broad_class)) +
   geom_density(alpha = .4) +
   labs (x = "Relative predicate valence", y = "Mean projection rating")
+ggsave("graphs/hist_means_broad_class_by_valence.pdf",width=4,height=3)
+```
+
+## Arousal
+```{r}
 
 ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word)) +
   geom_point(width = .3,height = .025) +
@@ -227,17 +298,16 @@ ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Wo
   labs (x = "Relative predicate arousal", y = "Mean projection rating")
 ggsave("graphs/means_broad_class_by_arousal.pdf",width=4,height=3)
 
+
 ggplot(data = data_by_word, aes(x = carousal_mean, fill = broad_class)) +
   geom_density(alpha = .4) +
   labs (x = "Relative predicate arousal", y = "Mean projection rating")
+ggsave("graphs/hist_means_broad_class_by_arousal.pdf",width=4,height=3)
+```
 
 
 
-
-ggplot(data_by_word, aes(x = carousal_mean, y = response_mean, fill = broad_class)) +
-  labs (x = "Relative predicate arousal", y = "Mean projection rating")
-
-
+```{r}
 ggplot(data = data_by_word, aes(x = mean, y = carousal_mean, label = Word)) +
   geom_point(width = .3,height = .025) +
   geom_text_repel() +
@@ -248,7 +318,6 @@ ggplot(data = data_by_word, aes(x = mean, y = carousal_mean, label = Word)) +
 
 
 ```{r}
-
 ggplot(data = data_by_word, aes(x = carousal_mean, y = response_mean, label = Word,color=valence_group)) +
   geom_point(width = .3,height = .025) +
   geom_text_repel() +
