@@ -1,0 +1,51 @@
+/*.slider {*/
+  /* default is width 400 and margin 10 */
+	/*width: 400;
+	margin: 10px;
+}
+
+.slider_table {
+	margin: auto auto;
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.highlight_numbers {
+	font-size: 28;
+	font-weight: bold;
+}
+
+.highlight_numbers_other {
+	font-size: 20;
+	font-style: italic;
+}*/
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+input[type=text] {
+    width: 100%;
+    padding: 50px 50px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+</style>
+</head>
+<body>
+
+<p>Padded text fields:</p>
+
+<form>
+  <label for="fname">First Name</label>
+  <input type="text" id="fname" name="fname">
+  <label for="lname">Last Name</label>
+  <input type="text" id="lname" name="lname">
+</form>
+
+</body>
+</html>
+
