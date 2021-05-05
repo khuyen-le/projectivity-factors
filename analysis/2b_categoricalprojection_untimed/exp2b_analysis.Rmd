@@ -34,7 +34,7 @@ cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
 ```{r import data}
 top_words_selected <- read.csv("../explore/top_words_selected.csv")
 top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group", "valence_bin", "valence_bin_group", "arousal_bin", "valence_arousal_group", "carousal_mean", "crelativeValence", "valence_mean", "mean_residuals_abs","mean_acceptability_norm")
-data_raw <- read.csv("../../data/2_categoricalprojection/study-trials.csv")
+data_raw <- read.csv("../../data/2b_categoricalprojection_untimed/study-trials.csv")
 data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
 frequencies = read_csv("../../data/frequencies.csv")
 ```

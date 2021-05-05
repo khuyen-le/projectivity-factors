@@ -32,6 +32,13 @@ top_words_selected <- select(top_words_selected, "Word", "voice", "valence_group
 data_raw <- read.csv("../../data/2_categoricaltimed/study-trials.csv")
 data_participants_raw <- read.csv("../../data/2_categoricaltimed/study-subject_information.csv")
 #data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
+
+data_at_issue <- read.csv("../../data/atissue_data-bypred.csv")
+frequencies = read_csv("../../data/frequencies.csv")
+anand = read_csv("../../data/anand-etal-typology_filledout.csv")
+names(anand)[names(anand) == "predicate"] <- "Word"
+names(anand)[names(anand) == "broad class"] <- "broad_class"
+bert_score = read_csv("../../data/bert_scores.csv")
 ```
 
 # Native speakers
@@ -88,7 +95,6 @@ data_by_word <- data %>%
   group_by(Word, voice, valence_group, valence_bin, valence_bin_group, arousal_bin, valence_arousal_group, carousal_mean, crelativeValence) %>%
   mutate(response_num = ifelse(response == "yes", 1, 0)) %>%
   summarise(response_mean = mean(response_num))
-
 ```
 
 # Plots
@@ -228,4 +234,88 @@ m = glm(response ~ carousal_mean * crelativeValence + (1 + (carousal_mean * crel
 
 
 ```
+
+```{r}
+predlevels = unique(data$Word) %>% 
+  sort()
+# JD: hm, "confess" and "remark" are in frequencies but not in data, wonder why?
+frequencies = frequencies %>% 
+  filter(! Word %in% c("confess","remark")) %>% 
+  arrange(Word)
+frequencies$Word = predlevels # risky new assignment if predicates not ordered correctly
+data = data %>% 
+  left_join(data_at_issue,by=c("Word")) %>% 
+  left_join(frequencies, by=c("Word"))
+
+# Add in the Anand et al (2019) coding
+data = left_join(data,anand, by=c("Word"))
+
+bert_score$BertSurprisal = -log(bert_score$BertScore)
+avg_bert = bert_score %>%
+  group_by(Verb) %>%
+  summarize(meanBertSurprisal = mean(BertSurprisal))
+
+names(avg_bert)[names(avg_bert) == "Verb"] <- "Word"
+data = left_join(data,avg_bert, by=c("Word"))
+```
+
+
+
+Main analysis reported by JD in workshop talk
+
+```{r bring in the at-issueness data to test effect on projection}
+names(data)
+data$workerid = as.factor(as.character(data$workerid))
+data$catissue = data$mean_atissue - mean(data$mean_atissue)
+# Surprisal from google n-gram
+data$cSurprisal = data$Surprisal - mean(data$Surprisal)
+View(data$BertSurprisal)
+
+# surprisal from BERT INCLUDING CC
+data$cBert = data$meanBertSurprisal - mean(data$mean_bert_score)
+data$cBertSurprisal = data$BertSurprisal - mean(data$BertSurprisal)
+```
+
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+m.full <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.full) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
+
+m.valar <- lmer(response_num ~ carousal_mean*crelativeValence + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.valar) # 
+
+```
+```{r}
+
+```
+
+### Main analysis using bert scores rather than surprisal from google books
+```{r Using surprisal estimates from BERT in a masked language modeling task, include = FALSE, warning = FALSE, echo=FALSE}
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+
+# exploratory
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence*broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+
+m.bert <- lmer(response_num ~ carousal_mean*crelativeValence + catissue + broad_class + cBertSurprisal + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.bert) 
+```
+
+### Main analysis including Anand et al Categories
+
+```{r bring in the Anand et al categories}
+# data$cFativity = data$factivity - mean(data$factivity)
+data$cAgentivity = data$agentivity - mean(data$agentivity)
+names(data)
+```
+
+```{r mixed effects linear model, include = FALSE, warning = FALSE, echo=FALSE}
+m.full.AGH <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + cAgentivity + broad_class + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)  
+summary(m.full.AGH) # at-issueness subsumes all other effects except for arousal, but this needs to be investigated much more to test causal hypotheses about how these factors interact
+
+m.full <- lmer(response_num ~ carousal_mean + cSurprisal + crelativeValence + catissue + (1 | Word) + (1 | content) + (1|workerid), data = data, REML = FALSE)
+summary(m.full)
+```
+
+
 
