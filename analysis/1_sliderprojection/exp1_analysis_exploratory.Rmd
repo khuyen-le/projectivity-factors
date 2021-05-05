@@ -121,10 +121,11 @@ data = data %>%
 # Add in the Anand et al (2019) coding
 data = left_join(data,anand, by=c("Word"))
 
-bert_score$BertSurprisal = -log(bert_score$BertScore)
+bert_score$BertSurprisalCC = -log(bert_score$BertScoreCC)
+bert_score$BertSurprisalNoCC = -log(bert_score$BertScoreNoCC)
 avg_bert = bert_score %>%
   group_by(Verb) %>%
-  summarize(meanBertSurprisal = mean(BertSurprisal))
+  summarize(meanBertSurprisalCC = mean(BertSurprisalCC),meanBertSurprisalNoCC = mean(BertSurprisalNoCC))
 
 names(avg_bert)[names(avg_bert) == "Verb"] <- "Word"
 data = left_join(data,avg_bert, by=c("Word"))
