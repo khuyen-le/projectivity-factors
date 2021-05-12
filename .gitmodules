@@ -1,0 +1,3 @@
+[submodule "analysis/analysis/explore-neural-complexity"]
+	path = analysis/analysis/explore-neural-complexity
+	url = https://github.com/vansky/neural-complexity.git
